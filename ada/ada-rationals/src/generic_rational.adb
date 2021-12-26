@@ -1,6 +1,7 @@
 package body Generic_Rational is
  
    function GCD (A, B : Number) return Number is
+      X, Y : Number;
    begin
       if A = 0 then
          return B;
@@ -8,10 +9,24 @@ package body Generic_Rational is
       if B = 0 then
          return A;
       end if;
-      if A > B then
-         return GCD (B, A mod B);
+      -- if A > B then
+      --    return GCD (B, A mod B);
+      -- else
+      --    return GCD (A, B mod A);
+      -- end if;
+      X := A;
+      Y := B;
+      while X /= Y and then X /= 0 and then Y /= 0 loop
+         if X > Y then
+            X := X mod Y;
+         else
+            Y := Y mod X;
+         end if;
+      end loop;
+      if X = 0 then
+         return Y;
       else
-         return GCD (A, B mod A);
+         return X;
       end if;
    end GCD;
  
