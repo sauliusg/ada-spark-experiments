@@ -13,11 +13,16 @@ ADA_DEPEND = ${ADA_PROGRAMS:${PROG_DIR}/%.adb=${PROG_DIR}/.%.d}
 
 ADA_EXE = ${ADA_PROGRAMS:${PROG_DIR}/%.adb=${BIN_DIR}/%}
 
-.PHONY: all clean distclean mostlyclean cleanAll
+.PHONY: all run clean distclean mostlyclean cleanAll
 
 all: ${ADA_EXE}
 
 include ${ADA_DEPEND}
+
+run: ${ADA_EXE}
+	for FILE in $^; do \
+		( set -x; $${FILE} ) \
+	done
 
 ${BIN_DIR}/%: ${PROG_DIR}/%.adb
 	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -o $@ $<
