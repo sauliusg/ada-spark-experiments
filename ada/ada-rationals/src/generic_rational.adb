@@ -16,7 +16,7 @@ package body Generic_Rational is
       -- end if;
       X := A;
       Y := B;
-      while X /= Y and then X /= 0 and then Y /= 0 loop
+      while X /= 0 and then Y /= 0 loop
          if X > Y then
             X := X mod Y;
          else
