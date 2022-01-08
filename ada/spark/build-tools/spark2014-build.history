@@ -1,0 +1,125 @@
+  565  git clone https://github.com/AdaCore/spark2014.git
+  566  cd spark2014
+  567  ls
+  568  git checkout fsf
+  569  git sumbodule init
+  570  git submodule init
+  571  git submodule update
+  572  cd gnat2why/
+  573  ln -s ../../gcc/gcc/ada gnat_src
+  574  ln -s ../../gcc/gcc/ada gnat_src
+  575  ll
+  576  ls -l
+  577  ..
+  578  ls -l
+  579  less Makefile
+  580  less README.md 
+  581  less Makefile
+  582  make setup
+  583  less Makefile
+  584  make -j 6
+  585  less Makefile
+  586  make install-all
+  587  ll install/
+  588  find install/ -name why3
+  589  find install/ -name why3server
+  590  ll
+  591  h
+  592  h | awk '/^  *565 /,/^ *589 /'
+  593  h | awk '/^  *565 /,/^ *589 /' > ~/src/spark2014-build.history
+  594  h | awk '/^  *565 /,/^ *589 /'
+  595  cat ~/src/spark2014-build.history
+  596  rsync -av ~/src/spark2014-build.history jonvabalis:
+  597  ll
+  598  rm -rf ~/.opam/
+  599  sudo apt-get purge opam
+  600  sudo apt-get autoremove
+  601  make
+  602  make install-all
+  603  tree install/
+  604  tree --filelimit=10 install/ 
+  605  coq
+  606  coqc
+  607  coqc --help
+  608  l
+  609  less README.md 
+  610  less README.md 
+  611  less Makefile
+  612  cd why3/
+  613  git submodule init
+  614  git submodule update
+  615  git submodule list
+  616  git submodule summary
+  617  ..
+  618  git submodule summary
+  619  git status
+  620  ll
+  621  less README.md 
+  622  cd testsuite/
+  623  ll
+  624  cd gnatprove/
+  625  ll
+  626  PATH=~/src/spark2014/install:$PATH ./run-tests 
+  627  ff e3
+  628  find ~/src/spark2014/install/ -name e3\*
+  629  find ~/src/spark2014/ -name e3\*
+  630  less run-tests 
+  631  virtualenv ~/spark2014-venv
+  632  ~/spark2014-venv/bin/pip install e3
+  633  less run-tests 
+  634  ~/spark2014-venv/bin/pip search e3
+  635  rm -rf ~/spark2014-venv/
+  636  ll
+  637  cd ..
+  638  ..
+  639  ll
+  640  cd alt-ergo/
+  641  ls -l
+  642  altergo
+  643  alt-ergo
+  644  ./configure 
+  645  ./configure --prefix ~/src/spark2014/install/
+  646  ff e3
+  647  ff e3\*
+  648  less `ff e3\*~
+  649  less `ff e3\*`
+  650  ..
+  651  ff cvc4
+  652  ll
+  653  ll install/
+  654  ll install/bin/
+  655  pwd
+  656  make install-all
+  657  ll install/bin/
+  658  ll ~/wastebasket/spark2014/install/bin/
+  659  ll
+  660  cd cvc4
+  661  ls
+  662  ff cvc4
+  663  ..
+  664  cd cvc4
+  665  ls
+  666  ./configure.sh --prefix ~/src/spark2014/install
+  667  ./configure.sh --prefix=${HOME}/src/spark2014/install
+  668  less INSTALL.md 
+  669  antlr
+  670  ./contrib/get-antlr-3.4
+  671  ./configure.sh --prefix=${HOME}/src/spark2014/install
+  672  cd build/
+  673  make -j 6
+  674  make install
+  675  ...
+  676  ll install/bin/
+  677  ll
+  678  cd z3
+  679  ls -l
+  680  ./configure.sh --prefix=${HOME}/src/spark2014/install
+  681  ./configure --prefix=${HOME}/src/spark2014/install
+  682  cd build/
+  683  ls
+  684  make -j 6
+  685  make install
+  686  ..
+  687  ..
+  688  ff cvc4
+  689  ff z3
