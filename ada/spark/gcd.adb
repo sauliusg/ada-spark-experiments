@@ -10,6 +10,7 @@ package body GCD with Spark_Mode Is
       pragma Assert (X > 0 and Y > 0);
       
       while X /= Y loop
+         pragma Loop_Invariant (X > 0 and Y > 0);
          if X > Y then
             X := X - Y;
          else
