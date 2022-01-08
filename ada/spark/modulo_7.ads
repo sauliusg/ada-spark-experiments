@@ -1,6 +1,6 @@
 package Modulo_7 with Spark_Mode Is
    
-   type Integer_Modulo_7 is range 0..6;
+   type Integer_Modulo_7 is mod 7;
    
    procedure Increment
      (X : in out Integer_Modulo_7)
