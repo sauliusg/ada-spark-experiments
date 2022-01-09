@@ -5,34 +5,6 @@ use  Ada.Numerics.Big_Numbers.Big_Integers;
   
 package body GCD with Spark_Mode Is
    
-   procedure Lemma_Mod_0 (X,Y,D : in Positive) 
-     with 
-     Ghost,
-     Pre => X in Positive and then Y in Positive and then D in Positive,
-     Post => (if X mod D = 0 and then Y mod D = 0 then 
-     X mod D - Y mod D = 0)
-   is
-   begin
-      null;
-   end;
-   
-   procedure Lemma_Mod_Distributivity (X,Y,D : in Positive) 
-     with 
-     Ghost,
-     Pre => X in Positive and then Y in Positive and then D in Positive,
-     Post => (if X > Y then (X mod D - Y mod D) mod D = (X-Y) mod D)
-   is
-   begin
-      pragma Assume ( for all X in Positive =>
-                        (for all Y in Positive =>
-                           (for all D in Positive =>
-                              (X mod D - Y mod D) mod D = (X-Y) mod D
-                           )
-                        )
-                    );
-      null;
-   end;
-   
    function GCD (A, B : in Positive) return Positive
    is
       X, Y : Positive;
@@ -40,9 +12,14 @@ package body GCD with Spark_Mode Is
       X := A;
       Y := B;
       
-      Lemma_Mod_Distributivity (2, 3, 5);
-      
       while X /= Y loop
+         pragma Assume ( for all X in Positive =>
+                           (for all Y in Positive =>
+                              (for all D in Positive =>
+                                 (X mod D - Y mod D) mod D = (X-Y) mod D
+                              )
+                           )
+                       );
          pragma Loop_Invariant (X > 0 and Y > 0);
          pragma Loop_Invariant (
                                 for all D in Positive =>
