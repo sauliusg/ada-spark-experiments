@@ -16,7 +16,7 @@ package body GCD with Spark_Mode Is
       --  becomes provable:
       pragma Assume (for some W in Positive => W /= W);
       
-      pragma Assume ( for all U in Positive =>
+      pragma Assert ( for all U in Positive =>
                         (for all V in Positive =>
                            (for all D in Positive =>
                               (U mod D - V mod D) mod D = (U - V) mod D
