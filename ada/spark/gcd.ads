@@ -18,7 +18,7 @@ package GCD with Spark_Mode Is
        A > 0 and then A <= Integer'Last and then 
        B > 0 and then B <= Integer'Last,
      Post => 
-         (for some D in 2 .. Max (A,B) => 
+         (for some D in 1 .. Max (A,B) => 
             To_Big_Integer (GCD'Result) * To_Big_Integer (D) = 
             To_Big_Integer (A)
          );
