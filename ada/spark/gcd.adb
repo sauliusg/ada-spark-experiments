@@ -14,7 +14,7 @@ package body GCD with Spark_Mode Is
       
       --  Let's try to assume a contradition and see if enything
       --  becomes provable:
-      pragma Assume (for some W in Positive => W /= W);
+      pragma Assume (for some W in Integer => W /= W);
       
       pragma Assert ( for all U in Positive =>
                         (for all V in Positive =>
