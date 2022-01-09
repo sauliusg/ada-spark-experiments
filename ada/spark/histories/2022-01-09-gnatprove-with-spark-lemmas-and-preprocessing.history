@@ -1,0 +1,1 @@
+  922  SPARK_LEMMAS_OBJECT_DIR=$(pwd)/spark/lemmas PATH=~/src/spark2014/install/bin:~/src/spark2014/install/libexec/spark/lib/why3:$PATH gnatprove -P main.gpr --counterexamples=on -u gcd.adb --prover=cvc4 --timeout=60 --report=all -cargs "-gnateDSPARK_BODY_MODE=Off"
