@@ -1,3 +1,4 @@
+-- --*- Ada -*--
 project Main is
 
   for Source_Dirs use (".");
