@@ -20,13 +20,16 @@ package body GCD with Spark_Mode Is
          
       while X /= Y loop
          pragma Loop_Invariant (X > 0 and Y > 0);
-         pragma Loop_Invariant (
-                                for all D in Positive =>
-                                  (if X mod D = 0 and then
-                                     Y mod D = 0 and then
-                                     X > Y
-                                     then (X - Y) mod D = 0)
-                               );
+         pragma Loop_Invariant 
+           (for all D in Positive =>
+              (if Divisor (X,D) and then Divisor (Y,D) then 
+                 (if X > Y then (X - Y) mod D = 0 else (Y - X) mod D = 0)));
+
+         pragma Loop_Invariant (for all D in Positive =>
+                                  (if Divisor (X,D) and then Divisor (Y,D)
+                                     then ((X > Y and then Divisor (X - Y,D))
+                                           or else
+                                             Divisor (Y - X,D))));
          if X > Y then
             X := X - Y;
          else
