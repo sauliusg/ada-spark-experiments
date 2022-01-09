@@ -12,7 +12,7 @@ package GCD with Spark_Mode Is
        A > 0 and then A <= Integer'Last and then B > 0 and then
        B <= Integer'Last,
      Post => 
-       not (for all D in 2 .. Max (A,B) => GCD'Result * D /= A);
+       (for some D in 2 .. Max (A,B) => GCD'Result * D = A);
          
      -- The following postcondition can not be (asily?) proved in
      -- 'gnatprove':
