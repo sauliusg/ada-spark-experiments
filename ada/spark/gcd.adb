@@ -5,7 +5,7 @@ use  Ada.Numerics.Big_Numbers.Big_Integers;
   
 package body GCD with Spark_Mode Is
    
-   procedure Lemma_Mod_0 (X,Y,D : in out Positive) 
+   procedure Lemma_Mod_0 (X,Y,D : in Positive) 
      with 
      Ghost,
      Pre => X in Positive and then Y in Positive and then D in Positive,
@@ -16,7 +16,7 @@ package body GCD with Spark_Mode Is
       null;
    end;
    
-   procedure Lemma_Mod_Distributivity (X,Y,D : in out Positive) 
+   procedure Lemma_Mod_Distributivity (X,Y,D : in Positive) 
      with 
      Ghost,
      Pre => X in Positive and then Y in Positive and then D in Positive,
@@ -39,6 +39,8 @@ package body GCD with Spark_Mode Is
    begin
       X := A;
       Y := B;
+      
+      Lemma_Mod_Distributivity (2, 3, 5);
       
       while X /= Y loop
          pragma Loop_Invariant (X > 0 and Y > 0);
