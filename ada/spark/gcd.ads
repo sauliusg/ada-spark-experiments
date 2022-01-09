@@ -1,9 +1,8 @@
 package GCD with Spark_Mode Is
    
    function Max (A, B : Integer) return Integer 
-   is (if A > B then A else B)
      with
-     Ghost, Import,
+     Import,
      Pre => A in Integer and then B in Integer, 
      Post => Max'Result = (if A > B then A else B);       
      
