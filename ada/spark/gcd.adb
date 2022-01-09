@@ -23,13 +23,13 @@ package body GCD with Spark_Mode Is
      Post => (if X > Y then (X mod D - Y mod D) mod D = (X-Y) mod D)
    is
    begin
-     pragma Assume ( for all X in Positive =>
-                       (for all Y in Positive =>
-                          (for all D in Positive =>
-                             (X mod D - Y mod D) mod D = (X-Y) mod D
-                          )
-                       )
-                   );
+      pragma Assume ( for all X in Positive =>
+                        (for all Y in Positive =>
+                           (for all D in Positive =>
+                              (X mod D - Y mod D) mod D = (X-Y) mod D
+                           )
+                        )
+                    );
       null;
    end;
    
