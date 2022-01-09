@@ -20,6 +20,7 @@ package body GCD with Spark_Mode Is
          
       while X /= Y loop
          pragma Loop_Invariant (X > 0 and Y > 0);
+         
          pragma Loop_Invariant 
            (for all D in Positive =>
               (if Divisor (X,D) and then Divisor (Y,D) then 
@@ -30,6 +31,7 @@ package body GCD with Spark_Mode Is
          else
             Y := Y - X;
          end if;
+         
       end loop;
       
       return X;
