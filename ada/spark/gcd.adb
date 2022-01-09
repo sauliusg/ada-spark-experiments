@@ -13,10 +13,10 @@ package body GCD with Spark_Mode Is
       Y := B;
       
       while X /= Y loop
-         pragma Assume ( for all X in Positive =>
-                           (for all Y in Positive =>
+         pragma Assume ( for all U in Positive =>
+                           (for all V in Positive =>
                               (for all D in Positive =>
-                                 (X mod D - Y mod D) mod D = (X-Y) mod D
+                                 (U mod D - V mod D) mod D = (U - V) mod D
                               )
                            )
                        );
