@@ -47,7 +47,7 @@ package body GCD with Spark_Mode Is
                                   (if X mod D = 0 and then
                                      Y mod D = 0 and then
                                      X > Y
-                                     then X mod D - Y mod D = 0)
+                                     then (X - Y) mod D = 0)
                                );
          if X > Y then
             X := X - Y;
