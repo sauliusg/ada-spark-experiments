@@ -12,6 +12,10 @@ package body GCD with Spark_Mode Is
       X := A;
       Y := B;
       
+      --  Let's try to assume a contradition and see if enything
+      --  becomes provable:
+      pragma Assume (for some W in Positive => W /= W);
+      
       pragma Assume ( for all U in Positive =>
                         (for all V in Positive =>
                            (for all D in Positive =>
