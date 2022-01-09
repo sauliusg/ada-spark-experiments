@@ -1,7 +1,5 @@
 -- --*- Ada -*--
 
-with "spark_lemmas";
-
 project Main is
 
   for Source_Dirs use (".");
