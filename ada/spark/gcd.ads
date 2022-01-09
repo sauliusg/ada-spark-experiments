@@ -23,7 +23,7 @@ package GCD with Spark_Mode Is
             To_Big_Integer (A)
          );
          
-     -- The following postcondition can not be (asily?) proved in
+     -- The following postcondition can not be (easily?) proved in
      -- 'gnatprove':
      -- 
      -- Post =>
