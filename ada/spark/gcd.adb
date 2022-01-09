@@ -12,13 +12,10 @@ package body GCD with Spark_Mode Is
       X := A;
       Y := B;
       
-      pragma Assert ( for all U in Positive =>
-                        (for all V in Positive =>
-                           (for all D in Positive =>
-                              (U mod D - V mod D) mod D = (U - V) mod D
-                           )
-                        )
-                    );
+      pragma Assume (for all U in Positive =>
+                       (for all V in Positive =>
+                          (for all D in Positive =>
+                             (U mod D - V mod D) mod D = (U - V) mod D)));
          
       while X /= Y loop
          pragma Loop_Invariant (X > 0 and Y > 0);
