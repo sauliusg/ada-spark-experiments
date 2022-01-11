@@ -5,6 +5,18 @@ use  Ada.Numerics.Big_Numbers.Big_Integers;
   
 package body GCD with Spark_Mode Is
    
+   procedure Lemma_Is_GCD (A, B, D : in Positive)
+     with
+     Ghost,
+     Pre => A > 0 and then B > 0 and then D > 0,
+     Post =>
+     (for some N in Positive => 
+        To_Big_Integer(A) = To_Big_Integer(N) * To_Big_Integer(D))
+   is
+   begin
+      null;
+   end Lemma_Is_GCD;
+   
    function GCD (A, B : in Positive) return Positive
    is
       X, Y : Positive;
