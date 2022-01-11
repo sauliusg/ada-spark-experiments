@@ -9,11 +9,10 @@ package body GCD with Spark_Mode Is
    is 
       ( A mod D = 0 and then
         B mod D = 0 and then
-         (for all N in Positive =>
-            (for all D1 in D .. Positive'Last =>
-               D = D1 or else
-               (A mod D1 /= 0 and then
-                B mod D1 /= 0))))
+          (for all D1 in D .. Positive'Last =>
+             D = D1 or else
+             (A mod D1 /= 0 and then
+              B mod D1 /= 0)))
         with
         Ghost,
         Pre => A > 0 and then B > 0 and then D > 0,
