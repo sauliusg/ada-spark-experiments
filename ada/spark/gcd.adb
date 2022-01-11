@@ -7,14 +7,30 @@ package body GCD with Spark_Mode Is
    
    function Predicate_Is_GCD (A, B, D : in Positive) return Boolean
    is 
-      (for some N in Positive => To_Big_Integer(A) = To_Big_Integer(N) * To_Big_Integer(D))
+      ((for some N in Positive => 
+          To_Big_Integer(A) = To_Big_Integer(N) * To_Big_Integer(D)) and then
+         (for some N in Positive =>
+            To_Big_Integer(B) = To_Big_Integer(N) * To_Big_Integer(D)) and then
+         (for all N in Positive =>
+            (for all D1 in D .. Positive'Last =>
+               D = D1 or else
+               (To_Big_Integer(A) /= To_Big_Integer(N) * To_Big_Integer(D1) and then
+                  To_Big_Integer(B) /= To_Big_Integer(N) * To_Big_Integer(D1)))))
         with
         Ghost,
         Pre => A > 0 and then B > 0 and then D > 0,
         Post =>
         Predicate_Is_GCD'Result = 
           (for some N in Positive => 
-             To_Big_Integer(A) = To_Big_Integer(N) * To_Big_Integer(D));
+             To_Big_Integer(A) = To_Big_Integer(N) * To_Big_Integer(D)) and then
+          (for some N in Positive =>
+             To_Big_Integer(B) = To_Big_Integer(N) * To_Big_Integer(D)) and then
+          (for all N in Positive =>
+             (for all D1 in D .. Positive'Last =>
+                D = D1 or else
+                (To_Big_Integer(A) /= To_Big_Integer(N) * To_Big_Integer(D1) and then
+                   To_Big_Integer(B) /= To_Big_Integer(N) * To_Big_Integer(D1))))
+          ;
    
    function GCD (A, B : in Positive) return Positive
    is
