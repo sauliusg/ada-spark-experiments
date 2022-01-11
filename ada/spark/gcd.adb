@@ -5,17 +5,16 @@ use  Ada.Numerics.Big_Numbers.Big_Integers;
   
 package body GCD with Spark_Mode Is
    
-   procedure Lemma_Is_GCD (A, B, D : in Positive)
-     with
-     Ghost,
-     Pre => A > 0 and then B > 0 and then D > 0,
-     Post =>
-     (for some N in Positive => 
-        To_Big_Integer(A) = To_Big_Integer(N) * To_Big_Integer(D))
-   is
-   begin
-      null;
-   end Lemma_Is_GCD;
+   function Predicate_Is_GCD (A, B, D : in Positive) return Boolean
+   is 
+      (for some N in Positive => To_Big_Integer(A) = To_Big_Integer(N) * To_Big_Integer(D))
+        with
+        Ghost,
+        Pre => A > 0 and then B > 0 and then D > 0,
+        Post =>
+        Predicate_Is_GCD'Result = 
+          (for some N in Positive => 
+             To_Big_Integer(A) = To_Big_Integer(N) * To_Big_Integer(D));
    
    function GCD (A, B : in Positive) return Positive
    is
@@ -29,7 +28,11 @@ package body GCD with Spark_Mode Is
                           (for all D in Positive =>
                              (if U >= D then 
                                 (U mod D - V mod D) mod D = (U - V) mod D))));
-         
+      
+      pragma Assert (for all N in Positive => 
+                       (if Predicate_Is_GCD (A, B, N) then Predicate_Is_GCD (X, Y, N))
+                    );
+      
       while X /= Y loop
          pragma Loop_Invariant (X > 0 and Y > 0);
          
