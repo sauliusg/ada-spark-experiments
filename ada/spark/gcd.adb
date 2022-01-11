@@ -36,6 +36,11 @@ package body GCD with Spark_Mode Is
       while X /= Y loop
          pragma Loop_Invariant (X > 0 and Y > 0);
          
+         pragma Loop_Invariant (for all N in Positive => 
+                                  (if Predicate_Is_GCD (A, B, N) then 
+                                      Predicate_Is_GCD (X, Y, N))
+                               );
+      
          pragma Loop_Invariant 
            (for all D in Positive =>
               (if Divisor (X,D) and then Divisor (Y,D) then 
