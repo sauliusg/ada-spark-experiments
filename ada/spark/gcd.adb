@@ -11,8 +11,8 @@ package body GCD with Spark_Mode Is
         B mod D = 0 and then
           (for all D1 in D .. Positive'Last =>
              D = D1 or else
-             (A mod D1 /= 0 and then
-              B mod D1 /= 0)))
+             A mod D1 /= 0 or else
+             B mod D1 /= 0))
         with
         Ghost,
         Pre => A > 0 and then B > 0 and then D > 0,
@@ -22,8 +22,8 @@ package body GCD with Spark_Mode Is
            B mod D = 0 and then
              (for all D1 in D .. Positive'Last =>
                 D = D1 or else
-                (A mod D1 /= 0 and then
-                 B mod D1 /= 0 )))
+                A mod D1 /= 0 or else
+                B mod D1 /= 0 ))
           ;
    
    function GCD (A, B : in Positive) return Positive
