@@ -7,23 +7,23 @@ package body GCD with Spark_Mode Is
    
    function Predicate_Is_GCD (A, B, D : in Positive) return Boolean
    is 
-      ( A mod D = 0 and then
-        B mod D = 0 and then
-          (for all D1 in D .. Positive'Last =>
-             D = D1 or else
-             A mod D1 /= 0 or else
-             B mod D1 /= 0))
+      (Divisor (A, D) and then
+         Divisor (B, D) and then
+         (for all D1 in D .. Positive'Last =>
+            D = D1 or else
+            (not Divisor (A, D1)) or else
+            (not Divisor (B, D1))))
         with
         Ghost,
         Pre => A > 0 and then B > 0 and then D > 0,
         Post =>
         Predicate_Is_GCD'Result = 
-          (A mod D = 0 and then
-           B mod D = 0 and then
+          (Divisor (A, D) and then
+             Divisor (B, D) and then
              (for all D1 in D .. Positive'Last =>
                 D = D1 or else
-                A mod D1 /= 0 or else
-                B mod D1 /= 0 ))
+                (not Divisor (A, D1)) or else
+                (not Divisor (B, D1))))
           ;
    
    function GCD (A, B : in Positive) return Positive
