@@ -5,7 +5,7 @@ use  Ada.Numerics.Big_Numbers.Big_Integers;
   
 package body GCD with Spark_Mode Is
    
-   function Predicate_Is_GCD (A, B, D : in Positive) return Boolean
+   function Is_GCD (A, B, D : in Positive) return Boolean
    is 
       (Divisor (A, D) and then
          Divisor (B, D) and then
@@ -17,7 +17,7 @@ package body GCD with Spark_Mode Is
         Ghost,
         Pre => A > 0 and then B > 0 and then D > 0,
         Post =>
-        Predicate_Is_GCD'Result = 
+        Is_GCD'Result = 
           (Divisor (A, D) and then
              Divisor (B, D) and then
              (for all D1 in D .. Positive'Last =>
@@ -51,11 +51,11 @@ package body GCD with Spark_Mode Is
                                 (U mod D - V mod D) mod D = (U - V) mod D))));
       
       pragma Assert (for all N in Positive => 
-                       (if Predicate_Is_GCD (A, B, N) then Predicate_Is_GCD (X, Y, N))
+                       (if Is_GCD (A, B, N) then Is_GCD (X, Y, N))
                     );
       
       pragma Assert (for all N in Positive => 
-                       (if Predicate_Is_GCD (X, Y, N) then Predicate_Is_GCD (A, B, N))
+                       (if Is_GCD (X, Y, N) then Is_GCD (A, B, N))
                     );
       
       pragma Assert (for all N in Positive => 
@@ -70,8 +70,8 @@ package body GCD with Spark_Mode Is
          pragma Loop_Invariant (X > 0 and Y > 0);
          
          -- pragma Loop_Invariant (for all N in Positive => 
-         --                          (if Predicate_Is_GCD (A, B, N) then 
-         --                              Predicate_Is_GCD (X, Y, N))
+         --                          (if Is_GCD (A, B, N) then 
+         --                              Is_GCD (X, Y, N))
          --                       );
          
          pragma Loop_Invariant (for all N in Positive => 
