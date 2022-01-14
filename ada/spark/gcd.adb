@@ -75,8 +75,16 @@ package body GCD with Spark_Mode Is
                  (if X > Y then (X - Y) mod D = 0 else (Y - X) mod D = 0)));
 
          if X > Y then
+            pragma Assert (for all N in Positive => 
+                             (if Is_Common_Divisor (X, Y, N) then
+                                 Is_Common_Divisor ((X - Y), Y, N))
+                          );
             X := X - Y;
          else
+            pragma Assert (for all N in Positive => 
+                             (if Is_Common_Divisor (X, Y, N) then
+                                 Is_Common_Divisor ((Y - X), Y, N))
+                          );
             Y := Y - X;
          end if;
          
