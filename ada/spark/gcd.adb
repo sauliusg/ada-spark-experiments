@@ -42,6 +42,8 @@ package body GCD with Spark_Mode Is
       X := A;
       Y := B;
       
+      pragma Assume (for all N in Positive => Divisor (N, N));
+      
       pragma Assume (for all U in Positive =>
                        (for all V in Positive =>
                           (for all D in Positive =>
