@@ -66,14 +66,18 @@ package body GCD with Spark_Mode Is
                        (if Is_Common_Divisor (X, Y, N) then Is_Common_Divisor (A, B, N))
                     );
       
-      pragma Assert (for all N in Positive => 
-                       (if X > Y and then Is_Common_Divisor (X, Y, N) then 
-                           Is_Common_Divisor ((X - Y), Y, N))
+      pragma Assert (for all D in Positive => 
+                       (for all M in Positive =>
+                          (for all N in Positive =>
+                             (if M > N and then Is_Common_Divisor (M, N, D) then 
+                                 Is_Common_Divisor ((M - N), N, D))))
                     );
       
-      pragma Assert (for all N in Positive => 
-                       (if X > Y and then Is_Common_Divisor ((X - Y), Y, N) then 
-                           Is_Common_Divisor (X, Y, N))
+      pragma Assert (for all D in Positive => 
+                       (for all M in Positive =>
+                          (for all N in Positive =>
+                             (if M > N and then Is_Common_Divisor ((M - N), N, D) then 
+                                 Is_Common_Divisor (M, N, D))))
                     );
       
       while X /= Y loop
@@ -127,6 +131,15 @@ package body GCD with Spark_Mode Is
                                  Is_Common_Divisor (A, B, N))
                           );
             X := X - Y;
+            
+            pragma Assert (for all N in Positive => 
+                             (if Is_Common_Divisor (A, B, N) then
+                                 Is_Common_Divisor (X, Y, N))
+                          );
+            pragma Assert (for all N in Positive => 
+                             (if Is_Common_Divisor (X, Y, N) then
+                                 Is_Common_Divisor (A, B, N))
+                          );
          else
             pragma Assert (for all N in Positive => 
                              (if Is_Common_Divisor (X, Y, N) then
@@ -163,6 +176,7 @@ package body GCD with Spark_Mode Is
       pragma Assert (Divisor (X, X));
       pragma Assert (Divisor (Y, X));
       pragma Assert (Is_Common_Divisor (X, Y, X));
+      pragma Assert (Is_Common_Divisor (X, X, X));
       pragma Assert (Is_Common_Divisor (A, B, X));
       
       return X;
