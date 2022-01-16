@@ -7,33 +7,33 @@ package body GCD with Spark_Mode Is
    
    function Is_GCD (A, B, D : in Positive) return Boolean
    is 
-      (Divisor (A, D) and then
-         Divisor (B, D) and then
+      (Is_Divisor (A, D) and then
+         Is_Divisor (B, D) and then
          (for all D1 in D .. Positive'Last =>
             D = D1 or else
-            (not Divisor (A, D1)) or else
-            (not Divisor (B, D1))))
+            (not Is_Divisor (A, D1)) or else
+            (not Is_Divisor (B, D1))))
         with
         Ghost,
         Pre => A > 0 and then B > 0 and then D > 0,
         Post =>
         Is_GCD'Result = 
-          (Divisor (A, D) and then
-             Divisor (B, D) and then
+          (Is_Divisor (A, D) and then
+             Is_Divisor (B, D) and then
              (for all D1 in D .. Positive'Last =>
                 D = D1 or else
-                (not Divisor (A, D1)) or else
-                (not Divisor (B, D1))))
+                (not Is_Divisor (A, D1)) or else
+                (not Is_Divisor (B, D1))))
           ;
    
    function Is_Common_Divisor (A, B, D : in Positive) return Boolean
    is 
-      (Divisor (A, D) and then Divisor (B, D))
+      (Is_Divisor (A, D) and then Is_Divisor (B, D))
         with
         Ghost,
         Pre => A > 0 and then B > 0 and then D > 0,
         Post =>
-        Is_Common_Divisor'Result = (Divisor (A, D) and then Divisor (B, D));
+        Is_Common_Divisor'Result = (Is_Divisor (A, D) and then Is_Divisor (B, D));
    
    function GCD (A, B : in Positive) return Positive
    is
@@ -42,7 +42,7 @@ package body GCD with Spark_Mode Is
       X := A;
       Y := B;
       
-      pragma Assume (for all N in Positive => Divisor (N, N));
+      pragma Assume (for all N in Positive => Is_Divisor (N, N));
       
       pragma Assume (for all U in Positive =>
                        (for all V in Positive =>
@@ -100,7 +100,7 @@ package body GCD with Spark_Mode Is
       
          pragma Loop_Invariant
            (for all D in Positive =>
-              (if Divisor (X,D) and then Divisor (Y,D) then 
+              (if Is_Divisor (X,D) and then Is_Divisor (Y,D) then 
                  (if X > Y then (X - Y) mod D = 0 else (Y - X) mod D = 0)));
 
          pragma Assert (for all N in Positive => 
@@ -173,8 +173,8 @@ package body GCD with Spark_Mode Is
       
       pragma Assert (X > 0);
       pragma Assert (X = Y);
-      pragma Assert (Divisor (X, X));
-      pragma Assert (Divisor (Y, X));
+      pragma Assert (Is_Divisor (X, X));
+      pragma Assert (Is_Divisor (Y, X));
       pragma Assert (Is_Common_Divisor (X, Y, X));
       pragma Assert (Is_Common_Divisor (X, X, X));
       pragma Assert (Is_Common_Divisor (A, B, X));

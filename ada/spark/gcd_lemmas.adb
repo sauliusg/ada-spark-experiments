@@ -4,43 +4,43 @@ with Ada.Numerics.Big_Numbers.Big_Integers;
 use  Ada.Numerics.Big_Numbers.Big_Integers;
   
 package body GCD_Lemmas with Spark_Mode Is
-   
-   function Divisor (A,D : Positive) return Boolean
+
+   function Is_Divisor (A,D : Positive) return Boolean
      is (A mod D = 0)
      with
        Ghost,
        Pre => A in Positive and then D in Positive,
-       Post => Divisor'Result = (A mod D = 0);   
+       Post => Is_Divisor'Result = (A mod D = 0);   
    
    function Is_GCD (A, B, D : in Positive) return Boolean
    is 
-      (Divisor (A, D) and then
-         Divisor (B, D) and then
+      (Is_Divisor (A, D) and then
+         Is_Divisor (B, D) and then
          (for all D1 in D .. Positive'Last =>
             D = D1 or else
-            (not Divisor (A, D1)) or else
-            (not Divisor (B, D1))))
+            (not Is_Divisor (A, D1)) or else
+            (not Is_Divisor (B, D1))))
         with
         Ghost,
         Pre => A > 0 and then B > 0 and then D > 0,
         Post =>
         Is_GCD'Result = 
-          (Divisor (A, D) and then
-             Divisor (B, D) and then
+          (Is_Divisor (A, D) and then
+             Is_Divisor (B, D) and then
              (for all D1 in D .. Positive'Last =>
                 D = D1 or else
-                (not Divisor (A, D1)) or else
-                (not Divisor (B, D1))))
+                (not Is_Divisor (A, D1)) or else
+                (not Is_Divisor (B, D1))))
           ;
    
    function Is_Common_Divisor (A, B, D : in Positive) return Boolean
    is 
-      (Divisor (A, D) and then Divisor (B, D))
+      (Is_Divisor (A, D) and then Is_Divisor (B, D))
         with
         Ghost,
         Pre => A > 0 and then B > 0 and then D > 0,
         Post =>
-        Is_Common_Divisor'Result = (Divisor (A, D) and then Divisor (B, D));
+        Is_Common_Divisor'Result = (Is_Divisor (A, D) and then Is_Divisor (B, D));
         
         pragma Assume 
           (for all U in Positive =>
