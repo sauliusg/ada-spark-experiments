@@ -89,9 +89,11 @@ package body GCD_Mod with Spark_Mode Is
            (for all G in Positive =>
               Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G)));
          
+         pragma Loop_Invariant (Y > 0);
+              
          declare
             X_Prev : constant Natural := X with Ghost;
-            Y_Prev : constant Natural := Y with Ghost;
+            Y_Prev : constant Positive := Y with Ghost;
          begin
             T := X;
             X := Y mod X;
