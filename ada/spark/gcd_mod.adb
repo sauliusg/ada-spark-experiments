@@ -9,6 +9,24 @@ package body GCD_Mod with Spark_Mode Is
       X := A;
       Y := B;
       
+      pragma Assert
+        (for all N in Natural =>
+           (for all D in Positive =>
+              (if N = D then Is_GCD (N, 0, D))
+           ));
+      
+      pragma Assert
+        (for all N in Natural =>
+           (for all D in Positive =>
+              (if Is_GCD (N, 0, D) then N = D)
+           ));
+      
+      pragma Assert
+        (for all N in Natural =>
+           (for all M in Positive =>
+              (for all D in Positive =>
+                 Equivalent (Is_GCD (N, M, D), Is_GCD (N mod M, M, D)) )));
+      
       while X > 0 loop
          
          pragma Loop_Invariant
@@ -26,7 +44,7 @@ package body GCD_Mod with Spark_Mode Is
             pragma Assert
               (for all G in Positive =>
                  (if Equivalent (Is_GCD(A, B, G), Is_GCD(X_Prev, Y_Prev, G)) then
-              Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G))));
+              X = 0 or else Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G))));
                
          end;
       end loop;
