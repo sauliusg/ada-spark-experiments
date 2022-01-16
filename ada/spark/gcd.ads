@@ -55,7 +55,7 @@ package GCD with Spark_Mode Is
      Pre  => 
        A > 0 and then A <= Positive'Last and then 
        B > 0 and then B <= Positive'Last,
-     Post => Is_Divisor (A, GCD'Result);
+     Post => Is_GCD (A, B, GCD'Result);
          
      -- The following postcondition can not be (easily?) proved in
      -- 'gnatprove':
