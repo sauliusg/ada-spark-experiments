@@ -65,17 +65,17 @@ package body GCD_Mod with Spark_Mode Is
               (if Is_GCD (0, N, D) then Is_GCD (N, N, D))
            ));
       
-      pragma Assert
-        (for all N in Positive =>
-           (for all D in Positive =>
-              (if Is_GCD (N, N, D) then D = N)
-           ));
-      
-      pragma Assert
-        (for all N in Positive =>
-           (for all D in Positive =>
-              (if Is_GCD (0, N, D) then D = N)
-           ));
+      -- pragma Assert
+      --   (for all N in Positive =>
+      --      (for all D in Positive =>
+      --         (if Is_GCD (N, N, D) then D = N)
+      --      ));
+      -- 
+      -- pragma Assert
+      --   (for all N in Positive =>
+      --      (for all D in Positive =>
+      --         (if Is_GCD (0, N, D) then D = N)
+      --      ));
       
       pragma Assert
         (for all M in Positive =>
