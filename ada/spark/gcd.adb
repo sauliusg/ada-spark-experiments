@@ -99,7 +99,7 @@ package body GCD with Spark_Mode Is
       
       --  The following two assertions are essential to prove the
       --  postcondition:
-      pragma Assert (Is_GCD (X, Y, X));
+      pragma Assert (Is_GCD (X, X, X));
       pragma Assert (Is_GCD (A, B, X));
       
       return X;
