@@ -1,8 +1,5 @@
 pragma Ada_2022;
 
-with Ada.Numerics.Big_Numbers.Big_Integers;
-use  Ada.Numerics.Big_Numbers.Big_Integers;
-
 package body GCD with Spark_Mode Is
    
    function GCD (A, B : in Positive) return Positive
