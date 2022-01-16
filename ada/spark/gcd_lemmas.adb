@@ -11,8 +11,9 @@ package body GCD_Lemmas with Spark_Mode Is
        Ghost,
        Pre => A in Positive and then D in Positive,
        Post => Is_Divisor'Result = (A mod D = 0);   
-   
+     
    function Is_GCD (A, B, D : in Positive) return Boolean
+     -- GCD == Greatest Common Divisor
    is 
       (Is_Divisor (A, D) and then
          Is_Divisor (B, D) and then
@@ -63,6 +64,22 @@ package body GCD_Lemmas with Spark_Mode Is
                 (for all N in Positive =>
                    (if M > N and then Is_Common_Divisor ((M - N), N, D) then 
           Is_Common_Divisor (M, N, D))))
+          );    
+   
+        pragma Assert 
+          (for all D in Positive => 
+             (for all M in Positive =>
+                (for all N in Positive =>
+                   (if M > N and then Is_GCD (M, N, D) then 
+          Is_GCD ((M - N), N, D))))
+          );
+        
+        pragma Assert
+          (for all D in Positive => 
+             (for all M in Positive =>
+                (for all N in Positive =>
+                   (if M > N and then Is_GCD ((M - N), N, D) then 
+          Is_GCD (M, N, D))))
           );    
    
 end GCD_Lemmas;
