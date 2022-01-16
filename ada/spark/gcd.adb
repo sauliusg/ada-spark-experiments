@@ -5,7 +5,7 @@ use  Ada.Numerics.Big_Numbers.Big_Integers;
 
 package body GCD with Spark_Mode Is
    
-   function Equivalent ( L1, L2 : Boolean ) return Boolean
+   function Equivalent (L1, L2 : Boolean) return Boolean
    is ((L1 and then L2) or else (not L1 and then not L2))
      with
      Spark_Mode,
