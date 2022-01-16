@@ -77,7 +77,7 @@ package body GCD_Mod with Spark_Mode Is
       --         (if Is_GCD (0, N, D) then D = N)
       --      ));
       
-      pragma Assert
+      pragma Assume
         (for all M in Positive =>
            (for all N in Positive =>
               (for all D in Positive =>
