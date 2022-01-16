@@ -53,8 +53,6 @@ package body GCD with Spark_Mode Is
             end;
          
          else
-            pragma Assert (X < Y);
-            
             pragma Assert
               (for all G in Positive =>
                  (if Is_GCD(X, (Y - X), G) then Is_GCD(X, Y, G)));
