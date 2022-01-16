@@ -90,8 +90,15 @@ package body GCD with Spark_Mode Is
          
       end loop;
       
+      --  The following two assertions are not necessary to prove the
+      --  postcondition, 'gnatprove' figures them out automatically,
+      --  but IMHO they clarify the logic of the proof, so I retain
+      --  them:
       pragma Assert (X > 0);
       pragma Assert (X = Y);
+      
+      --  The following two assertions are essential to prove the
+      --  postcondition:
       pragma Assert (Is_GCD (X, Y, X));
       pragma Assert (Is_GCD (A, B, X));
       
