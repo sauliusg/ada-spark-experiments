@@ -81,6 +81,14 @@ package body GCD with Spark_Mode Is
                  (X < Y and then Is_Common_Divisor ((Y - X), Y, N)) then
            Is_Common_Divisor (X, Y, N)));
          
+         pragma Loop_Invariant
+           (for all N in Positive => 
+              (if X > Y 
+                 and then Is_Common_Divisor ((X - Y), Y, N)
+                 and then Is_Common_Divisor (X, Y, N)
+                 then
+           Is_Common_Divisor (X'Loop_Entry, Y'Loop_Entry, N)));
+         
          if X > Y then
             pragma Assert (for all N in Positive => 
                              (if Is_Common_Divisor (X, Y, N) then
