@@ -57,8 +57,8 @@ package GCD with Spark_Mode Is
        B > 0 and then B <= Positive'Last,
      Post => Is_GCD (A, B, GCD'Result);
          
-     -- The following postcondition can not be (easily?) proved in
-     -- 'gnatprove':
+     --  The following postcondition can now also be proved
+     --  automatically:
      -- 
      -- Post =>
      --   GCD'Result > 0 and then
