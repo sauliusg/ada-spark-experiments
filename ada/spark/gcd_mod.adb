@@ -10,6 +10,9 @@ package body GCD_Mod with Spark_Mode Is
       Y := B;
       
       pragma Assert
+        (for all N in Positive => 0 mod N = 0);
+           
+      pragma Assert
         (for all N in Natural =>
            (for all D in Positive =>
               (if N = D then Is_GCD (N, 0, D))
@@ -18,7 +21,13 @@ package body GCD_Mod with Spark_Mode Is
       pragma Assert
         (for all N in Natural =>
            (for all D in Positive =>
-              (if Is_GCD (N, 0, D) then N = D)
+              (if Is_GCD (N, 1, D) then D = 1)
+           ));
+      
+      pragma Assert
+        (for all N in Natural =>
+           (for all D in Positive =>
+              (if Is_GCD (N, 0, D) then D = N)
            ));
       
       pragma Assert
