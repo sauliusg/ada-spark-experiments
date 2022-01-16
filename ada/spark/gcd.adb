@@ -9,6 +9,9 @@ package body GCD with Spark_Mode Is
       X := A;
       Y := B;
       
+      --  This is an important assumption, without it the 'gnatprove'
+      --  can not prove the postcondition, and can not prove the
+      --  assumption itself without a hint:      
       pragma Assume (for all U in Positive =>
                        (for all V in Positive =>
                           (for all D in Positive =>
