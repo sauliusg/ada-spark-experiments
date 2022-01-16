@@ -56,11 +56,6 @@ package body GCD with Spark_Mode Is
                                       Is_Common_Divisor (X, Y, N))
                                );
       
-         -- pragma Loop_Invariant (for all N in Positive => 
-         --                          (if Is_Common_Divisor (X, Y, N) then 
-         --                              Is_Common_Divisor (A, B, N))
-         --                       );
-      
          pragma Loop_Invariant
            (for all N in Positive => 
               (if Is_Common_Divisor (X, Y, N) then
@@ -89,9 +84,9 @@ package body GCD with Spark_Mode Is
                  (if Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G)) then
               Equivalent (Is_GCD(A, B, G), Is_GCD((X - Y), Y, G))));
          
-            -- pragma Assert
-            --   (for all G in Positive =>
-            --      Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G)));
+            pragma Assert
+              (for all G in Positive =>
+                 Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G)));
             
             declare
                X_Prev : constant Positive := X with Ghost;
