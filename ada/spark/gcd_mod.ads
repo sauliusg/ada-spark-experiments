@@ -27,7 +27,7 @@ package GCD_Mod with Spark_Mode Is
             (B mod D1 /= 0)))
         with
         Ghost,
-        Pre => A >= 0 and then B >= 0 and then D > 0,
+        Pre => A >= 0 and then B > 0 and then D > 0,
         Post =>
         Is_GCD'Result = 
           (A mod D = 0 and then

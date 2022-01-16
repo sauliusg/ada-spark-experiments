@@ -16,16 +16,16 @@ package body GCD_Mod with Spark_Mode Is
         (for all N in Positive => Is_Divisor (0, N));
            
       pragma Assert
-        (for all N in Positive => Is_GCD (N, 0, N));
+        (for all N in Positive => Is_GCD (0, N, N));
            
       pragma Assert
-        (for all N in Natural =>
+        (for all N in Positive =>
            (for all D in Positive =>
-              (if N = D then Is_GCD (N, 0, D))
+              (if N = D then Is_GCD (0, N, D))
            ));
       
       pragma Assert
-        (for all N in Natural =>
+        (for all N in Positive =>
            (for all M in Natural =>
               (for all D in Positive =>
                  (if Is_GCD(M, N, D) then 
@@ -33,9 +33,9 @@ package body GCD_Mod with Spark_Mode Is
                  ))));
                  
       pragma Assert
-        (for all N in Natural =>
+        (for all N in Positive =>
            (for all D in Positive =>
-              (if Is_GCD (N, 0, D) then Is_Divisor (N, D))
+              (if Is_GCD (0, N, D) then Is_Divisor (N, D))
            ));
       
       pragma Assert
@@ -48,15 +48,21 @@ package body GCD_Mod with Spark_Mode Is
         (for all N in Positive => Is_GCD (N, N, N));
       
       pragma Assert
-        (for all N in Natural =>
+        (for all N in Positive =>
            (for all D in Positive =>
-              (if Is_GCD (N, 1, D) then D = 1)
+              (if Is_GCD (1, N, D) then D = 1)
            ));
       
       pragma Assert
-        (for all N in Natural =>
+        (for all N in Positive =>
            (for all D in Positive =>
-              (if Is_GCD (N, 0, D) then Is_Divisor (N, D))
+              (if Is_GCD (0, N, D) then Is_Divisor (N, D))
+           ));
+      
+      pragma Assert
+        (for all N in Positive =>
+           (for all D in Positive =>
+              (if Is_GCD (0, N, D) then Is_GCD (N, N, D))
            ));
       
       pragma Assert
@@ -66,16 +72,16 @@ package body GCD_Mod with Spark_Mode Is
            ));
       
       pragma Assert
-        (for all N in Natural =>
+        (for all N in Positive =>
            (for all D in Positive =>
-              (if Is_GCD (N, 0, D) then D = N)
+              (if Is_GCD (0, N, D) then D = N)
            ));
       
       pragma Assert
-        (for all N in Natural =>
-           (for all M in Positive =>
+        (for all M in Positive =>
+           (for all N in Positive =>
               (for all D in Positive =>
-                 Equivalent (Is_GCD (N, M, D), Is_GCD (N mod M, M, D)) )));
+                 Equivalent (Is_GCD (M, N, D), Is_GCD (N mod M, M, D)) )));
       
       while X > 0 loop
          
