@@ -50,7 +50,32 @@ package body GCD with Spark_Mode Is
                              (if U >= D then 
                                 (U mod D - V mod D) mod D = (U - V) mod D))));
       
+      pragma Assert
+        (for all G in Positive =>
+           (Is_GCD(A, B, G) and then Is_GCD(X, Y, G)) or else
+           (not Is_GCD(A, B, G) and then not Is_GCD(X, Y, G)));
+      
+      pragma Assert
+        (for all N in Positive =>
+           (for all M in N .. Positive'Last =>
+              (for all G in Positive =>
+                 (if M > N then
+        (if Is_GCD(M, N, G) then Is_GCD((M - N), N, G))))));
+      
+      pragma Assert
+        (for all N in Positive =>
+           (for all M in N .. Positive'Last =>
+              (for all G in Positive =>
+                 (if M > N then
+        (if Is_GCD((M - N), N, G) then Is_GCD(M, N, G))))));
+      
       while X /= Y loop
+         
+         -- pragma Loop_Invariant
+         --   (for all G in Positive =>
+         --      (Is_GCD(A, B, G) and then Is_GCD(X, Y, G)) or else
+         --      (not Is_GCD(A, B, G) and then not Is_GCD(X, Y, G)));
+         
          pragma Loop_Invariant (X > 0 and Y > 0);
          
          -- pragma Loop_Invariant (for all N in Positive => 
@@ -81,22 +106,29 @@ package body GCD with Spark_Mode Is
                  (X < Y and then Is_Common_Divisor ((Y - X), Y, N)) then
            Is_Common_Divisor (X, Y, N)));
          
-         pragma Loop_Invariant
-           (for all N in Positive => 
-              (if X > Y 
-                 and then Is_Common_Divisor ((X - Y), Y, N)
-                 and then Is_Common_Divisor (X, Y, N)
-                 then
-           Is_Common_Divisor (X'Loop_Entry, Y'Loop_Entry, N)));
-         
-         pragma Loop_Invariant
-           (for all N in Positive => 
-              (if Is_Common_Divisor (X, Y, N) then
-           Is_Common_Divisor (X'Loop_entry, Y'Loop_Entry, N)));
-            
          if X > Y then
+            pragma Assert
+              (for all G in Positive =>
+                 (Is_GCD((X - Y), Y, G) and then Is_GCD(X, Y, G)) or else
+                 (not Is_GCD((X - Y), Y, G) and then not Is_GCD(X, Y, G)));
+         
             X := X - Y;
          else
+            pragma Assert (X < Y);
+            
+            pragma Assert
+              (for all G in Positive =>
+                 (if Is_GCD(X, (Y - X), G) then Is_GCD(X, Y, G)));
+            
+            pragma Assert
+              (for all G in Positive =>
+                 (if Is_GCD(X, Y, G) then Is_GCD(X, (Y - X), G)));
+            
+            pragma Assert
+              (for all G in Positive =>
+                 (Is_GCD(X, (Y - X), G) and then Is_GCD(X, Y, G)) or else
+                 (not Is_GCD(X, (Y - X), G) and then not Is_GCD(X, Y, G)));
+            
             Y := Y - X;
          end if;
          
