@@ -40,6 +40,10 @@ package body GCD_Mod with Spark_Mode Is
       Y := B;
       
       while X > 0 loop
+         pragma Loop_Invariant (for all N in Positive => 
+                                  (if Is_Common_Divisor (X, Y, N) then 
+                                      Is_Common_Divisor (A, B, N))
+                               );
          T := X;
          X := Y mod X;
          Y := T;
