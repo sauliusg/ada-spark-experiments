@@ -21,10 +21,6 @@ package body GCD with Spark_Mode Is
                                 (U mod D - V mod D) mod D = (U - V) mod D))));
       
       pragma Assert
-        (for all G in Positive =>
-           Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G)));
-      
-      pragma Assert
         (for all N in Positive =>
            (for all M in N .. Positive'Last =>
               (for all G in Positive =>
