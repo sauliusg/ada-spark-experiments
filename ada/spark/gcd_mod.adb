@@ -26,20 +26,10 @@ package body GCD_Mod with Spark_Mode Is
          
          pragma Loop_Invariant (Y > 0);
               
-         declare
-            X_Prev : constant Natural := X with Ghost;
-            Y_Prev : constant Positive := Y with Ghost;
-         begin
-            T := X;
-            X := Y mod X;
-            Y := T;
+         T := X;
+         X := Y mod X;
+         Y := T;
             
-            pragma Assert
-              (for all G in Positive =>
-                 (if Equivalent (Is_GCD(A, B, G), Is_GCD(X_Prev, Y_Prev, G)) then
-              X = 0 or else Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G))));
-               
-         end;
       end loop;
       
       pragma Assert (Y > 0);
