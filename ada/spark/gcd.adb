@@ -85,10 +85,10 @@ package body GCD with Spark_Mode Is
          
          pragma Loop_Invariant (X > 0 and Y > 0);
          
-         -- pragma Loop_Invariant (for all N in Positive => 
-         --                          (if Is_GCD (A, B, N) then 
-         --                              Is_GCD (X, Y, N))
-         --                       );
+         pragma Loop_Invariant (for all N in Positive => 
+                                  (if Is_GCD (A, B, N) then 
+                                      Is_GCD (X, Y, N))
+                               );
          
          pragma Loop_Invariant (for all N in Positive => 
                                   (if Is_Common_Divisor (A, B, N) then 
