@@ -192,9 +192,9 @@ package body GCD with Spark_Mode Is
       pragma Assert (X = Y);
       pragma Assert (Is_Divisor (X, X));
       pragma Assert (Is_Divisor (Y, X));
-      pragma Assert (Is_Common_Divisor (X, Y, X));
-      pragma Assert (Is_Common_Divisor (X, X, X));
-      pragma Assert (Is_Common_Divisor (A, B, X));
+      pragma Assert (Is_GCD (X, Y, X));
+      pragma Assert (Is_GCD (X, X, X));
+      pragma Assert (Is_GCD (A, B, X));
       
       return X;
    end;
