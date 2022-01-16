@@ -48,18 +48,6 @@ package body GCD_Mod with Spark_Mode Is
         (for all N in Positive => Is_GCD (N, N, N));
       
       pragma Assert
-        (for all N in Positive =>
-           (for all D in Positive =>
-              (if Is_GCD (N, N, D) then D = N)
-           ));
-      
-      pragma Assert
-        (for all N in Natural =>
-           (for all D in Positive =>
-              (if Is_GCD (N, 0, D) then D = N)
-           ));
-      
-      pragma Assert
         (for all N in Natural =>
            (for all D in Positive =>
               (if Is_GCD (N, 1, D) then D = 1)
@@ -69,6 +57,18 @@ package body GCD_Mod with Spark_Mode Is
         (for all N in Natural =>
            (for all D in Positive =>
               (if Is_GCD (N, 0, D) then Is_Divisor (N, D))
+           ));
+      
+      pragma Assert
+        (for all N in Positive =>
+           (for all D in Positive =>
+              (if Is_GCD (N, N, D) then D = N)
+           ));
+      
+      pragma Assert
+        (for all N in Natural =>
+           (for all D in Positive =>
+              (if Is_GCD (N, 0, D) then D = N)
            ));
       
       pragma Assert
