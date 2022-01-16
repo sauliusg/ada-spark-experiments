@@ -5,6 +5,14 @@ use  Ada.Numerics.Big_Numbers.Big_Integers;
 
 package body GCD with Spark_Mode Is
    
+   function Equivalent ( L1, L2 : Boolean ) return Boolean
+   is ((L1 and then L2) or else (not L1 and then not L2))
+     with
+     Spark_Mode,
+     Ghost,
+     Pre => L1 in Boolean and L2 in Boolean,
+     Post => Equivalent'Result = ((L1 and L2) or (not L1 and not L2));
+   
    function Is_GCD (A, B, D : in Positive) return Boolean
    is 
       (Is_Divisor (A, D) and then
@@ -52,8 +60,7 @@ package body GCD with Spark_Mode Is
       
       pragma Assert
         (for all G in Positive =>
-           (Is_GCD(A, B, G) and then Is_GCD(X, Y, G)) or else
-           (not Is_GCD(A, B, G) and then not Is_GCD(X, Y, G)));
+           Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G)));
       
       pragma Assert
         (for all N in Positive =>
@@ -109,10 +116,35 @@ package body GCD with Spark_Mode Is
          if X > Y then
             pragma Assert
               (for all G in Positive =>
-                 (Is_GCD((X - Y), Y, G) and then Is_GCD(X, Y, G)) or else
-                 (not Is_GCD((X - Y), Y, G) and then not Is_GCD(X, Y, G)));
+                 Equivalent (Is_GCD((X - Y), Y, G), Is_GCD(X, Y, G)));
          
-            X := X - Y;
+            pragma Assert
+              (for all G in Positive =>
+                 (if Equivalent (Is_GCD(A, B, G), Is_GCD((X - Y), Y, G)) then
+              Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G))));
+         
+            pragma Assert
+              (for all G in Positive =>
+                 (if Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G)) then
+              Equivalent (Is_GCD(A, B, G), Is_GCD((X - Y), Y, G))));
+         
+            -- pragma Assert
+            --   (for all G in Positive =>
+            --      Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G)));
+            
+            declare
+               X_Prev : constant Positive := X with Ghost;
+               Y_Prev : constant Positive := Y with Ghost;
+            begin
+               X := X - Y;
+            
+               pragma Assert
+                 (for all G in Positive =>
+                    (if Equivalent (Is_GCD(A, B, G), Is_GCD(X_Prev, Y_Prev, G)) then
+                 Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G))));
+               
+            end;
+         
          else
             pragma Assert (X < Y);
             
@@ -126,10 +158,20 @@ package body GCD with Spark_Mode Is
             
             pragma Assert
               (for all G in Positive =>
-                 (Is_GCD(X, (Y - X), G) and then Is_GCD(X, Y, G)) or else
-                 (not Is_GCD(X, (Y - X), G) and then not Is_GCD(X, Y, G)));
+                 Equivalent (Is_GCD(X, (Y - X), G), Is_GCD(X, Y, G)));
             
-            Y := Y - X;
+            declare
+               X_Prev : constant Positive := X with Ghost;
+               Y_Prev : constant Positive := Y with Ghost;
+            begin
+               Y := Y - X;
+               
+               pragma Assert
+                 (for all G in Positive =>
+                    (if Equivalent (Is_GCD(A, B, G), Is_GCD(X_Prev, Y_Prev, G)) then
+                 Equivalent (Is_GCD(A, B, G), Is_GCD(X, Y, G))));
+         
+            end;
          end if;
          
          pragma Assert (for all N in Positive => 
