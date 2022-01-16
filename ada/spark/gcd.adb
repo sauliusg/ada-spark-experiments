@@ -9,15 +9,15 @@ package body GCD with Spark_Mode Is
       X := A;
       Y := B;
       
-      --  We need to state the every number is a divisor of itself,
-      --  'gnatprove' can not figure it out herself:
-      pragma Assert (for all N in Positive => Is_Divisor (N, N));
-      
       pragma Assume (for all U in Positive =>
                        (for all V in Positive =>
                           (for all D in Positive =>
                              (if U >= D then 
                                 (U mod D - V mod D) mod D = (U - V) mod D))));
+      
+      --  We need to state the every number is a divisor of itself,
+      --  'gnatprove' can not figure it out herself:
+      pragma Assert (for all N in Positive => Is_Divisor (N, N));
       
       pragma Assert
         (for all N in Positive =>
