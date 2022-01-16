@@ -57,10 +57,6 @@ package body GCD with Spark_Mode Is
               (for all G in Positive =>
                  (if Is_GCD(X, Y, G) then Is_GCD(X, (Y - X), G)));
             
-            pragma Assert
-              (for all G in Positive =>
-                 Equivalent (Is_GCD(X, (Y - X), G), Is_GCD(X, Y, G)));
-            
             declare
                X_Prev : constant Positive := X with Ghost;
                Y_Prev : constant Positive := Y with Ghost;
