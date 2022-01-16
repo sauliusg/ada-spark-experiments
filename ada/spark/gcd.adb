@@ -27,14 +27,9 @@ package body GCD with Spark_Mode Is
            (for all M in N .. Positive'Last =>
               (for all G in Positive =>
                  (if M > N then
-        (if Is_GCD(M, N, G) then Is_GCD((M - N), N, G))))));
-      
-      pragma Assert
-        (for all N in Positive =>
-           (for all M in N .. Positive'Last =>
-              (for all G in Positive =>
-                 (if M > N then
-        (if Is_GCD((M - N), N, G) then Is_GCD(M, N, G))))));
+                     (if Is_GCD(M, N, G) then Is_GCD((M - N), N, G)) and then
+                     (if Is_GCD((M - N), N, G) then Is_GCD(M, N, G))
+                 ))));
       
       while X /= Y loop
          
