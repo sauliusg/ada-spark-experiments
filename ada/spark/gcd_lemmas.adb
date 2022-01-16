@@ -1,8 +1,5 @@
 pragma Ada_2022;
 
-with Ada.Numerics.Big_Numbers.Big_Integers;
-use  Ada.Numerics.Big_Numbers.Big_Integers;
-  
 package body GCD_Lemmas with Spark_Mode Is
 
    function Is_Divisor (A,D : Positive) return Boolean
