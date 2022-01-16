@@ -78,10 +78,10 @@ package body GCD with Spark_Mode Is
       
       while X /= Y loop
          
-         -- pragma Loop_Invariant
-         --   (for all G in Positive =>
-         --      (Is_GCD(A, B, G) and then Is_GCD(X, Y, G)) or else
-         --      (not Is_GCD(A, B, G) and then not Is_GCD(X, Y, G)));
+         pragma Loop_Invariant
+           (for all G in Positive =>
+              (Is_GCD(A, B, G) and then Is_GCD(X, Y, G)) or else
+              (not Is_GCD(A, B, G) and then not Is_GCD(X, Y, G)));
          
          pragma Loop_Invariant (X > 0 and Y > 0);
          
