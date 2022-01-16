@@ -2,7 +2,7 @@ pragma Ada_2022;
 
 with Ada.Numerics.Big_Numbers.Big_Integers;
 use  Ada.Numerics.Big_Numbers.Big_Integers;
-  
+
 package body GCD with Spark_Mode Is
    
    function Is_GCD (A, B, D : in Positive) return Boolean
@@ -50,6 +50,20 @@ package body GCD with Spark_Mode Is
                              (if U >= D then 
                                 (U mod D - V mod D) mod D = (U - V) mod D))));
       
+      pragma Assert (for all D in Positive => 
+                       (for all M in Positive =>
+                          (for all N in Positive =>
+                             (if M > N and then Is_Common_Divisor (M, N, D) then 
+                                 Is_Common_Divisor ((M - N), N, D))))
+                    );
+      
+      pragma Assert (for all D in Positive => 
+                       (for all M in Positive =>
+                          (for all N in Positive =>
+                             (if M > N and then Is_Common_Divisor ((M - N), N, D) then 
+                                 Is_Common_Divisor (M, N, D))))
+                    );
+      
       pragma Assert (for all N in Positive => 
                        (if Is_GCD (A, B, N) then Is_GCD (X, Y, N))
                     );
@@ -64,20 +78,6 @@ package body GCD with Spark_Mode Is
       
       pragma Assert (for all N in Positive => 
                        (if Is_Common_Divisor (X, Y, N) then Is_Common_Divisor (A, B, N))
-                    );
-      
-      pragma Assert (for all D in Positive => 
-                       (for all M in Positive =>
-                          (for all N in Positive =>
-                             (if M > N and then Is_Common_Divisor (M, N, D) then 
-                                 Is_Common_Divisor ((M - N), N, D))))
-                    );
-      
-      pragma Assert (for all D in Positive => 
-                       (for all M in Positive =>
-                          (for all N in Positive =>
-                             (if M > N and then Is_Common_Divisor ((M - N), N, D) then 
-                                 Is_Common_Divisor (M, N, D))))
                     );
       
       while X /= Y loop
