@@ -19,23 +19,23 @@ package GCD_Mod with Spark_Mode Is
    
    function Is_GCD (A, B, D : in Natural) return Boolean
    is 
-      (Is_Divisor (A, D) and then
-         Is_Divisor (B, D) and then
+      (A mod D = 0 and then
+       B mod D = 0 and then
          (for all D1 in D .. Positive'Last =>
             D = D1 or else
-            (not Is_Divisor (A, D1)) or else
-            (not Is_Divisor (B, D1))))
+            (A mod D1 /= 0) or else
+            (B mod D1 /= 0)))
         with
         Ghost,
         Pre => A >= 0 and then B >= 0 and then D > 0,
         Post =>
         Is_GCD'Result = 
-          (Is_Divisor (A, D) and then
-             Is_Divisor (B, D) and then
+          (A mod D = 0 and then
+           B mod D = 0 and then
              (for all D1 in D .. Positive'Last =>
                 D = D1 or else
-                (not Is_Divisor (A, D1)) or else
-                (not Is_Divisor (B, D1))))
+                (A mod D1 /= 0) or else
+                (B mod D1 /= 0)))
           ;
    
    function GCD (A, B : in Positive) return Positive
