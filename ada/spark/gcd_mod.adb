@@ -10,12 +10,6 @@ package body GCD_Mod with Spark_Mode Is
       Y := B;
       
       pragma Assert
-        (for all N in Positive => 0 mod N = 0);
-           
-      pragma Assert
-        (for all N in Positive => Is_Divisor (0, N));
-           
-      pragma Assert
         (for all N in Positive => Is_GCD (0, N, N));
            
       pragma Assume
