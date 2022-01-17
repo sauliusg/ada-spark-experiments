@@ -41,7 +41,7 @@ package GCD_Rec with Spark_Mode Is
    function GCD (A, B : in Natural) return Positive
      with
      Pre  => 
-       A > 0 and then A <= Positive'Last and then 
+       A >= 0 and then A <= Positive'Last and then 
        B > 0 and then B <= Positive'Last,
      Post => Is_GCD (A, B, GCD'Result);
          

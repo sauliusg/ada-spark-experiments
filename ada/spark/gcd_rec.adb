@@ -15,10 +15,12 @@ package body GCD_Rec with Spark_Mode Is
               (for all D in Positive =>
                  Equivalent (Is_GCD (M, N, D), Is_GCD (N mod M, M, D)) )));
       
-      if B = 0 then
-         return A;
+      if A = 0 then
+         return B;
       else
-         return GCD (B, A mod B);
+         pragma Assert (A > 0);
+         pragma Assert (B > 0);
+         return GCD (B mod A, B);
       end if;
       
    end;
