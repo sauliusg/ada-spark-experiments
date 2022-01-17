@@ -20,7 +20,7 @@ package body GCD_Rec with Spark_Mode Is
       else
          pragma Assert (A > 0);
          pragma Assert (B > 0);
-         return GCD (B mod A, B);
+         return GCD (B mod A, A);
       end if;
       
    end;
