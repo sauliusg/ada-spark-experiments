@@ -3,7 +3,7 @@ pragma Ada_2022;
 with Ada.Numerics.Big_Numbers.Big_Integers;
 use  Ada.Numerics.Big_Numbers.Big_Integers;
   
-package GCD with Spark_Mode Is
+package GCD_Using_ForAll with Spark_Mode Is
    
    pragma Assert (for all A in Positive =>
                     (for all D in Positive =>
@@ -75,4 +75,4 @@ package GCD with Spark_Mode Is
        B > 0 and then B <= Positive'Last,
      Post => Is_GCD (A, B, GCD'Result);
          
-end GCD;
+end GCD_Using_ForAll;
