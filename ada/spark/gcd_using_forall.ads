@@ -5,21 +5,6 @@ use  Ada.Numerics.Big_Numbers.Big_Integers;
   
 package GCD_Using_ForAll with Spark_Mode Is
    
-   pragma Assert (for all A in Positive =>
-                    (for all D in Positive =>
-                       (if (for some N in Positive =>
-                              (To_Big_Integer(A) =
-                                 To_Big_Integer(D) * To_Big_Integer(N)))
-                          then A mod D = 0)));
-   
-   pragma Assert (for all A in Positive =>
-                    (for all D in Positive =>
-                       (if (A mod D = 0)
-                          then
-     (for some N in Positive =>
-        To_Big_Integer(A) = 
-        To_Big_Integer(D) * To_Big_Integer(N)))));
-
    function Equivalent (L1, L2 : Boolean) return Boolean
    is ((L1 and then L2) or else (not L1 and then not L2))
      with
