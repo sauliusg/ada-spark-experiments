@@ -9,15 +9,6 @@ package body GCD_Using_Forall with Spark_Mode Is
       X := A;
       Y := B;
       
-      --  This is an important assumption, without it the 'gnatprove'
-      --  can not prove the postcondition, and can not prove the
-      --  assumption itself without a hint:      
-      pragma Assume (for all U in Positive =>
-                       (for all V in Positive =>
-                          (for all D in Positive =>
-                             (if U >= D then 
-                                (U mod D - V mod D) mod D = (U - V) mod D))));
-      
       --  We need to state the every number is a divisor of itself,
       --  'gnatprove' can not figure it out herself:
       pragma Assert (for all N in Positive => Is_Divisor (N, N));
