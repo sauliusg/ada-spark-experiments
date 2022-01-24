@@ -20,6 +20,12 @@ package body GCD_Using_Forall with Spark_Mode Is
                  then M mod D = 0)));
                  
       pragma Assert
+        (for all M in Positive =>
+           (for all D in Positive =>
+              (if M mod D = 0
+                 then Is_Divisor (M, D))));
+                 
+      pragma Assert
         (for all N in Positive =>
            (for all M in N .. Positive'Last =>
               (for all G in Positive =>
