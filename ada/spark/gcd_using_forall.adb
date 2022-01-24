@@ -14,6 +14,22 @@ package body GCD_Using_Forall with Spark_Mode Is
       pragma Assert (for all N in Positive => Is_Divisor (N, N));
 
       pragma Assert
+        (for all M in Positive =>
+           (for all D in Positive =>
+              (if (for some N in Positive => 
+                     To_Big_Integer(M) = To_Big_Integer(N) * To_Big_Integer(D))
+                 then M mod D = 0)));
+                 
+      pragma Assert
+        (for all N in Positive =>
+           (for all M in N .. Positive'Last =>
+              (for all G in Positive =>
+                 (if M > N then
+                     (if Is_Common_Divisor(M, N, G) then Is_Common_Divisor((M - N), N, G)) and then
+                     (if Is_Common_Divisor((M - N), N, G) then Is_Common_Divisor(M, N, G))
+                 ))));
+      
+      pragma Assert
         (for all N in Positive =>
            (for all M in N .. Positive'Last =>
               (for all G in Positive =>
