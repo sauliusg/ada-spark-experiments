@@ -50,11 +50,10 @@ package body GCD_Using_Forall with Spark_Mode Is
         (for all M in Positive => 
            (for all D in Positive => 
               (for some N in Natural =>
-                 (for some R in Natural =>
+                 (for some R in 0 .. D =>
                     To_Big_Integer(M) =
                     To_Big_Integer(N) * To_Big_Integer(D) +
-                    To_Big_Integer(R) and then
-                    M mod D = R))));
+                    To_Big_Integer(R)))));
                      
       pragma Assert
         (for all D in Positive => 
