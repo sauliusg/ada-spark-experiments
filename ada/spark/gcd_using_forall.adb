@@ -9,6 +9,24 @@ package body GCD_Using_Forall with Spark_Mode Is
       X := A;
       Y := B;
       
+      --  This is an important assumption, without it the 'gnatprove'
+      --  can not prove the postcondition, and can not prove the
+      --  assumption itself without a hint:      
+      -- pragma Assume (for all U in Positive =>
+      --                  (for all V in Positive =>
+      --                     (for all D in Positive =>
+      --                        (if U >= D then 
+      --                           (U mod D - V mod D) mod D = (U - V) mod D))));
+      -- 
+      -- pragma Assume (for all U in Positive =>
+      --                  (for all V in Positive =>
+      --                     (for all D in Positive =>
+      --                        (To_Big_Integer (U mod D) + 
+      --                           To_Big_Integer (V mod D)) mod
+      --                        To_Big_Integer (D) =
+      --                        (To_Big_Integer (U) + 
+      --                           To_Big_Integer (V)) mod To_Big_Integer (D))));
+      
       --  We need to state the every number is a divisor of itself,
       --  'gnatprove' can not figure it out herself:
       pragma Assert (for all N in Positive => Is_Divisor (N, N));
@@ -27,6 +45,38 @@ package body GCD_Using_Forall with Spark_Mode Is
            (for all M in Positive =>
               To_Big_Integer(M) * To_Big_Integer(D) mod 
               To_Big_Integer(D) = 0));
+      
+      pragma Assert
+        (for all M in Positive => 
+           (for all D in Positive => 
+              (for some N in Natural =>
+                 (for some R in Natural =>
+                    To_Big_Integer(M) =
+                    To_Big_Integer(N) * To_Big_Integer(D) +
+                    To_Big_Integer(R)))));
+                     
+      pragma Assert
+        (for all D in Positive => 
+           (for all N in Natural =>
+              (for all R in Natural =>
+                 (To_Big_Integer(N) * To_Big_Integer(D) +
+                    To_Big_Integer(R)) mod 
+                 To_Big_Integer(D) = To_Big_Integer(R))));
+                     
+      pragma Assert
+        (for all D in Positive => 
+           (for all M in Positive => 
+              (if (for all N in Positive =>
+                     To_Big_Integer(M) /= To_Big_Integer(N) * To_Big_Integer(D))
+                 then M mod D /= 0)));
+      
+      pragma Assert
+        (for all D in Positive => 
+           (for all M in Positive => 
+              (if M mod D = 0
+                 then 
+        (for some N in Positive =>
+           To_Big_Integer(M) = To_Big_Integer(N) * To_Big_Integer(D)))));
       
       pragma Assert
         (for all M in Positive =>
