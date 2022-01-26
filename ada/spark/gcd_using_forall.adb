@@ -2,6 +2,8 @@ pragma Ada_2022;
 
 package body GCD_Using_Forall with Spark_Mode Is
    
+   function BI ( I: Natural ) return Big_Integer renames To_Big_Integer;
+   
    function GCD (A, B : in Positive) return Positive
    is
       X, Y : Positive;
@@ -65,6 +67,14 @@ package body GCD_Using_Forall with Spark_Mode Is
            (for all M in N .. Natural'Last =>
               (for all D in 1 .. N =>
                  (if M mod D = N mod D then (M - N) mod D = 0)
+              )));
+      
+      pragma Assert 
+        (for all N in Natural =>
+           (for all M in N .. Natural'Last =>
+              (for all D in 1 .. N =>
+                 (if BI (M) mod BI (D) = BI (N) mod BI (D) then 
+                    (BI (M) - BI (N)) mod BI (D) = 0)
               )));
       
       pragma Assert
