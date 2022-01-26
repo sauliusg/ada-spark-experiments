@@ -2,8 +2,6 @@ pragma Ada_2022;
 
 package body GCD_Using_Forall with Spark_Mode Is
    
-   function BI ( I: Natural ) return Big_Integer renames To_Big_Integer;
-   
    function GCD (A, B : in Positive) return Positive
    is
       X, Y : Positive;
@@ -20,6 +18,10 @@ package body GCD_Using_Forall with Spark_Mode Is
                              (if U >= D then 
                                 (U mod D - V mod D) mod D = (U - V) mod D))));
       
+      --  We need to state the every number is a divisor of itself,
+      --  'gnatprove' can not figure it out herself:
+      pragma Assert (for all N in Positive => Is_Divisor (N, N));
+
       --  Assume the relation of Is_Divisor and mod (did not manage to
       --  prove so far in Spark):
       pragma Assume
@@ -27,132 +29,16 @@ package body GCD_Using_Forall with Spark_Mode Is
            (for all D in Positive =>
               (if M mod D = 0 then Is_Divisor (M, D))));
       
-      --  We need to state the every number is a divisor of itself,
-      --  'gnatprove' can not figure it out herself:
-      pragma Assert (for all N in Positive => Is_Divisor (N, N));
-      
       -- The following relation can be proved:
       pragma Assert
         (for all M in Positive =>
            (for all D in Positive =>
               (if Is_Divisor (M, D)
                  then M mod D = 0)));
-      
-      pragma Assert
-        (for all D in Positive => D mod D = 0);
-      
-      pragma Assert
-        (for all M in Positive => 
-           (for all D in Positive => 
-              (M mod D) mod D = M mod D));
-      
-      pragma Assert
-        (for all D in Positive => 
-           (for all R in 0 .. Natural(D) - 1 => 
-              R mod D = R));
-              
-      pragma Assert
-        (for all M in Positive => 
-           (for all D in Positive => 
-              (for some N in Natural =>
-                 (BI (M) mod BI (D) - (BI (N) * BI (D)) mod BI (D)) mod BI (D) = BI (M mod D))));
-      
-      -- pragma Assume (for all U in Positive =>
-      --                  (for all V in Positive =>
-      --                     (for all D in Positive =>
-      --                        (To_Big_Integer (U mod D) + 
-      --                           To_Big_Integer (V mod D)) mod
-      --                        To_Big_Integer (D) =
-      --                        (To_Big_Integer (U) + 
-      --                           To_Big_Integer (V)) mod To_Big_Integer (D))));
-      
-      pragma Assert
-        (for all D in Positive => 
-           (for all M in Positive =>
-              To_Big_Integer(M) * To_Big_Integer(D) mod 
-              To_Big_Integer(D) = 0));
-      
-      --  With the range description, all of a sudden the Assert
-      --  pragma below starts taking enormous ammout of time and a lot
-      --  of memory, risking to "freeze" a host computer doe to
-      --  excessive swap:
-      
-      -- pragma Assert
-      --   (for all M in Positive => 
-      --      (for all D in Positive => 
-      --         (for some N in Natural =>
-      --            (for some R in 0 .. D =>
-      --               To_Big_Integer(M) =
-      --               To_Big_Integer(N) * To_Big_Integer(D) +
-      --               To_Big_Integer(R)))));
-      
-      pragma Assert
-        (for all D in Positive => BI (D) mod BI (D) = 0);
-      
-      pragma Assert
-        (for all D in Positive => 
-           (for all R in 0 .. D - 1 =>
-              BI (R) mod BI (D) = BI (R)));
-                     
-      pragma Assert 
-        (for all N in Natural =>
-           (for all M in N .. Natural'Last =>
-              (for all D in 1 .. N =>
-                 (if M mod D = N mod D then (M - N) mod D = 0)
-              )));
-      
-      pragma Assert 
-        (for all N in Natural =>
-           (for all M in N .. Natural'Last =>
-              (for all D in 1 .. N =>
-                 (if BI (M) mod BI (D) = BI (N) mod BI (D) then 
-                    (BI (M) - BI (N)) mod BI (D) = 0)
-              )));
-      
-      pragma Assert 
-        (for all N in Natural =>
-           (for all M in Natural =>
-              (for all D in Positive =>
-                 (if BI (M) mod BI (D) = 0 and then BI (N) mod BI (D) = 0 then 
-                    (BI (M) + BI (N)) mod BI (D) = 0)
-              )));
-      
-      pragma Assert
-        (for all D in Positive => 
-           (for all R in 0 .. D - 1 =>
-              (BI (D) + BI (R)) mod BI (D) = BI (R)));
-                     
-      pragma Assert
-        (for all D in Positive => 
-           (for all M in Positive => 
-              (if (for all N in Positive =>
-                     To_Big_Integer(M) /= To_Big_Integer(N) * To_Big_Integer(D))
-                 then M mod D /= 0)));
-      
-      pragma Assert
-        (for all D in Positive => 
-           (for all M in Positive => 
-              (if M mod D = 0
-                 then 
-        (for some N in Positive =>
-           To_Big_Integer(M) = To_Big_Integer(N) * To_Big_Integer(D)))));
-      
       pragma Assert
         (for all M in Positive =>
            (for all D in Positive =>
-              (if M mod D = 0
-                 then Is_Divisor (M, D))));
-      
-      pragma Assert
-        (for all N in Positive =>
-           (for all M in N .. Positive'Last =>
-              (for all G in Positive =>
-                 (if M > N then
-                     (if Is_Common_Divisor(M, N, G) then 
-                         Is_Common_Divisor((M - N), N, G)) and then
-                     (if Is_Common_Divisor((M - N), N, G) then 
-                         Is_Common_Divisor(M, N, G))
-                 ))));
+              Equivalent (Is_Divisor (M, D), M mod D = 0)));
       
       pragma Assert
         (for all N in Positive =>
