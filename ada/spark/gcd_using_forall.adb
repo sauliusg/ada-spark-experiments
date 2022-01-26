@@ -20,6 +20,31 @@ package body GCD_Using_Forall with Spark_Mode Is
                              (if U >= D then 
                                 (U mod D - V mod D) mod D = (U - V) mod D))));
       
+      pragma Assert
+        (for all D in Positive => D mod D = 0);
+      
+      pragma Assert
+        (for all M in Positive => 
+           (for all D in Positive => 
+              (M mod D) mod D = M mod D));
+      
+      -- The first unprovable assertion:
+      pragma Assert
+        (for all M in Positive => 
+           (for all D in Positive => 
+              (BI (M) * BI (D)) mod BI (D) = 0));
+              
+      pragma Assert
+        (for all D in Positive => 
+           (for all R in 0 .. Natural(D) - 1 => 
+              R mod D = R));
+              
+      pragma Assert
+        (for all M in Positive => 
+           (for all D in Positive => 
+              (for some N in Natural =>
+                 (BI (M) mod BI (D) - (BI (N) * BI (D)) mod BI (D)) mod BI (D) = BI (M mod D))));
+      
       -- pragma Assume (for all U in Positive =>
       --                  (for all V in Positive =>
       --                     (for all D in Positive =>
@@ -32,15 +57,12 @@ package body GCD_Using_Forall with Spark_Mode Is
       --  We need to state the every number is a divisor of itself,
       --  'gnatprove' can not figure it out herself:
       pragma Assert (for all N in Positive => Is_Divisor (N, N));
-
+      
       pragma Assert
         (for all M in Positive =>
            (for all D in Positive =>
               (if Is_Divisor (M, D)
                  then M mod D = 0)));
-      
-      pragma Assert
-        (for all D in Positive => D mod D = 0);
       
       pragma Assert
         (for all D in Positive => 
@@ -62,6 +84,14 @@ package body GCD_Using_Forall with Spark_Mode Is
       --               To_Big_Integer(N) * To_Big_Integer(D) +
       --               To_Big_Integer(R)))));
       
+      pragma Assert
+        (for all D in Positive => BI (D) mod BI (D) = 0);
+      
+      pragma Assert
+        (for all D in Positive => 
+           (for all R in 0 .. D - 1 =>
+              BI (R) mod BI (D) = BI (R)));
+                     
       pragma Assert 
         (for all N in Natural =>
            (for all M in N .. Natural'Last =>
@@ -77,10 +107,18 @@ package body GCD_Using_Forall with Spark_Mode Is
                     (BI (M) - BI (N)) mod BI (D) = 0)
               )));
       
+      pragma Assert 
+        (for all N in Natural =>
+           (for all M in Natural =>
+              (for all D in Positive =>
+                 (if BI (M) mod BI (D) = 0 and then BI (N) mod BI (D) = 0 then 
+                    (BI (M) + BI (N)) mod BI (D) = 0)
+              )));
+      
       pragma Assert
         (for all D in Positive => 
-              (for all R in 0 .. D - 1 =>
-                 (BI (D) + BI (R)) mod BI (D) = BI (R)));
+           (for all R in 0 .. D - 1 =>
+              (BI (D) + BI (R)) mod BI (D) = BI (R)));
                      
       pragma Assert
         (for all D in Positive => 
