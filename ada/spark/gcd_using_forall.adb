@@ -46,14 +46,19 @@ package body GCD_Using_Forall with Spark_Mode Is
               To_Big_Integer(M) * To_Big_Integer(D) mod 
               To_Big_Integer(D) = 0));
       
-      pragma Assert
-        (for all M in Positive => 
-           (for all D in Positive => 
-              (for some N in Natural =>
-                 (for some R in 0 .. D =>
-                    To_Big_Integer(M) =
-                    To_Big_Integer(N) * To_Big_Integer(D) +
-                    To_Big_Integer(R)))));
+      --  With the range description, all of a sudden the Assert
+      --  pragma below starts taking enormous ammout of time and a lot
+      --  of memory, risking to "freeze" a host computer doe to
+      --  excessive swap:
+      
+      -- pragma Assert
+      --   (for all M in Positive => 
+      --      (for all D in Positive => 
+      --         (for some N in Natural =>
+      --            (for some R in 0 .. D =>
+      --               To_Big_Integer(M) =
+      --               To_Big_Integer(N) * To_Big_Integer(D) +
+      --               To_Big_Integer(R)))));
                      
       pragma Assert
         (for all D in Positive => 
@@ -83,14 +88,16 @@ package body GCD_Using_Forall with Spark_Mode Is
            (for all D in Positive =>
               (if M mod D = 0
                  then Is_Divisor (M, D))));
-                 
+      
       pragma Assert
         (for all N in Positive =>
            (for all M in N .. Positive'Last =>
               (for all G in Positive =>
                  (if M > N then
-                     (if Is_Common_Divisor(M, N, G) then Is_Common_Divisor((M - N), N, G)) and then
-                     (if Is_Common_Divisor((M - N), N, G) then Is_Common_Divisor(M, N, G))
+                     (if Is_Common_Divisor(M, N, G) then 
+                         Is_Common_Divisor((M - N), N, G)) and then
+                     (if Is_Common_Divisor((M - N), N, G) then 
+                         Is_Common_Divisor(M, N, G))
                  ))));
       
       pragma Assert
