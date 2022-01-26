@@ -11,6 +11,12 @@ package body GCD_Using_Forall with Spark_Mode Is
       X := A;
       Y := B;
       
+      -- The first unprovable assertion:
+      pragma Assume
+        (for all M in Positive => 
+           (for all D in Positive => 
+              (BI (M) * BI (D)) mod BI (D) = 0));
+              
       --  This is an important assumption, without it the 'gnatprove'
       --  can not prove the postcondition, and can not prove the
       --  assumption itself without a hint:      
@@ -28,12 +34,6 @@ package body GCD_Using_Forall with Spark_Mode Is
            (for all D in Positive => 
               (M mod D) mod D = M mod D));
       
-      -- The first unprovable assertion:
-      pragma Assert
-        (for all M in Positive => 
-           (for all D in Positive => 
-              (BI (M) * BI (D)) mod BI (D) = 0));
-              
       pragma Assert
         (for all D in Positive => 
            (for all R in 0 .. Natural(D) - 1 => 
