@@ -11,12 +11,6 @@ package body GCD_Using_Forall with Spark_Mode Is
       X := A;
       Y := B;
       
-      -- The first unprovable assertion:
-      pragma Assume
-        (for all M in Positive => 
-           (for all D in Positive => 
-              (BI (M) * BI (D)) mod BI (D) = 0));
-              
       --  This is an important assumption, without it the 'gnatprove'
       --  can not prove the postcondition, and can not prove the
       --  assumption itself without a hint:      
@@ -25,6 +19,24 @@ package body GCD_Using_Forall with Spark_Mode Is
                           (for all D in Positive =>
                              (if U >= D then 
                                 (U mod D - V mod D) mod D = (U - V) mod D))));
+      
+      --  Assume the relation of Is_Divisor and mod (did not manage to
+      --  prove so far in Spark):
+      pragma Assume
+        (for all M in Positive =>
+           (for all D in Positive =>
+              (if M mod D = 0 then Is_Divisor (M, D))));
+      
+      --  We need to state the every number is a divisor of itself,
+      --  'gnatprove' can not figure it out herself:
+      pragma Assert (for all N in Positive => Is_Divisor (N, N));
+      
+      -- The following relation can be proved:
+      pragma Assert
+        (for all M in Positive =>
+           (for all D in Positive =>
+              (if Is_Divisor (M, D)
+                 then M mod D = 0)));
       
       pragma Assert
         (for all D in Positive => D mod D = 0);
@@ -53,16 +65,6 @@ package body GCD_Using_Forall with Spark_Mode Is
       --                        To_Big_Integer (D) =
       --                        (To_Big_Integer (U) + 
       --                           To_Big_Integer (V)) mod To_Big_Integer (D))));
-      
-      --  We need to state the every number is a divisor of itself,
-      --  'gnatprove' can not figure it out herself:
-      pragma Assert (for all N in Positive => Is_Divisor (N, N));
-      
-      pragma Assert
-        (for all M in Positive =>
-           (for all D in Positive =>
-              (if Is_Divisor (M, D)
-                 then M mod D = 0)));
       
       pragma Assert
         (for all D in Positive => 
