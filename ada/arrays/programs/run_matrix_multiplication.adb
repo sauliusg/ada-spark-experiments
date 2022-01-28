@@ -46,11 +46,11 @@ procedure Run_Matrix_Multiplication is
       Put_Line( "]" );
    end Put;   
    
-   A : IMatrix( 1..10, 1..20);
+   A : IMatrix( 1..10, 1..20 );
    B : IMatrix( 1..20, 1..10 );
    C : IMatrix( 1..10, 1..10 );
    
-   X : FMatrix( 1..10, 1..20);
+   X : FMatrix( 1..10, 1..20 );
    Y : FMatrix( 1..20, 1..10 );
    Z : FMatrix( 1..10, 1..10 );
    
