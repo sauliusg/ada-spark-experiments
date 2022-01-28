@@ -5,6 +5,9 @@ with Matrix_Multiplication;
 
 procedure Run_Matrix_Multiplication is
    
+   -- package Float_Matrix_Multiplication is
+   --    new Matrix_Multiplication (Float);
+   
    package Integer_Matrix_Multiplication is
       new Matrix_Multiplication (Integer);
    

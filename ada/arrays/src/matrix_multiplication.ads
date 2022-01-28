@@ -1,5 +1,8 @@
 generic 
    type Matrix_Element is range <>;
+   -- type Matrix_Element is private;
+   -- with function "*" (Matrix_Element,Matrix_Element) return Matrix_Element is <>;
+   -- with function "+" (Matrix_Element,Matrix_Element) return Matrix_Element is <>;
      
 package Matrix_Multiplication is
    
