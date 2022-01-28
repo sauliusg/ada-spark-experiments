@@ -87,4 +87,11 @@ begin
    Multiply ( X, Y, Z );
    Put ( Z );
    
+   New_Line;
+   Put_Line ( "Square of Z:" );
+   
+   Z := Z * Z;
+   
+   Put (Z);
+   
 end Run_Matrix_Multiplication;

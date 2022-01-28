@@ -27,4 +27,16 @@ package body Matrix_Multiplication is
       
    end;
    
+   function Product (M1, M2 : Matrix) return Matrix is
+      Result : Matrix (M1'First(1) .. M1'Last(1), M2'First(2) .. M2'Last(2));
+   begin
+      Multiply (M1, M2, Result);
+      return Result;
+   end;
+   
+   function "*" (M1, M2 : Matrix) return Matrix is
+   begin
+      return Product (M1, M2);
+   end;
+   
 end Matrix_Multiplication;

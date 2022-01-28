@@ -10,6 +10,8 @@ package Matrix_Multiplication is
      
      procedure Multiply (M1, M2 : in Matrix; Result : out Matrix );
      
-     -- function "*" (M1, M2 : Matrix) return Matrix;
+     function Product (M1, M2 : Matrix) return Matrix;
+     
+     function "*" (M1, M2 : Matrix) return Matrix with Inline;
    
 end Matrix_Multiplication;
