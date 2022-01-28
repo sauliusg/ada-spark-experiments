@@ -5,7 +5,7 @@ package body Matrix_Multiplication is
    
    pragma assertion_policy(check);
 
-   procedure Multiply (M1, M2 : in Matrix; Result : out Matrix ) is
+   procedure Multiply (M1, M2 : in Matrix; Result : out Matrix) is
    begin
       
       pragma Assert ( M1'Last(2) - M1'First(2) = M2'Last(1) - M2'First(1) );
@@ -18,14 +18,8 @@ package body Matrix_Multiplication is
       
       for I in M1'Range(1) loop
          for J in M2'Range(2) loop
-            Result(I,J) := 0;
+            Result(I,J) := Zero;
             for K in M1'Range(2) loop
-               pragma Assert (K in M2'Range(1));
-               pragma Assert (K in M1'Range(2));
-               pragma Assert (I in M1'Range(1));
-               pragma Assert (J in M2'Range(2));
-               pragma Assert (I in Result'Range(1));
-               pragma Assert (J in Result'Range(2));
                Result(I,J) := Result(I,J) + M1(I,K) * M2(K,J);
             end loop;
          end loop;
