@@ -1,4 +1,5 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Command_Line;    use Ada.Command_Line;
 -- with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
 procedure Unconstrained_Matrices is
@@ -79,6 +80,10 @@ begin
    
    Put( U );
    Put_Last( U );
+   
+   if Argument_Count > 0 then
+      N := Integer'Value( Argument(1) );
+   end if;
    
    declare
       X : Matrix( 1..N, 1..N );
