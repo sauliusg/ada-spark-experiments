@@ -23,6 +23,14 @@ run: ${ADA_EXE}
 		( set -x; $${FILE} ) \
 	done
 
+${BIN_DIR}/%_with_gc: ${PRG_DIR}/%_with_gc.adb
+	gnatmake \
+		-I${SRC_DIR} \
+		-Ilibs/boehmgc-ada/source \
+		-Ilibs/boehmgc-ada/pre-translated-headers \
+		-D ${OBJ_DIR} \
+		-o $@ $<
+
 ${BIN_DIR}/%: ${PRG_DIR}/%.adb
 	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -o $@ $<
 

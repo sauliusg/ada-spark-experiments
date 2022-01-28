@@ -1,12 +1,15 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Command_Line;    use Ada.Command_Line;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
-with Ada.Unchecked_Deallocation;
+--  This file is intended to work with some sort of garbage collector,
+--  e.g. with a conservative Boehm-Demers-Weiser collector such as
+--  libgc.
 
-procedure Unconstrained_Matrices is
-   
-   package Integer_IO is new Ada.Text_IO.Integer_IO (Integer);
-   use Integer_IO;
+with System.Storage_Elements;
+with GC.Pools;
+
+procedure Unconstrained_Matrices_Witg_GC is
    
    type Matrix is 
      array (Integer range <>, Integer range <>) of Integer;
@@ -103,8 +106,7 @@ begin
             while K >= 2 loop
                declare
                   type PMatrix is access Matrix;
-                  procedure Free is
-                     new Ada.Unchecked_Deallocation(Matrix, PMatrix);
+                  for PMatrix'Storage_Pool use GC.Pools.Pool;
                   X : Pmatrix;
                begin
                   X := new Matrix( 1..K, 1..K );
@@ -113,9 +115,6 @@ begin
                   Put_Separator;
                   Put( "Round: " ); Put(L,1); New_Line;
                   Put_Last( X.all );
-                  
-                  FREE( X );
-                  -- Put_Last( X.all ); -- exception!
                end;
                K := K / 2;
             end loop;
