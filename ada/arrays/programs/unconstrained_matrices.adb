@@ -2,6 +2,8 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Command_Line;    use Ada.Command_Line;
 -- with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
+with Ada.Unchecked_Deallocation;
+
 procedure Unconstrained_Matrices is
    
    package Integer_IO is new Ada.Text_IO.Integer_IO (Integer);
@@ -85,13 +87,39 @@ begin
       N := Integer'Value( Argument(1) );
    end if;
    
-   declare
-      X : Matrix( 1..N, 1..N );
-   begin
-      Initialise_Unit( X );
-      Put_Separator;
-      Put( X );
-      Put_Last( X );
-   end;
+   if N <= 20 then
+      declare
+         X : Matrix( 1..N, 1..N );
+      begin
+         Initialise_Unit( X );
+         Put_Separator;
+         Put( X );
+         Put_Last( X );
+      end;
+   else
+      for L in 1..20 loop
+         declare
+            K : Integer := N;            
+         begin
+            while K >= 2 loop
+               declare
+                  type PMatrix is access Matrix;
+                  procedure Free is
+                     new Ada.Unchecked_Deallocation(Matrix, PMatrix);
+                  X : Pmatrix;
+               begin
+                  X := new Matrix( 1..K, 1..K );
+         
+                  Initialise_Unit( X.all );
+                  Put_Separator;
+                  Put_Last( X.all );
+                  
+                  FREE( X );
+               end;
+               K := K / 2;
+            end loop;
+         end; -- declare
+      end loop;
+   end if;
    
 end;
