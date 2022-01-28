@@ -32,7 +32,7 @@ ${BIN_DIR}/%_with_gc: ${PRG_DIR}/%_with_gc.adb
 		-o $@ $<
 
 ${BIN_DIR}/%: ${PRG_DIR}/%.adb
-	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -o $@ $<
+	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -o $@ $< -gnata
 
 ${PRG_DIR}/.%.d: ${PRG_DIR}/%.adb
 	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -M $< \
