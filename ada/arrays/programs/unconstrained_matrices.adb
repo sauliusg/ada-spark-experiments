@@ -115,6 +115,7 @@ begin
                   Put_Last( X.all );
                   
                   FREE( X );
+                  -- Put_Last( X.all ); -- exception!
                end;
                K := K / 2;
             end loop;
