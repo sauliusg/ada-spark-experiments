@@ -47,6 +47,22 @@ procedure Unconstrained_Matrices is
       Put_Line( "" );
    end;
    
+   procedure Initialise_Unit (M : out Matrix) is
+   begin
+      pragma Assert (M'First(1) = M'First(2));
+      pragma Assert (M'Last(1) = M'Last(2));
+      
+      for I in M'Range(1) loop
+         for J in M'Range(2) loop
+            if I = J then
+               M(I,J) := 1;
+            else
+               M(I,J) := 0;
+            end if;
+         end loop;
+      end loop;
+   end Initialise_Unit;
+   
 begin
    for I in M'Range(1) loop
       for J in M'Range(2) loop
@@ -54,15 +70,7 @@ begin
       end loop;
    end loop;
    
-   for I in U'Range(1) loop
-      for J in U'Range(2) loop
-         if I = J then
-            U(I,J) := 1;
-         else
-            U(I,J) := 0;
-         end if;
-      end loop;
-   end loop;
+   Initialise_Unit( U );
    
    Put( M );
    Put_Last( M );
@@ -71,5 +79,14 @@ begin
    
    Put( U );
    Put_Last( U );
+   
+   declare
+      X : Matrix( 1..N, 1..N );
+   begin
+      Initialise_Unit( X );
+      Put_Separator;
+      Put( X );
+      Put_Last( X );
+   end;
    
 end;
