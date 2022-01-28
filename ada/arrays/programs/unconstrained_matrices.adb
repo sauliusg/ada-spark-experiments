@@ -40,6 +40,13 @@ procedure Unconstrained_Matrices is
       Put_Line("");
    end Put_Last;
    
+   procedure Put_Separator is
+   begin
+      Put_Line( "" );
+      Put_Line( "---------------" );
+      Put_Line( "" );
+   end;
+   
 begin
    for I in M'Range(1) loop
       for J in M'Range(2) loop
@@ -60,9 +67,7 @@ begin
    Put( M );
    Put_Last( M );
    
-   Put_Line( "" );
-   Put_Line( "---------------" );
-   Put_Line( "" );
+   Put_Separator;
    
    Put( U );
    Put_Last( U );
