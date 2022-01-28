@@ -1,17 +1,16 @@
 
 CWD := $(shell pwd)
 
+PRG_DIR = programs
 SRC_DIR = src
 BIN_DIR = bin
 OBJ_DIR = .obj
 
-PROG_DIR = .
+ADA_PROGRAMS = $(wildcard ${PRG_DIR}/*.adb)
 
-ADA_PROGRAMS = $(wildcard ${PROG_DIR}/*.adb)
+ADA_DEPEND = ${ADA_PROGRAMS:${PRG_DIR}/%.adb=${PRG_DIR}/.%.d}
 
-ADA_DEPEND = ${ADA_PROGRAMS:${PROG_DIR}/%.adb=${PROG_DIR}/.%.d}
-
-ADA_EXE = ${ADA_PROGRAMS:${PROG_DIR}/%.adb=${BIN_DIR}/%}
+ADA_EXE = ${ADA_PROGRAMS:${PRG_DIR}/%.adb=${BIN_DIR}/%}
 
 .PHONY: all run clean distclean mostlyclean cleanAll
 
@@ -24,10 +23,10 @@ run: ${ADA_EXE}
 		( set -x; $${FILE} ) \
 	done
 
-${BIN_DIR}/%: ${PROG_DIR}/%.adb
+${BIN_DIR}/%: ${PRG_DIR}/%.adb
 	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -o $@ $<
 
-${PROG_DIR}/.%.d: ${PROG_DIR}/%.adb
+${PRG_DIR}/.%.d: ${PRG_DIR}/%.adb
 	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -M $< \
 	| sed 's/^\(.*\)\.o :/${BIN_DIR}\/\1 :/' \
 	| sed 's:${CWD}/::' \
