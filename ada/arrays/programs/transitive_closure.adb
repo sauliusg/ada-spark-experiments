@@ -82,7 +82,6 @@ begin
                      J := 1;
                   end if;
                   exit when I > P'Last;
-                  exit when End_Of_File (Current_File.all);
                end loop;
                
                Close (Current_File.all);
