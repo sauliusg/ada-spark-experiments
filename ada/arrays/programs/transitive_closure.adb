@@ -1,5 +1,7 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Command_Line;    use Ada.Command_Line;
+with Ada.Unchecked_Deallocation;
 
 with Matrix_Multiplication;
 
@@ -43,39 +45,60 @@ procedure Transitive_Closure is
       return True;
    end;
    
-   N : Integer;
-   
+   Number_Of_Inputs : Integer :=
+       (if Argument_Count > 0 then Argument_Count else 1);
+       
+   type Access_File_Type is access File_Type;
+   Current_File : Access_File_Type;
+       
+   procedure Free is
+      new Ada.Unchecked_Deallocation(File_Type, Access_File_Type);
+
 begin
    
-   if not End_Of_File then
-      N := Integer'Value( Get_Line );
+   for Input_Idx in 1 .. Number_Of_Inputs loop
+      if Argument_Count = 0 then
+         Current_File := new File_Type'(Standard_Input);
+      else
+         Current_File := new File_Type;
+         Open (Current_File.all, In_File, Argument(Input_Idx));
+      end if;
       
-      declare
-         P, Q : Matrix(1 .. N, 1 .. N);
-         I, J : Integer := 1;
-      begin
-         loop
-            exit when End_Of_File;
-            Get( P(I,J), Width => 0 );
-            if J < P'Last then
-               J := J + 1;
-            else
-               I := I + 1;
-               J := 1;
-            end if;
-            exit when I > P'Last;
-            exit when End_Of_File;
-         end loop;
+      if not End_Of_File (Current_File.all) then
+         declare
+            N : Integer := Integer'Value (Get_Line (Current_File.all));
+         begin
+            declare
+               P, Q : Matrix(1 .. N, 1 .. N);
+               I, J : Integer := 1;
+            begin
+               loop
+                  exit when End_Of_File (Current_File.all);
+                  Get (Current_File.all, P(I,J), Width => 0);
+                  if J < P'Last then
+                     J := J + 1;
+                  else
+                     I := I + 1;
+                     J := 1;
+                  end if;
+                  exit when I > P'Last;
+                  exit when End_Of_File (Current_File.all);
+               end loop;
+               
+               Close (Current_File.all);
+               Free (Current_File);
+               
+               loop
+                  Q := P * P;
+                  exit when P = Q;
+                  P := Q;
+               end loop;
          
-         loop
-            Q := P * P;
-            exit when P = Q;
-            P := Q;
-         end loop;
-         
-         Put( N, 1 ); New_Line;
-         Put( P );
-      end;
-   end if;
+               Put( N, 1 ); New_Line;
+               Put( P );
+            end;
+         end;
+      end if;
+   end loop;
    
 end Transitive_Closure;
