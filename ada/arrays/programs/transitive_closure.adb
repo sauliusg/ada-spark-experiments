@@ -86,7 +86,6 @@ begin
                end loop;
                
                Close (Current_File.all);
-               Free (Current_File);
                
                loop
                   Q := P * P;
@@ -99,6 +98,11 @@ begin
             end;
          end;
       end if;
+      
+      if Is_Open (Current_File.all) then
+         Close (Current_File.all);
+      end if;
+      Free (Current_File);
    end loop;
    
 end Transitive_Closure;
