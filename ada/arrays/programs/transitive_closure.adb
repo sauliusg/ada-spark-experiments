@@ -22,6 +22,17 @@ procedure Transitive_Closure is
    
    type Matrix is new Integer_Matrix_Multiplication.Matrix;
    
+   function "+" ( M1, M2 : Matrix ) return Matrix is
+      Result : Matrix (M1'Range(1), M1'Range(2));
+   begin
+      for I in M1'Range(1) loop
+         for J in M1'Range(2) loop
+            Result(I,J) := M1(I,J) + M2(I,J);
+         end loop;
+      end loop;
+      return Result;
+   end;
+   
    procedure Put( M : Matrix ) is
    begin
       for I in M'Range(1) loop
@@ -69,27 +80,28 @@ begin
             N : Integer := Integer'Value (Get_Line (Current_File.all));
          begin
             declare
-               P, Q : Matrix(1 .. N, 1 .. N);
+               P, Q, R : Matrix(1 .. N, 1 .. N);
                I, J : Integer := 1;
             begin
                loop
                   exit when End_Of_File (Current_File.all);
-                  Get (Current_File.all, P(I,J), Width => 0);
-                  if J < P'Last then
+                  Get (Current_File.all, R(I,J), Width => 0);
+                  if J < R'Last then
                      J := J + 1;
                   else
                      I := I + 1;
                      J := 1;
                   end if;
-                  exit when I > P'Last;
+                  exit when I > R'Last;
                end loop;
                
                Close (Current_File.all);
-               
+                              
+               Q := R;
                loop
-                  Q := P * P;
+                  P := Q + Q * R;
                   exit when P = Q;
-                  P := Q;
+                  Q := P;
                end loop;
          
                Put( N, 1 ); New_Line;
