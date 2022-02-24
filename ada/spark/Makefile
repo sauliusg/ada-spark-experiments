@@ -1,40 +1,32 @@
+# --*- Makefile -*-------------------------------------------------------------
+#$Author$
+#$Date$
+#$Revision$
+#$URL$
+#------------------------------------------------------------------------------
 
-CWD := $(shell pwd)
+MAKEFILE_DIRS = . makefiles/enabled
+MAKEFILE_WCARDS = $(addsuffix /Makelocal*, ${MAKEFILE_DIRS})
+MAKECONF_WCARDS = $(addsuffix /Makeconf*, ${MAKEFILE_DIRS})
 
-PRG_DIR = .
-SRC_DIR = src
-BIN_DIR = .
-OBJ_DIR = .obj
+MAKECONF_FILES = $(filter-out %.example, \
+	$(filter-out %~, $(wildcard ${MAKECONF_WCARDS}) \
+))
 
-ADA_PROGRAMS = $(wildcard ${PRG_DIR}/*.adb)
+ifneq ("${MAKECONF_FILES}","")
+include ${MAKECONF_FILES}
+endif
 
-ADA_DEPEND = ${ADA_PROGRAMS:${PRG_DIR}/%.adb=${PRG_DIR}/.%.d}
+.PHONY: all clean distclean cleanAll
 
-ADA_EXE = ${ADA_PROGRAMS:${PRG_DIR}/%.adb=${BIN_DIR}/%}
+all:
 
-.PHONY: all run clean distclean mostlyclean cleanAll
+clean:
 
-all: ${ADA_EXE}
+cleanAll distclean: clean
 
-include ${ADA_DEPEND}
+MAKELOCAL_FILES = ${filter-out %~, ${wildcard ${MAKEFILE_WCARDS}}}
 
-run: ${ADA_EXE}
-	for FILE in $^; do \
-		( set -x; ${BIN_DIR}/$${FILE} ) \
-	done
-
-${BIN_DIR}/%: ${PRG_DIR}/%.adb
-	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -o $@ $<
-
-${PRG_DIR}/.%.d: ${PRG_DIR}/%.adb
-	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -M $< \
-	| sed 's/^\(.*\)\.o :/${BIN_DIR}\/\1 :/' \
-	| sed 's:${CWD}/::' \
-	> $@
-
-clean mostlyclean:
-	rm -f ${OBJ_DIR}/*
-	rm -f ${ADA_DEPEND}
-
-distclean cleanAll: clean
-	rm -f ${ADA_EXE}
+ifneq ("${MAKELOCAL_FILES}","")
+include ${MAKELOCAL_FILES}
+endif
