@@ -1,0 +1,12 @@
+# --*- Makefile -*-------------------------------------------------------------
+
+# Run the 'gnatprove' prover.
+
+GNATPROVE_PROJECT_FILE ?= main.gpr
+
+GNATPROVE_OPTIONS ?= --report=all
+
+.PHONY: prove
+
+prove:
+	gnatprove -P ${GNATPROVE_PROJECT_FILE} ${GNATPROVE_OPTIONS}
