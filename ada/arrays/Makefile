@@ -18,9 +18,11 @@ all: ${ADA_EXE}
 
 include ${ADA_DEPEND}
 
+STDIN = relation_g4g1.dat
+
 run: ${ADA_EXE}
 	for FILE in $^; do \
-		( set -x; $${FILE} ) \
+		( set -x; $${FILE} < ${STDIN} ) \
 	done
 
 ${BIN_DIR}/%_with_gc: ${PRG_DIR}/%_with_gc.adb
