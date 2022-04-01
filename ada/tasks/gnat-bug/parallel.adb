@@ -1,4 +1,4 @@
-pragma Ada_2020;
+pragma Ada_2022;
 
 with Text_IO; use Text_IO;
 
