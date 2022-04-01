@@ -6,17 +6,28 @@ procedure Try_Tasks is
    
    task Counter_Task is
       entry Increment;
+      entry Finish;
    end;
    
-   task Subtask_1;
-   task Subtask_2;
+   task Subtask_1 is
+      entry Wait;
+   end;
+   
+   task Subtask_2 is
+      entry Wait;
+   end;
    
    task body Counter_Task is
    begin
       loop
-         accept Increment do
-            Counter := Counter + 1;
-         end;
+         select
+            accept Increment do
+               Counter := Counter + 1;
+            end;
+         or
+            accept Finish;
+            exit;
+         end select;
       end loop;
    end;
    
@@ -26,6 +37,7 @@ procedure Try_Tasks is
       for I in 1 .. 10000 loop
          Counter_Task.Increment;
       end loop;
+      accept Wait;
    end;
    
    task body Subtask_2 is
@@ -34,9 +46,13 @@ procedure Try_Tasks is
       for I in 1 .. 10000 loop
          Counter_Task.Increment;
       end loop;
+      accept Wait;
    end;
    
 begin
    Put_Line ("This is the MAIN task");
+   Subtask_1.Wait;
+   Subtask_2.Wait;
+   Counter_Task.Finish;
    Put (Integer'Image (Counter));
 end;
