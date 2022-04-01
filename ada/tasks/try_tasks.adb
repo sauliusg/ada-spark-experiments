@@ -2,10 +2,9 @@ with Text_IO; use Text_IO;
 
 procedure Try_Tasks is
    
-   Counter : Integer := 0;
-   
    task Counter_Task is
       entry Increment;
+      entry Get_Counter( Counter_Value : out Integer );
       entry Finish;
    end;
    
@@ -18,11 +17,16 @@ procedure Try_Tasks is
    end;
    
    task body Counter_Task is
+      Counter : Integer := 0;
    begin
       loop
          select
             accept Increment do
                Counter := Counter + 1;
+            end;
+         or 
+            accept Get_Counter( Counter_Value : out Integer ) do
+               Counter_Value := Counter;
             end;
          or
             accept Finish;
@@ -61,6 +65,11 @@ begin
    Put_Line ("This is the MAIN task");
    Subtask_1.Wait;
    Subtask_2.Wait;
+   declare
+      Counter : Integer;
+   begin
+      Counter_Task.Get_Counter (Counter);
+      Put (Integer'Image (Counter));
+   end;
    Counter_Task.Finish;
-   Put (Integer'Image (Counter));
 end;
