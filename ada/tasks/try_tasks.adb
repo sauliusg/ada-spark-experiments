@@ -36,6 +36,10 @@ procedure Try_Tasks is
       Put_Line ("This is a subtask 1");
       for I in 1 .. 10000 loop
          Counter_Task.Increment;
+         if I mod 1000 = 0 then
+            Put_Line ("Task 1: incrementing counter for the " & 
+                        Integer'Image (I) & "-th time" );
+         end if;
       end loop;
       accept Wait;
    end;
@@ -45,6 +49,10 @@ procedure Try_Tasks is
       Put_Line ("This is a subtask 2");
       for I in 1 .. 10000 loop
          Counter_Task.Increment;
+         if I mod 1000 = 0 then
+            Put_Line ("Task 2: incrementing counter for the " & 
+                        Integer'Image (I) & "-th time" );
+         end if;
       end loop;
       accept Wait;
    end;
