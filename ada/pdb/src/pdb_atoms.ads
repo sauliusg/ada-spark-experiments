@@ -18,7 +18,7 @@ package PDB_Atoms is
       Residue_Name : String (1..3);
       Chain : String (1..1);
       Segment : String (1..4);
-      Charge : Float range -10.0 .. +10.0;
+      Charge : Integer range -9 .. +9;
    end record;
    
 end PDB_Atoms;
