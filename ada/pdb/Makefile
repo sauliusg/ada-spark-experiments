@@ -18,7 +18,7 @@ all: ${ADA_EXE}
 
 include ${ADA_DEPEND}
 
-STDIN = relation_g4g1.dat
+STDIN = 
 
 run: ${ADA_EXE}
 	for FILE in $^; do \
@@ -35,6 +35,7 @@ ${BIN_DIR}/%_with_gc: ${PRG_DIR}/%_with_gc.adb
 
 ${BIN_DIR}/%: ${PRG_DIR}/%.adb
 	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -o $@ $< -gnata
+	${MAKE} --no-print-directory -W $< ${PRG_DIR}/.$*.d
 
 ${PRG_DIR}/.%.d: ${PRG_DIR}/%.adb
 	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -M $< \
