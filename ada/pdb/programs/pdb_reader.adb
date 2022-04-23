@@ -13,7 +13,7 @@ procedure PDB_Reader is
    Default_Charge : constant Integer := 0;
    
    package Perly_Reader is
-      function Get_Current_Line return String;
+      function Get_Current_File_Line return String;
       function End_Of_All_Files return Boolean;
    private
       Is_STDIN : Boolean := False;
@@ -23,7 +23,7 @@ procedure PDB_Reader is
          
    package body Perly_Reader is
       
-      function Get_Current_Line return String is
+      function Get_Current_File_Line return String is
       begin
          if Argument_Count = 0 then
             return Get_Line (Standard_Input);
@@ -85,7 +85,7 @@ procedure PDB_Reader is
 begin
    while not End_Of_All_Files loop
       declare
-         PDB_Line : String := Get_Current_Line;
+         PDB_Line : String := Get_Current_File_Line;
       begin
          
          if PDB_Line'Last > 6 and then
