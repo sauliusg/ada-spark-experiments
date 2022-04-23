@@ -25,9 +25,7 @@ procedure PDB_Reader is
       
       function Get_Current_Line return String is
       begin
-         -- Put_Line (Standard_Error, ">>> Called 'Get_Current_Line'");
          if Argument_Count = 0 then
-            -- Put_Line (Standard_Error, ">>> read STDIN since Argument_Count is zero");
             return Get_Line (Standard_Input);
          else
             if Current_Argument = 0 or else
@@ -36,34 +34,22 @@ procedure PDB_Reader is
                  and then not Is_STDIN 
                  and then End_Of_File (Current_File))
             then
-               
-               -- if Is_STDIN and then End_Of_File (Standard_Input) then
-               --    Put_Line (Standard_Error, ">>> read STDIN and reached EOF");
-               -- end if;
-               
                if not Is_STDIN and then Current_Argument > 0
                then
-                  -- Put_Line (Standard_Error, ">>> closing file " & Argument (Current_Argument));
                   Close (Current_File);
                end if;
+               
                Current_Argument := Current_Argument + 1;
+               
                if Argument (Current_Argument) = "-" then
-                  -- Put_Line (Standard_Error, ">>> setting Is_STDIN to TRUE");
                   Is_STDIN := True;
                else
-                  -- Put_Line (Standard_Error, ">>> setting Is_STDIN to False, opening file " & Argument (Current_Argument));
                   Is_STDIN := False;
                   Open (Current_File, In_File, Argument (Current_Argument));
                end if;
             end if;
             if Is_STDIN then
-               -- Put_Line (Standard_Error, ">>>  Reading from STDIN");
-               declare
-                  Line : String := Get_Line (Standard_Input);
-               begin
-                  -- Put_Line (Standard_Error, ">>>  Got a line from STDIN");
-                  return Line;
-               end;
+               return Get_Line (Standard_Input);
             else
                return Get_Line (Current_File);
             end if;
@@ -72,16 +58,12 @@ procedure PDB_Reader is
       
       function End_Of_All_Files return Boolean is
       begin
-         -- Put_Line (Standard_Error, ">>> Called 'End_Of_All_Files'");
          if Argument_Count = 0 then
-            -- Put_Line (Standard_Error, ">>> will check EOF on STDIN because of zero Argument_Count");
             return End_Of_File (Standard_Input);
          elsif Current_Argument = Argument_Count then
             if Is_STDIN then
-               -- Put_Line (Standard_Error, ">>> will check EOF on STDIN");
                return End_Of_File (Standard_Input);
             else
-               -- Put_Line (Standard_Error, ">>> will check EOF on 'Current_File'");
                return End_Of_File (Current_File);
             end if;
          end if;
