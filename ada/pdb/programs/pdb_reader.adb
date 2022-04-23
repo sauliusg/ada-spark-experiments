@@ -27,7 +27,7 @@ begin
          
             Put (A.Kind'Image);
             Put (" ");
-            Put (Integer'Image (A.Serial_Number));
+            Put (A.Serial_Number,5);
             Put (" ");
             Put (A.Atom_Name);
             Put (" ");
@@ -36,7 +36,7 @@ begin
             Put (" ");
             Put (A.Chain);
             Put (" ");
-            Put (Integer'Image (A.Residue_Number));
+            Put (A.Residue_Number,4);
             Put (A.Insertion_Code);
             Put (" ");
             Put (A.X);

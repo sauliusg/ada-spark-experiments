@@ -4,8 +4,10 @@ package body PDB_Atoms is
    Default_Occupancy : constant Float := 1.0;
    
    procedure Get_Atom (A : out PDB_Atom; PDB_Line : in String) is
-      pragma Assert (PDB_Line'First = 1);  -- PDB line indices start from 1
-      pragma Assert (PDB_Line'Last >= 54); -- At least coordinates MUST be provided
+      pragma Assert (PDB_Line'First = 1, "PDB line indices MUST start from 1");
+      pragma Assert (PDB_Line'Last >= 54,
+                     "At least X, Y and Z coordinates MUST be provided in a " &
+                       "PDB ATOM line");
    begin
       if PDB_Line (1..6) = "ATOM  " then
          A.Kind := PDB_Atom_Kind'(ATOM);
