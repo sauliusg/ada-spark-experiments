@@ -29,7 +29,7 @@ begin
             Put (A.Kind'Image);
             Put ((6 - A.Kind'Image'Length) * " ");
             Put (" ");
-            Put (A.Serial_Number,5);
+            Put (A.Serial_Number, 5);
             Put (" ");
             Put (A.Atom_Name);
             Put (" ");
@@ -38,7 +38,7 @@ begin
             Put (" ");
             Put (A.Chain);
             Put (" ");
-            Put (A.Residue_Number,4);
+            Put (A.Residue_Number, 4);
             Put (A.Insertion_Code);
             Put (" ");
             Put (A.X);
@@ -51,13 +51,17 @@ begin
             Put (" ");
             Put (A.B_Factor);
             Put (" ");
-            Put (A.Segment);
+            if A.Segment /= "    " then
+               Put (A.Segment);
+            else
+               Put ("****");
+            end if;
             Put (" ");
             Put (A.Chem_Type);
             Put (" ");
-            Put (Integer (A.Atomic_Number));
+            Put (Integer (A.Atomic_Number), 3);
             Put (" ");
-            Put (A.Charge);
+            Put (A.Charge, 2);
             New_Line;
          end if;
       end;
