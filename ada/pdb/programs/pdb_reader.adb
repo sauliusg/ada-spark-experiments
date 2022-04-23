@@ -49,9 +49,17 @@ procedure PDB_Reader is
                end if;
             end if;
             if Is_STDIN then
-               return Get_Line (Standard_Input);
+               if not End_Of_File (Standard_Input) then
+                  return Get_Line (Standard_Input);
+               else
+                  return "";
+               end if;
             else
-               return Get_Line (Current_File);
+               if not End_Of_File (Current_File) then
+                  return Get_Line (Current_File);
+               else
+                  return "";
+               end if;
             end if;
          end if;
       end;
