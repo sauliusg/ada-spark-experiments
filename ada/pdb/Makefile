@@ -28,8 +28,6 @@ run: ${ADA_EXE}
 ${BIN_DIR}/%_with_gc: ${PRG_DIR}/%_with_gc.adb
 	gnatmake \
 		-I${SRC_DIR} \
-		-Ilibs/boehmgc-ada/source \
-		-Ilibs/boehmgc-ada/pre-translated-headers \
 		-D ${OBJ_DIR} \
 		-o $@ $<
 
