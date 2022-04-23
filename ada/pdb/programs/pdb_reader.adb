@@ -1,4 +1,5 @@
 with Ada.Text_IO;         use Ada.Text_IO;
+with Ada.Strings.Fixed;   use Ada.Strings.Fixed;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Ada.Float_Text_IO;   use Ada.Float_Text_IO;
 with PDB_Atoms;           use PDB_Atoms;
@@ -26,6 +27,7 @@ begin
             Get_Atom (A, PDB_Line);
          
             Put (A.Kind'Image);
+            Put ((6 - A.Kind'Image'Length) * " ");
             Put (" ");
             Put (A.Serial_Number,5);
             Put (" ");
