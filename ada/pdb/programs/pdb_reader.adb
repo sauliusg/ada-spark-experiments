@@ -11,10 +11,6 @@ procedure PDB_Reader is
    Default_Charge : constant Integer := 0;
    
 begin
-   Put_Line ("Ada PDB Atom Reader");
-   
-   -- Put_Line (A.Kind'Image);
-   
    while not End_Of_File (Standard_Input) loop
       declare
          PDB_Line : String := Get_Line (Standard_Input);
