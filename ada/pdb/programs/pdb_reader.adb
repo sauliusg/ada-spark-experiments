@@ -23,8 +23,8 @@ begin
          
             Get_Atom (A, PDB_Line);
          
-            Put (A.Kind'Image);
-            Put ((6 - A.Kind'Image'Length) * " ");
+            Put (PDB_Atom_Kind'Image (A.Kind));
+            Put ((6 - PDB_Atom_Kind'Image(A.Kind)'Length) * " ");
             Put (" ");
             Put (A.Serial_Number, 5);
             Put (" ");
