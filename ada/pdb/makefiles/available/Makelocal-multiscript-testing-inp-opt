@@ -24,7 +24,7 @@ OUTP_DIR ?= tests/outputs
 INP_FILES ?= ${wildcard ${TEST_DIR}/*.inp}
 OPT_FILES ?= ${wildcard ${TEST_DIR}/*.opt}
 
-TEST_FILES ?= ${INP_FILES} ${OPT_FILES}
+TEST_FILES ?= $(sort ${INP_FILES} ${OPT_FILES})
 
 DIFF_FILES += $(sort \
 	${INP_FILES:${TEST_DIR}/%.inp=${OUTP_DIR}/%.diff} \

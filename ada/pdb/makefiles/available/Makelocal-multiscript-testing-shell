@@ -23,7 +23,7 @@ BIN_DIR  ?= .
 TEST_DIR ?= tests/cases
 OUTP_DIR ?= tests/outputs
 
-SH_FILES ?= ${wildcard ${TEST_DIR}/*.sh}
+SH_FILES ?= $(sort ${wildcard ${TEST_DIR}/*.sh})
 
 SH_DIFFS ?= ${SH_FILES:${TEST_DIR}/%.sh=${OUTP_DIR}/%.diff}
 SH_OUTS  ?= ${SH_FILES:${TEST_DIR}/%.sh=${OUTP_DIR}/%.out}
