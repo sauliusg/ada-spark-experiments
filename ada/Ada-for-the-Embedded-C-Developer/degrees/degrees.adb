@@ -23,7 +23,7 @@ procedure Sum_Angles is
    
 begin
    for I in List'Range loop
-      List (I) := Degrees (Integer'Value (Argument (I)));
+      List (I) := Degrees (Integer'Value (Argument (I)) mod DEGREES_MAX);
    end loop;
 
    Put_Line ("Sum:" & Add_Angles (List)'Img);
