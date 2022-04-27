@@ -21,7 +21,7 @@ procedure Unconstrained_Matrices is
       Put_Line( "[ " );
       for I in M'Range(1) loop
          Put( " [ " );
-         for J in M'Range(1) loop
+         for J in M'Range(2) loop
             Put( M(I,J) );
             Put( " " );
          end loop;
