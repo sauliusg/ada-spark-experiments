@@ -11,8 +11,6 @@ procedure PDB_Inertia_Tensor is
    
    type Inertia_Tensor is array (1..3, 1..3) of Long_Float;
    
-   I : Inertia_Tensor;
-   
    type Atom_Mass_Record is record
       Atom_Symbol : String (1..2);
       Mass : Long_Float;
@@ -66,12 +64,15 @@ procedure PDB_Inertia_Tensor is
       return 12.011; -- assume Carbon by default...
    end;
    
+   I : Inertia_Tensor := (others => (others => 0.0));
+   
 begin
    while not End_Of_All_Files loop
       declare
          PDB_Line : String := Get_Current_File_Line;
          A : PDB_Atom;
          M : Long_Float;
+         X, Y, Z : Long_Float;
       begin
          
          if PDB_Line'Last > 6 and then
@@ -81,13 +82,45 @@ begin
             
             M := Lookup_Atomic_Mass (A.Chem_Type);
             
-            Put (A.Chem_Type);
-            Put (ASCII.HT);
-            Put (M,2,6,3);
-            New_Line;
+            -- Put (A.Chem_Type);
+            -- Put (ASCII.HT);
+            -- Put (M,2,6,3);
+            -- New_Line;
+            
+            -- Calculate the inertia tensor:
+            -- https://en.wikipedia.org/wiki/Inertia_Tensor
+            X := Long_Float (A.X);
+            Y := Long_Float (A.Y);
+            Z := Long_Float (A.Z);
+            
+            I (1,1) := I (1,1) + M * (X**2 + Y**2);
+            I (2,2) := I (2,2) + M * (X**2 + Z**2);
+            I (3,3) := I (3,3) + M * (Y**2 + Z**2);
+            
+            I (1,2) := I (1,2) - M * X * Y;
+            I (1,3) := I (1,2) - M * X * Z;
+            I (2,3) := I (1,2) - M * Y * Z;
             
          end if;
       end;
    end loop;
+   
+   I (2,1) := I (1,2);
+   I (3,1) := I (1,3);
+   I (3,2) := I (2,3);
+   
+   Put ("INERTIA ");
+   Put (I (1,1), 2, 6, 3);
+   Put (" ");
+   Put (I (2,2), 2, 6, 3);
+   Put (" ");
+   Put (I (2,2), 2, 6, 3);
+   Put (" ");
+   Put (I (1,2), 2, 6, 3);
+   Put (" ");
+   Put (I (1,3), 2, 6, 3);
+   Put (" ");
+   Put (I (2,3), 2, 6, 3);
+   New_Line;
    
 end PDB_Inertia_Tensor;
