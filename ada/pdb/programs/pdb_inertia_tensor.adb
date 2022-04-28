@@ -36,7 +36,8 @@ procedure PDB_Inertia_Tensor is
 
    -- ENVIRONMENT VARIABLES:   
 
-   -- PDB_INERTIA_TENSOR_MASS -- specify mass in Da to be used for all atoms instead of the actual atomic mass.
+   -- PDB_INERTIA_TENSOR_MASS -- specify mass in Da to be used for all
+   --                            atoms instead of the actual atomic mass.
    
    -- EXAMPLE:
    
