@@ -17,7 +17,7 @@ package body PDBx_Atom_Printer is
       Put (A.Serial_Number, 5);
       Put (" ");
       Put (A.Atom_Name);
-      Put (To_String ((4 - Length (A.Atom_Name)) * " "));
+      Put (To_String ((6 - Length (A.Atom_Name)) * " "));
       Put (" ");
       Put (A.Alt_Location);
       Put (" ");
