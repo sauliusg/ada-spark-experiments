@@ -1,7 +1,6 @@
 with Ada.Text_IO;         use Ada.Text_IO;
 with Perly_Reader;        use Perly_Reader;
 with PDB_Atoms;           use PDB_Atoms;
-with PDB_Atom_Printer;    use PDB_Atom_Printer;
 with Ada.Strings;         use Ada.Strings;
 with Ada.Strings.Fixed;   use Ada.Strings.Fixed;
 
