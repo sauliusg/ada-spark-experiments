@@ -18,7 +18,11 @@ package body PDBx_Atoms is
          Value : Integer;
       begin
          Find_Token (S, Whitespace, F, Test => Outside, First => F, Last => L);
-         Value := Integer'Value (S (F..L));
+         if S (F..L) = "." or else S (F..L) = "?" then
+            Value := -1;
+         else
+            Value := Integer'Value (S (F..L));
+         end if;
          F := L + 1;
          return Value;
       end;
@@ -27,7 +31,11 @@ package body PDBx_Atoms is
          Value : Float;
       begin
          Find_Token (S, Whitespace, F, Test => Outside, First => F, Last => L);
-         Value := Float'Value (S (F..L));
+         if S (F..L) = "." or else S (F..L) = "?" then
+            Value := 0.0;
+         else
+            Value := Float'Value (S (F..L));
+         end if;
          F := L + 1;
          return Value;
       end;
