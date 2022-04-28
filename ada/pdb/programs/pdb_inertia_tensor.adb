@@ -130,6 +130,14 @@ begin
       CY := CY / Total_Mass;
       CZ := CZ / Total_Mass;
       
+      -- Put ("COM ");
+      -- Put (CX);
+      -- Put (" ");
+      -- Put (CY);
+      -- Put (" ");
+      -- Put (CZ);
+      -- New_Line;
+      
       -- Calculate the inertia tensor components:
       for A of Atoms loop
          
