@@ -97,6 +97,12 @@ begin
            (PDB_Line (1..6) = "ATOM  " or else PDB_Line (1..6) = "HETATM") then
             Get_Atom (A, PDB_Line);
             Append (Atoms, A);
+            
+            pragma Debug (Put (A.Chem_Type));
+            pragma Debug (Put (ASCII.HT));
+            pragma Debug (Put (Lookup_Atomic_Mass (A.Chem_Type),2,6,3));
+            pragma Debug (New_Line);
+
          end if;
       end;
    end loop;
@@ -130,13 +136,13 @@ begin
       CY := CY / Total_Mass;
       CZ := CZ / Total_Mass;
       
-      -- Put ("COM ");
-      -- Put (CX);
-      -- Put (" ");
-      -- Put (CY);
-      -- Put (" ");
-      -- Put (CZ);
-      -- New_Line;
+      pragma Debug (Put ("COM "));
+      pragma Debug (Put (CX));
+      pragma Debug (Put (" "));
+      pragma Debug (Put (CY));
+      pragma Debug (Put (" "));
+      pragma Debug (Put (CZ));
+      pragma Debug (New_Line);
       
       -- Calculate the inertia tensor components:
       for A of Atoms loop
@@ -146,11 +152,6 @@ begin
          else
             M := Lookup_Atomic_Mass (A.Chem_Type);
          end if;
-         
-         -- Put (A.Chem_Type);
-         -- Put (ASCII.HT);
-         -- Put (M,2,6,3);
-         -- New_Line;
          
          -- Calculate the inertia tensor:
          -- https://en.wikipedia.org/wiki/Inertia_Tensor
