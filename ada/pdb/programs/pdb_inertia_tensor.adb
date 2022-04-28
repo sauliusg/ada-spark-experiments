@@ -77,6 +77,7 @@ procedure PDB_Inertia_Tensor is
    
    Use_Single_Mass : Boolean := False;
    Mass : Long_Float;
+   Total_Mass : Long_Float := 0.0;
    
 begin
    
@@ -121,11 +122,13 @@ begin
          CX := CX + M * Long_Float (A.X);
          CY := CY + M * Long_Float (A.Y);
          CZ := CZ + M * Long_Float (A.Z);
+         
+         Total_Mass := Total_Mass + M;
       end loop;
       
-      CX := CX / Long_Float (N);
-      CY := CY / Long_Float (N);
-      CZ := CZ / Long_Float (N);
+      CX := CX / Total_Mass;
+      CY := CY / Total_Mass;
+      CZ := CZ / Total_Mass;
       
       -- Calculate the inertia tensor components:
       for A of Atoms loop
