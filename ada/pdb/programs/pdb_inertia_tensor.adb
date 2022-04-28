@@ -14,7 +14,7 @@ procedure PDB_Inertia_Tensor is
    
    -- This program reads in a Brookhaven format PDB macromolecular
    --  structure file [1] and calculates components of its inertia
-   --  tensor [2]. The output sunits are Da * Å**2 (Daltons times
+   --  tensor [2]. The output units are Da * Å**2 (Daltons times
    --  Angstroems squared).
    
    -- USAGE:
