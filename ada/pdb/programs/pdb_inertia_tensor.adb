@@ -111,9 +111,16 @@ begin
       
       -- Find center of mass;
       for A of Atoms loop
-         CX := CX + Long_Float (A.X);
-         CY := CY + Long_Float (A.Y);
-         CZ := CZ + Long_Float (A.Z);
+         
+         if Use_Single_Mass then
+            M := Mass;
+         else
+            M := Lookup_Atomic_Mass (A.Chem_Type);
+         end if;
+         
+         CX := CX + M * Long_Float (A.X);
+         CY := CY + M * Long_Float (A.Y);
+         CZ := CZ + M * Long_Float (A.Z);
       end loop;
       
       CX := CX / Long_Float (N);
@@ -160,7 +167,7 @@ begin
    Put (" ");
    Put (I (2,2), 2, 6, 3);
    Put (" ");
-   Put (I (2,2), 2, 6, 3);
+   Put (I (3,3), 2, 6, 3);
    Put (" ");
    Put (I (1,2), 2, 6, 3);
    Put (" ");
