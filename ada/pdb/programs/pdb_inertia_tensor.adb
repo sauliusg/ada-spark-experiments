@@ -12,6 +12,48 @@ with Ada.Containers.Vectors;
   
 procedure PDB_Inertia_Tensor is
    
+   -- This program reads in a Brookhaven format PDB macromolecular
+   --  structure file [1] and calculates components of its inertia
+   --  tensor [2]. The output sunits are Da * Å**2 (Daltons times
+   --  Angstroems squared).
+   
+   -- USAGE:
+   --    pdb_inertia_tensor inp*.pdb
+   --    pdb_inertia_tensor < inp.pdb
+   
+   -- OUTPUT:
+   --    - keyword "INERTIA"
+   --    - Inertia tensor component I11, Da * Å**2
+   --    - Inertia tensor component I22, Da * Å**2
+   --    - Inertia tensor component I33, Da * Å**2
+   --    - Inertia tensor component I12, Da * Å**2
+   --    - Inertia tensor component I13, Da * Å**2
+   --    - Inertia tensor component I23, Da * Å**2
+   
+   -- EXAMPLE:
+   -- saulius@tasmanijos-velnias pdb/ $ ./bin/pdb_inertia_tensor tests/data/2c2a.pdb 
+   -- INERTIA  7.754770E+06  9.113123E+06  1.116631E+07  1.578982E+06  5.974219E+05 -1.373911E+06
+
+   -- ENVIRONMENT VARIABLES:   
+
+   -- PDB_INERTIA_TENSOR_MASS -- specify mass in Da to be used for all atoms instead of the actual atomic mass.
+   
+   -- EXAMPLE:
+   
+   -- saulius@tasmanijos-velnias pdb/ $ PDB_INERTIA_TENSOR_MASS=1.0 ./bin/pdb_inertia_tensor tests/data/2c2a.pdb
+   -- INERTIA  5.748197E+05  6.737733E+05  8.271438E+05  1.195075E+05  4.533875E+04 -1.013203E+05
+   
+   -- Refs.:
+   --
+   -- [1] Protein Data Bank Contents Guide: Atomic Coordinate Entry
+   --  Format DescriptionVersion 3.30. Document Published by the
+   --  wwPDB. URL:https://ftp.wwpdb.org/pub/pdb/doc/format_descriptions/Format_v33_A4.pdf
+   --  [accessed 2022-04-28T17:35+03:00]
+   --
+   -- [2] Wikipedia. Inertia Tensor. URL:https://en.wikipedia.org/wiki/Inertia_Tensor
+   --  [acessed: 2022-04-28T17:39+03:00, permalink:
+   --  https://en.wikipedia.org/w/index.php?title=Moment_of_inertia&oldid=1084396523]
+   
    type Inertia_Tensor is array (1..3, 1..3) of Long_Float;
    
    type Atom_Mass_Record is record
