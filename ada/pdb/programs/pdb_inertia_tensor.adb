@@ -5,8 +5,11 @@ with PDB_Atom_Printer;    use PDB_Atom_Printer;
 with Ada.Strings;         use Ada.Strings;
 with Ada.Strings.Fixed;   use Ada.Strings.Fixed;
 
-with Ada.Long_Float_Text_IO;   use Ada.Long_Float_Text_IO;
+with Ada.Long_Float_Text_IO;    use Ada.Long_Float_Text_IO;
+with Ada.Environment_Variables; use Ada.Environment_Variables;
 
+with Ada.Containers.Vectors;
+  
 procedure PDB_Inertia_Tensor is
    
    type Inertia_Tensor is array (1..3, 1..3) of Long_Float;
@@ -66,44 +69,87 @@ procedure PDB_Inertia_Tensor is
    
    I : Inertia_Tensor := (others => (others => 0.0));
    
+   package PDB_Atom_Vector is new Ada.Containers.Vectors (Natural, PDB_Atom);
+   
+   use PDB_Atom_Vector;
+   
+   Atoms : PDB_Atom_Vector.Vector;
+   
+   Use_Single_Mass : Boolean := False;
+   Mass : Long_Float;
+   
 begin
+   
+   -- check whether a single mass is to be used:
+   if Exists ("PDB_INERTIA_TENSOR_MASS") then
+      Use_Single_Mass := True;
+      Mass := Long_Float'Value (Value ("PDB_INERTIA_TENSOR_MASS"));
+   end if;
+   
+   -- load all atoms into a vector:
    while not End_Of_All_Files loop
       declare
          PDB_Line : String := Get_Current_File_Line;
          A : PDB_Atom;
-         M : Long_Float;
-         X, Y, Z : Long_Float;
       begin
-         
          if PDB_Line'Last > 6 and then
            (PDB_Line (1..6) = "ATOM  " or else PDB_Line (1..6) = "HETATM") then
-            
             Get_Atom (A, PDB_Line);
-            
-            M := Lookup_Atomic_Mass (A.Chem_Type);
-            
-            -- Put (A.Chem_Type);
-            -- Put (ASCII.HT);
-            -- Put (M,2,6,3);
-            -- New_Line;
-            
-            -- Calculate the inertia tensor:
-            -- https://en.wikipedia.org/wiki/Inertia_Tensor
-            X := Long_Float (A.X);
-            Y := Long_Float (A.Y);
-            Z := Long_Float (A.Z);
-            
-            I (1,1) := I (1,1) + M * (X**2 + Y**2);
-            I (2,2) := I (2,2) + M * (X**2 + Z**2);
-            I (3,3) := I (3,3) + M * (Y**2 + Z**2);
-            
-            I (1,2) := I (1,2) - M * X * Y;
-            I (1,3) := I (1,2) - M * X * Z;
-            I (2,3) := I (1,2) - M * Y * Z;
-            
+            Append (Atoms, A);
          end if;
       end;
    end loop;
+   
+   declare
+      N : Ada.Containers.Count_Type := Length (Atoms);
+      M : Long_Float;
+      CX : Long_Float := 0.0;
+      CY : Long_Float := 0.0;
+      CZ : Long_Float := 0.0;
+      X, Y, Z : Long_Float;
+   begin
+      
+      -- Find center of mass;
+      for A of Atoms loop
+         CX := CX + Long_Float (A.X);
+         CY := CY + Long_Float (A.Y);
+         CZ := CZ + Long_Float (A.Z);
+      end loop;
+      
+      CX := CX / Long_Float (N);
+      CY := CY / Long_Float (N);
+      CZ := CZ / Long_Float (N);
+      
+      -- Calculate the inertia tensor components:
+      for A of Atoms loop
+         
+         if Use_Single_Mass then
+            M := Mass;
+         else
+            M := Lookup_Atomic_Mass (A.Chem_Type);
+         end if;
+         
+         -- Put (A.Chem_Type);
+         -- Put (ASCII.HT);
+         -- Put (M,2,6,3);
+         -- New_Line;
+         
+         -- Calculate the inertia tensor:
+         -- https://en.wikipedia.org/wiki/Inertia_Tensor
+         X := Long_Float (A.X) - CX;
+         Y := Long_Float (A.Y) - CY;
+         Z := Long_Float (A.Z) - CZ;
+         
+         I (1,1) := I (1,1) + M * (X**2 + Y**2);
+         I (2,2) := I (2,2) + M * (X**2 + Z**2);
+         I (3,3) := I (3,3) + M * (Y**2 + Z**2);
+         
+         I (1,2) := I (1,2) - M * X * Y;
+         I (1,3) := I (1,2) - M * X * Z;
+         I (2,3) := I (1,2) - M * Y * Z;
+         
+      end loop;
+   end;
    
    I (2,1) := I (1,2);
    I (3,1) := I (1,3);
