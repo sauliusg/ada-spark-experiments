@@ -24,29 +24,20 @@ package body PDBx_Atom_Printer is
       Put (A.Entity_Number, 4);
       Put (" ");
       Put (A.Residue_Number, 4);
-      -- Put (A.Insertion_Code);
-      -- Put (" ");
-      -- Put (A.X);
-      -- Put (" ");
-      -- Put (A.Y);
-      -- Put (" ");
-      -- Put (A.Z);
-      -- Put (" ");
-      -- Put (A.Occupancy);
-      -- Put (" ");
-      -- Put (A.B_Factor);
-      -- Put (" ");
-      -- if A.Segment /= "    " then
-      --    Put (A.Segment);
-      -- else
-      --    Put ("****");
-      -- end if;
-      -- Put (" ");
-      -- Put (A.Chem_Type);
-      -- Put (" ");
-      -- Put (Integer (A.Atomic_Number), 3);
-      -- Put (" ");
-      -- Put (A.Charge, 2);
+      Put (" ");
+      Put (A.Insertion_Code);
+      Put (" ");
+      Put (A.X);
+      Put (" ");
+      Put (A.Y);
+      Put (" ");
+      Put (A.Z);
+      Put (" ");
+      Put (A.Occupancy);
+      Put (" ");
+      Put (A.B_Factor);
+      Put (" ");
+      Put (A.Segment);
    end Print_PDBx_Atom;
    
 end PDBx_Atom_Printer;

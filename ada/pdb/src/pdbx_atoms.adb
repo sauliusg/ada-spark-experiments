@@ -23,6 +23,15 @@ package body PDBx_Atoms is
          return Value;
       end;
       
+      function Get_Float_Token (S : String) return Float is
+         Value : Float;
+      begin
+         Find_Token (S, Whitespace, F, Test => Outside, First => F, Last => L);
+         Value := Float'Value (S (F..L));
+         F := L + 1;
+         return Value;
+      end;
+      
       function Get_String_Token (S : String) return String is
          I : Integer;
       begin
@@ -66,44 +75,14 @@ package body PDBx_Atoms is
       A.Chain := Get_Unbounded_String_Token (PDBx_Line);
       A.Entity_Number := Get_Integer_Token (PDBx_Line);
       A.Residue_Number := Get_Integer_Token (PDBx_Line);
-      -- A.Insertion_Code := PDB_Line (27..27);
-      -- A.X := Float'Value (PDB_Line (31..38));
-      -- A.Y := Float'Value (PDB_Line (39..46));
-      -- A.Z := Float'Value (PDB_Line (47..54));
-      -- 
-      -- if PDB_Line'Last >= 60 then
-      --    A.Occupancy := Float'Value (PDB_Line (55..60));
-      -- else
-      --    A.Occupancy := Default_Occupancy;
-      -- end if;
-      -- 
-      -- if PDB_Line'Last >= 66 then
-      --    A.B_Factor := Float'Value (PDB_Line (61..66));
-      -- else
-      --    A.B_Factor := Default_B_Factor;
-      -- end if;
-      -- 
-      -- if PDB_Line'Last >= 76 then
-      --    A.Segment := PDB_Line (73..76);
-      -- else
-      --    A.Segment := "    ";
-      -- end if;
-      -- 
-      -- if PDB_Line'Last >= 78 then
-      --    A.Chem_Type := PDB_Line (77..78);
-      -- else
-      --    A.Chem_Type := A.Atom_Name (1..2);
-      -- end if;
-      -- 
-      -- if PDB_Line'Last >= 80 then
-      --    if PDB_Line (79) in '0' .. '9' then
-      --       A.Charge := Integer'Value (PDB_Line (79..79));
-      --    end if;
-      --    if PDB_Line (80) = '-' then
-      --       A.Charge := - A.Charge;
-      --    end if;
-      -- end if;
-           
+      A.Insertion_Code := Get_Unbounded_String_Token (PDBx_Line);
+      A.X := Get_Float_Token (PDBx_Line);
+      A.Y := Get_Float_Token (PDBx_Line);
+      A.Z := Get_Float_Token (PDBx_Line);
+      A.Occupancy := Get_Float_Token (PDBx_Line);
+      A.B_Factor := Get_Float_Token (PDBx_Line);
+      A.Segment := Get_Unbounded_String_Token (PDBx_Line);
+      
    end;
    
 end PDBx_Atoms;
