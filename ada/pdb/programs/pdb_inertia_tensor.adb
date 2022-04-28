@@ -151,7 +151,6 @@ begin
    end loop;
    
    declare
-      N : Ada.Containers.Count_Type := Length (Atoms);
       M : Long_Float;
       CX : Long_Float := 0.0;
       CY : Long_Float := 0.0;
