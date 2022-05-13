@@ -8,10 +8,15 @@ begin
    
    for I in 1..1001 loop
       declare 
-         S : String (1..1);
+         S : String (1..2);
          J : Integer;
       begin
          S (1) := Character'Val (I mod 26 + Character'Pos ('A'));
+         if I > 26 then
+            S (2) := Character'Val ((I / 26) mod 26 + Character'Pos ('A'));
+         else
+            S (2) := ' ';
+         end if;
          Add (S);
          Add (S, J);
          Put (Lookup (S)'Image);
