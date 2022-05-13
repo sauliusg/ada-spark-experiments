@@ -1,6 +1,7 @@
 package String_Pool is
    
-   procedure Add (S : String);
+   procedure Add (S : in String);
+   procedure Add (S : in String; Pos : out Integer);
    function Lookup (S : String) return Integer;
    function Contains (S : String) return Boolean;
    function Get_String (I : Integer) return String;

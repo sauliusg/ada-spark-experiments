@@ -2,18 +2,26 @@ with Ada.Strings; use Ada.Strings;
 
 package body String_Pool is
    
-   procedure Add (S : String) is
+   procedure Add (S : in String; Pos : out Integer) is
    begin
       for I in String_Pool'Range loop
          if String_Pool (I) /= null and then String_Pool (I).all = S then
+            Pos := I;
             return;
          end if;
          if String_Pool (I) = null then 
             String_Pool (I) := new String'(S);
+            Pos := I;
             return;
          end if;
       end loop;
       raise CONSTRAINT_ERROR;
+   end;
+   
+   procedure Add (S : in String) is
+      Dummy : Integer;
+   begin
+      Add (S, Dummy);
    end;
    
    function Lookup (S : String) return Integer is

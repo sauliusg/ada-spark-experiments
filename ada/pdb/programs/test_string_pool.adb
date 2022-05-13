@@ -9,12 +9,14 @@ begin
    for I in 1..1001 loop
       declare 
          S : String (1..1);
+         J : Integer;
       begin
          S (1) := Character'Val (I mod 26 + Character'Pos ('A'));
          Add (S);
+         Add (S, J);
          Put (Lookup (S)'Image);
          Put (" ");
-         Put (Get_String (Lookup (S)));
+         Put (Get_String (J));
          New_Line;
       end;
    end loop;
