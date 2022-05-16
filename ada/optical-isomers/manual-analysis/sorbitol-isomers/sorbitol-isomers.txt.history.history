@@ -1,1 +1,0 @@
-  601  ( set -x; directory-metadata; history | grep directory-metadata | grep -v 'grep directory-metadata' | tail -1 > sorbitol-isomers.txt.history ) &> sorbitol-isomers.txt.history.log 
