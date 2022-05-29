@@ -1,3 +1,5 @@
+pragma Ada_2022;
+
 with Ada.Text_IO; use Ada.Text_IO;
 
 procedure Arrays_From_Functions is
@@ -21,5 +23,13 @@ procedure Arrays_From_Functions is
 begin
    
    V := Make_Array( 10 );
+   
+   Put_Line (V'Image);
+   
+   declare
+      W : Vector := Make_Array (12);
+   begin
+      Put_Line (W'Image);
+   end;
    
 end;
