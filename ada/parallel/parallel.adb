@@ -1,6 +1,6 @@
 pragma Ada_2022;
 
-with Text_IO; use Text_IO;
+-- with Text_IO; use Text_IO;
 
 procedure Parallel is
    
