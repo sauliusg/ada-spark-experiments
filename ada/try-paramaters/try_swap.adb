@@ -18,6 +18,7 @@ procedure Try_Swap is
    B : Integer := 42;
    
 begin
+   -- Init (X =: B); -- does not compile
    Init (X => B);
    
    Put ("A = "); Put (A); New_Line;
@@ -25,6 +26,7 @@ begin
    
    New_Line;
    
+   -- Swap ( X :=: A, Y :=: B); -- does not compile
    Swap ( X => A, Y => B);
    
    Put ("A = "); Put (A); New_Line;
