@@ -18,6 +18,14 @@ procedure Test_Matrices is
       (0.7, 0.8, 0.9)
      );
    
+   M : Matrix :=
+     (
+      (1.1, 2.2, 0.3, 1.1),
+      (7.8, 1.2, 9.7, 3.3),
+      (4.3, 8.1, 2.7, 5.2),
+      (4.4, 3.1, 7.9, 1.2)
+     );
+   
    S1 : Symop :=
      (
       (1.0, 0.0, 0.0, 0.0),
@@ -46,6 +54,18 @@ begin
    New_Line;
    
    Put (M2 * M1);
+   New_Line;
+   
+   Put_Line ("Symops:");
+   New_Line;
+   
+   Put (S2);
+   New_Line;
+   
+   Put (Matrix (S2));
+   New_Line;
+   
+   Put (Symop (M));
    New_Line;
    
 end Test_Matrices;

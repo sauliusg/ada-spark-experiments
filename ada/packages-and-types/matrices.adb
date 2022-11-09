@@ -30,6 +30,7 @@ package body Matrices is
    
    procedure Put (M : Matrix) is
    begin
+      Put_Line ("Matrix:");
       for I in M'Range (1) loop
          for J in M'Range (2) loop
             if J > M'First(1) then
