@@ -62,6 +62,9 @@ begin
    Put (S2);
    New_Line;
    
+   Put (S2 * S2);
+   New_Line;
+   
    Put (Matrix (S2));
    New_Line;
    
