@@ -1,5 +1,6 @@
 with Text_IO;  use Text_IO;
 with Matrices; use Matrices;
+with Symops;   use Symops;
 
 procedure Test_Matrices is
    
@@ -15,6 +16,22 @@ procedure Test_Matrices is
       (0.1, 0.2, 0.3),
       (0.4, 0.5, 0.6),
       (0.7, 0.8, 0.9)
+     );
+   
+   S1 : Symop :=
+     (
+      (1.0, 0.0, 0.0, 0.0),
+      (0.0, 1.0, 0.0, 0.0),
+      (0.0, 0.0, 1.0, 0.0),
+      (0.0, 0.0, 0.0, 1.0)
+     );
+   
+   S2 : Symop :=
+     (
+      (-1.0,  0.0, 0.0, 0.0),
+      ( 0.0, -1.0, 0.0, 0.0),
+      ( 0.0,  0.0, 1.0, 0.0),
+      ( 0.0,  0.0, 0.0, 1.0)
      );
    
 begin
