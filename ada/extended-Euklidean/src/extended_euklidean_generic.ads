@@ -1,6 +1,6 @@
 generic
    type Number is private;
-   type Positive_Number is private;
+   type Positive_Number is new Number;
    Zero : Number;
    Unity : Number;
    with function "-" (A, B : Number) return Number is <>;
@@ -17,6 +17,7 @@ package Extended_Euklidean_Generic is
       A, B : in  Positive_Number; -- original numbers
       D    : out Positive_Number; -- GCD of the two numbers A and B
       M, N : out Number           -- Bézout coefficients: A * M + B * N = D
-     );   
+     )
+     with Pre => (Number (A) > Zero and Number (B) > Zero);
    
 end Extended_Euklidean_Generic;
