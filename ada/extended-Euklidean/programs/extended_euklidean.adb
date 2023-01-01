@@ -59,25 +59,12 @@ begin -- Extended_Euklidean
 
    GCD (A, B, D, M, N);
 
-   Put ("A = ");
-   Put (A);
+   Put ("A = "); Put (A); New_Line;
+   Put ("B = "); Put (B); New_Line;
    New_Line;
 
-   Put ("B = ");
-   Put (B);
-   New_Line;
-   New_Line;
-
-   Put ("D = ");
-   Put (D);
-   New_Line;
-
-   Put ("M = ");
-   Put (M);
-   New_Line;
-
-   Put ("N = ");
-   Put (N);
-   New_Line;
+   Put ("D = "); Put (D); New_Line;
+   Put ("M = "); Put (M); New_Line;
+   Put ("N = "); Put (N); New_Line;
 
 end Extended_Euklidean;
