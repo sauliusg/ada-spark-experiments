@@ -3,8 +3,6 @@ pragma Ada_2022;
 with Text_IO;             use Text_IO;
 with Ada.Command_Line;    use Ada.Command_Line;
 
-with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
-
 with Extended_Euklidean_Generic;
 
 procedure Extended_Euklidean_Gen is
