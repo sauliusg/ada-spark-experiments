@@ -1,16 +1,16 @@
 generic
    type Number is private;
+   type Positive_Number is private;
    Zero : Number;
    Unity : Number;
    with function "-" (A, B : Number) return Number is <>;
    with function ">" (A, B : Number) return Boolean is <>;
+   with function "-" (A, B : Positive_Number) return Positive_Number is <>;
+   with function ">" (A, B : Positive_Number) return Boolean is <>;
      
 package Extended_Euklidean_Generic is
    
    -- subtype Positive_Number is Number range 1 .. Number'Last;
-   
-   type Positive_Number is new Number
-     with Type_Invariant => Number (Positive_Number) > Zero;
    
    procedure GCD
      ( 
