@@ -21,8 +21,8 @@ procedure Special_Values is
    
 begin
    
-   Put ("X = "); Put (X); Put (" ");
-   Put ("Y = "); Put (Y); Put (" ");
+   Put ("X = "); Put (X); Put ("; ");
+   Put ("Y = "); Put (Y); Put ("; ");
    Put ("Z = "); Put (Z);
    New_Line;
    
@@ -36,12 +36,15 @@ begin
    T := -X/Y;
    U := X/Y;
    
-   Put ("T = "); Put (T); Put (" U = "); Put (U);
+   Put ("T = "); Put (T); Put ("; ");
+   Put ("U = "); Put (U);
    New_Line;
    Put ("T/U = "); Put (T/U);
    New_Line;
    New_Line;
    
+   Put ("Z = "); Put (Z);
+   New_Line;
    Put ("Sqrt (Z) = "); Put (Sqrt ((Z, 0.0))'Image);
    New_Line;
    
