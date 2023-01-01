@@ -1,3 +1,5 @@
+pragma Ada_2022;
+
 with Ada.Text_IO;       use Ada.Text_IO;
 with Ada.Float_Text_IO; use Ada.Float_Text_IO;
 
@@ -5,14 +7,17 @@ with Ada.Numerics.Elementary_Functions;
 use Ada.Numerics.Elementary_Functions;
 
 with Ada.Numerics.Complex_Elementary_Functions;
--- use Ada.Numerics.Complex_Elementary_Functions;
+use Ada.Numerics.Complex_Elementary_Functions;
+
+with Ada.Numerics.Complex_Types;
+use Ada.Numerics.Complex_Types;
 
 procedure Special_Values is
    
    X : Float :=  1.0;
    Y : Float :=  0.0;
    Z : Float := -1.0;
-   T : Float;
+   T, U : Float;
    
 begin
    
@@ -24,13 +29,16 @@ begin
    Put ("X/Y = "); Put (X/Y);
    New_Line;
    
-   Put ("Sqrt (Z) = "); Put (Sqrt (X));
+   Put ("Sqrt (X) = "); Put (Sqrt (X));
    New_Line;
    
-   Z := -X/Y;
-   T := X/Y;
+   T := -X/Y;
+   U := X/Y;
    
-   Put ("X/Y = "); Put (Z/T);
+   Put ("X/Y = "); Put (T/U);
+   New_Line;
+   
+   Put ("Sqrt (Z) = "); Put (Sqrt ((Z, 0.0))'Image);
    New_Line;
    
 end Special_Values;
