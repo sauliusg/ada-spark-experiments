@@ -1,0 +1,26 @@
+saulius@starta extended-Euklidean/ $ make
+gnatmake -Isrc -D .obj -o bin/extended_euklidean_gen programs/extended_euklidean_gen.adb -gnata
+gcc -c -Iprograms/ -Isrc -gnata -I- -o /home/saulius/tests/ada/extended-Euklidean/.obj/extended_euklidean_gen.o programs/extended_euklidean_gen.adb
++===========================GNAT BUG DETECTED==============================+
+| 12.0.0 20220107 (experimental) (x86_64-pc-linux-gnu) Assert_Failure exp_util.adb:3549|
+| Error detected at extended_euklidean_generic.ads:15:4 [extended_euklidean_gen.adb:22:4]|
+| Compiling programs/extended_euklidean_gen.adb                            |
+| Please submit a bug report; see https://gcc.gnu.org/bugs/ .              |
+| Use a subject line meaningful to you and us to track the bug.            |
+| Include the entire contents of this bug box in the report.               |
+| Include the exact command that you entered.                              |
+| Also include sources listed below.                                       |
++==========================================================================+
+
+Please include these source files with error report
+Note that list may not be accurate in some cases,
+so please double check that the problem can still
+be reproduced with the set of files listed.
+Consider also -gnatd.n switch (see debug.adb).
+
+programs/extended_euklidean_gen.adb
+src/extended_euklidean_generic.ads
+
+compilation abandoned
+gnatmake: "programs/extended_euklidean_gen.adb" compilation error
+make: *** [Makefile:35: bin/extended_euklidean_gen] Error 4
