@@ -13,18 +13,19 @@ procedure Extended_Euklidean_Gen is
    -- Test implementaion of the Extended Euclidean Algorithm.
    -- URL: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
    
-   -- subtype Number is Long_Integer;
-   type Number is new Big_Integer;
-   -- subtype Positive_Number is Number range 1 .. Number'Last;
+   subtype Number is Long_Integer;
+   subtype Positive_Number is Number range 1 .. Number'Last;
+   
+   -- type Number is new Big_Integer;
    -- type Positive_Number is new Big_Positive;
    
    package Extended_Euklidean is 
-      new Extended_Euklidean_Generic (Number, 0, 1);
+      new Extended_Euklidean_Generic (Number,Positive_Number, 0, 1);
       
    use Extended_Euklidean;
    
-   A, B : Number;
-   D    : Number;
+   A, B : Positive_Number;
+   D    : Positive_Number;
    M, N : Number;
    
    function From_String (S : String) return Long_Integer is

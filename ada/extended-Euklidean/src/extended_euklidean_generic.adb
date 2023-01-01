@@ -5,16 +5,16 @@ package body Extended_Euklidean_Generic is
    
    procedure GCD
      ( 
-      A, B : in  Number; -- original numbers
-      D    : out Number; -- GCD of the two numbers A and B
+      A, B : in  Positive_Number; -- original numbers
+      D    : out Positive_Number; -- GCD of the two numbers A and B
       M, N : out Number           -- Bézout coefficients: A * M + B * N = D
      ) is
       P : Number := Unity; -- X = P*A + Q*B at any point
       Q : Number := Zero;
       S : Number := Zero;  -- Y = S*A + T*B at any point
       T : Number := Unity;
-      X : Number := A; 
-      Y : Number := B;
+      X : Positive_Number := A; 
+      Y : Positive_Number := B;
    begin
       while X /= Y loop
          if X > Y then
