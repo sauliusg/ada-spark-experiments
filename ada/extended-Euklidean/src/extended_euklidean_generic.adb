@@ -1,4 +1,3 @@
-
 package body Extended_Euklidean_Generic is
    
    -- Test implementaion of the Extended Euclidean Algorithm.
