@@ -20,7 +20,7 @@ procedure Extended_Euklidean_Gen is
    type Positive_Number is new Big_Positive;
    
    package Extended_Euklidean is 
-      new Extended_Euklidean_Generic (Number,Positive_Number, 0, 1);
+      new Extended_Euklidean_Generic (Number, Positive_Number, 0, 1);
       
    use Extended_Euklidean;
    
