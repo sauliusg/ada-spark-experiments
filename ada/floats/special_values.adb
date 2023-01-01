@@ -31,11 +31,15 @@ begin
    
    Put ("Sqrt (X) = "); Put (Sqrt (X));
    New_Line;
+   New_Line;
    
    T := -X/Y;
    U := X/Y;
    
-   Put ("X/Y = "); Put (T/U);
+   Put ("T = "); Put (T); Put (" U = "); Put (U);
+   New_Line;
+   Put ("T/U = "); Put (T/U);
+   New_Line;
    New_Line;
    
    Put ("Sqrt (Z) = "); Put (Sqrt ((Z, 0.0))'Image);
