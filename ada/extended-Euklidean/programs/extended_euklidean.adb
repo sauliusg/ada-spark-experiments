@@ -13,8 +13,10 @@ procedure Extended_Euklidean is
       D : out Positive;   -- GCD of the two numbers A and B
       M, N : out Integer  -- Bézout coefficients: A * M + B * N = D
      ) is
-      P : Integer := 1;
-      S : Integer := 0;
+      P : Integer := 1; -- X = P*A + Q*B at any point
+      Q : Integer := 0;
+      S : Integer := 0; -- Y = S*A + T*B at any point
+      T : Integer := 1;
       X : Positive := A; 
       Y : Positive := B;
    begin
@@ -22,16 +24,25 @@ procedure Extended_Euklidean is
          if X > Y then
             X := X - Y;
             P := P - S;
+            Q := Q - T;
          else
             Y := Y - X;
             S := S - P;
+            T := T - Q;
          end if;
       end loop;
       D := X;
       M := P;
-      N := (X - P*A) / B;
+      N := Q;
+      -- The naive computation of the N value can overflow:
+      -- N := (X - P*A) / B;
       pragma Assert (X = Y);
-      pragma Assert (A*M + B*N = D);
+      pragma Assert 
+        (
+         Long_Integer (D) =
+           Long_Integer (A) * Long_Integer (M) + 
+           Long_Integer (B) * Long_Integer (N)
+        );
    end GCD;
    
    A, B : Positive;
