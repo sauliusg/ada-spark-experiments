@@ -27,6 +27,7 @@ run: ${ADA_EXE}
 
 ${BIN_DIR}/%: ${PRG_DIR}/%.adb
 	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -o $@ $< -gnata
+	${MAKE} --no-print-directory -W $< ${PRG_DIR}/.$*.d
 
 ${PRG_DIR}/.%.d: ${PRG_DIR}/%.adb
 	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -M $< \
