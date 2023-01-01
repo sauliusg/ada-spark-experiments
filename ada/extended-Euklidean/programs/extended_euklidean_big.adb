@@ -13,9 +13,9 @@ procedure Extended_Euklidean_Big is
    
    procedure GCD
      ( 
-      A, B : in Big_Positive; -- original numbers
-      D : out Big_Positive;   -- GCD of the two numbers A and B
-      M, N : out Big_Integer  -- Bézout coefficients: A * M + B * N = D
+      A, B : in Big_Positive;  -- original numbers
+      D    : out Big_Positive; -- GCD of the two numbers A and B
+      M, N : out Big_Integer   -- Bézout coefficients: A * M + B * N = D
      ) is
       P : Big_Integer := 1; -- X = P*A + Q*B at any point
       Q : Big_Integer := 0;
