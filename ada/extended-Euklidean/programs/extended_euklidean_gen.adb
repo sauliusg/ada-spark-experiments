@@ -19,13 +19,13 @@ procedure Extended_Euklidean_Gen is
       
    use Extended_Euklidean;
    
-   A, B : Number;
-   D    : Number;
+   A, B : Positive_Number;
+   D    : Positive_Number;
    M, N : Number;
    
 begin -- Extended_Euklidean
-   A := Number'Value (Argument(1));
-   B := Number'Value (Argument(2));
+   A := Positive_Number'Value (Argument(1));
+   B := Positive_Number'Value (Argument(2));
    
    GCD (A, B, D, M, N);
    
