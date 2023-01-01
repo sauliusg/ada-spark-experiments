@@ -13,10 +13,10 @@ procedure Extended_Euklidean is
       D    : out Positive; -- GCD of the two numbers A and B
       M, N : out Integer   -- Bézout coefficients: A * M + B * N = D
      ) is
-      R0 : Integer := A;
+      R0 : Positive := A;
       S0 : Integer := 1;
       T0 : Integer := 0;
-      R1 : Integer := B;
+      R1 : Natural := B;
       S1 : Integer := 0;
       T1 : Integer := 1;
       R, S, T : Integer; -- the next set of values
