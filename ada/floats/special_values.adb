@@ -19,10 +19,16 @@ procedure Special_Values is
    Z : Float := -1.0;
    T, U : Float;
    
+   procedure Put_Separator with Inline is
+   begin
+      -- Put ("; ");
+      New_Line;
+   end;
+   
 begin
    
-   Put ("X = "); Put (X); Put ("; ");
-   Put ("Y = "); Put (Y); Put ("; ");
+   Put ("X = "); Put (X); Put_Separator;
+   Put ("Y = "); Put (Y); Put_Separator;
    Put ("Z = "); Put (Z);
    New_Line;
    
@@ -36,7 +42,7 @@ begin
    T := -X/Y;
    U := X/Y;
    
-   Put ("T = "); Put (T); Put ("; ");
+   Put ("T = "); Put (T); Put_Separator;
    Put ("U = "); Put (U);
    New_Line;
    Put ("T/U = "); Put (T/U);
