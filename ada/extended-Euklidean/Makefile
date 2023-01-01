@@ -25,12 +25,6 @@ run: ${ADA_EXE}
 		( set -x; $${FILE} < ${STDIN} ) \
 	done
 
-${BIN_DIR}/%_with_gc: ${PRG_DIR}/%_with_gc.adb
-	gnatmake \
-		-I${SRC_DIR} \
-		-D ${OBJ_DIR} \
-		-o $@ $<
-
 ${BIN_DIR}/%: ${PRG_DIR}/%.adb
 	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -o $@ $< -gnata
 
