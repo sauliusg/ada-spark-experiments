@@ -40,8 +40,8 @@ procedure Extended_Euklidean is
    D : Positive;
    M, N : Integer;
 begin -- Extended_Euklidean
-   A := Positive'Value (Argument(1));
-   B := Positive'Value (Argument(2));
+   A := Positive'Value (Argument (1));
+   B := Positive'Value (Argument (2));
    
    GCD (A, B, D, M, N);
    

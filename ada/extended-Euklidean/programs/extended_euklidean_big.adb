@@ -48,8 +48,8 @@ procedure Extended_Euklidean_Big is
    D : Big_Positive;
    M, N : Big_Integer;
 begin -- Extended_Euklidean
-   A := From_String (Argument(1));
-   B := From_String (Argument(2));
+   A := From_String (Argument (1));
+   B := From_String (Argument (2));
    
    GCD (A, B, D, M, N);
    

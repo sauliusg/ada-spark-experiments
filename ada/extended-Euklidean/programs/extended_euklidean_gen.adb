@@ -33,8 +33,8 @@ procedure Extended_Euklidean_Gen is
       (Long_Integer'Value (S));
    
 begin -- Extended_Euklidean
-   A := From_String (Argument(1));
-   B := From_String (Argument(2));
+   A := From_String (Argument (1));
+   B := From_String (Argument (2));
    
    GCD (A, B, D, M, N);
    
