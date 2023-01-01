@@ -34,6 +34,8 @@ begin
    
    Put ("X/Y = "); Put (X/Y);
    New_Line;
+   Put ("Z/Y = "); Put (Z/Y);
+   New_Line;
    
    Put ("Sqrt (X) = "); Put (Sqrt (X));
    New_Line;
