@@ -33,8 +33,17 @@ procedure Extended_Euklidean is
          end if;
       end loop;
       D := X;
-      M := P;
-      N := Q;
+      if abs P > B / (2 * D) then
+         declare
+            LCM : Positive := A * (B / D); -- Least Common Multiple
+         begin
+            M := P - Integer (LCM / A);
+            N := Q + Integer (LCM / B);
+         end;
+      else
+         M := P;
+         N := Q;
+      end if;
       -- The naive computation of the N value can overflow:
       -- N := (X - P*A) / B;
       pragma Assert (X = Y);
