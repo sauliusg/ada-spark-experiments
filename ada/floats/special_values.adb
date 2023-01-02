@@ -47,6 +47,9 @@ begin
    Put ("T = "); Put (T); Put_Separator;
    Put ("U = "); Put (U);
    New_Line;
+   Put ("1/T = "); Put (1.0/T); Put_Separator;
+   Put ("1/U = "); Put (1.0/U);
+   New_Line;
    Put ("T/U = "); Put (T/U);
    New_Line;
    New_Line;
