@@ -3,10 +3,17 @@ generic
    type Positive_Number is new Number;
    Zero : Number;
    Unity : Number;
-   with function "-" (A, B : Number) return Number is <>;
+   
    with function ">" (A, B : Number) return Boolean is <>;
-   with function "-" (A, B : Positive_Number) return Positive_Number is <>;
+   with function "abs" (N : Number) return Number is <>;
+   with function "-" (A, B : Number) return Number is <>;
+   with function "+" (A, B : Number) return Number is <>;
+   
    with function ">" (A, B : Positive_Number) return Boolean is <>;
+   with function "-" (A, B : Positive_Number) return Positive_Number is <>;
+   with function "+" (A, B : Positive_Number) return Positive_Number is <>;
+   with function "/" (A, B : Positive_Number) return Positive_Number is <>;
+   with function "*" (A, B : Positive_Number) return Positive_Number is <>;
      
 package Extended_Euklidean_Generic is
    

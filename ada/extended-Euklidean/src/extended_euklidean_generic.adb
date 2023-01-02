@@ -15,6 +15,8 @@ package body Extended_Euklidean_Generic is
       T : Number := Unity;
       X : Positive_Number := A; 
       Y : Positive_Number := B;
+      Two : constant Positive_Number := 
+        Positive_Number (Unity) + Positive_Number (Unity);
    begin
       while X /= Y loop
          if X > Y then
@@ -28,8 +30,17 @@ package body Extended_Euklidean_Generic is
          end if;
       end loop;
       D := X;
-      M := P;
-      N := Q;
+      if Positive_Number (abs P) > B / (Two * D) then
+         declare
+            LCM : Positive_Number := A * (B / D); -- Least Common Multiple
+         begin
+            M := P - Number (LCM / A);
+            N := Q + Number (LCM / B);
+         end;
+      else
+         M := P;
+         N := Q;
+      end if;
       -- The naive computation of the N value can overflow:
       -- N := (X - P*A) / B;
       pragma Assert (X = Y);
