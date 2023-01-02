@@ -2,7 +2,7 @@ with Text_IO;             use Text_IO;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Ada.Command_Line;    use Ada.Command_Line;
 
-procedure Extended_Euklidean is
+procedure Extended_Euclidean is
    
    -- Test implementaion of the Extended Euclidean Algorithm.
    -- URL: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
@@ -39,7 +39,7 @@ procedure Extended_Euklidean is
    A, B : Positive;
    D : Positive;
    M, N : Integer;
-begin -- Extended_Euklidean
+begin -- Extended_Euclidean
    A := Positive'Value (Argument (1));
    B := Positive'Value (Argument (2));
    
@@ -53,4 +53,4 @@ begin -- Extended_Euklidean
    Put ("M = "); Put (M); New_Line;
    Put ("N = "); Put (N); New_Line;
    
-end Extended_Euklidean;
+end Extended_Euclidean;

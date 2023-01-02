@@ -6,9 +6,9 @@ with Ada.Command_Line;    use Ada.Command_Line;
 with Ada.Numerics.Big_Numbers.Big_Integers;
 use Ada.Numerics.Big_Numbers.Big_Integers;
 
-with Extended_Euklidean_Mod_Generic;
+with Extended_Euclidean_Mod_Generic;
 
-procedure Extended_Euklidean_Mod_Big is
+procedure Extended_Euclidean_Mod_Big is
    
    -- Test implementaion of the Extended Euclidean Algorithm.
    -- URL: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
@@ -23,10 +23,10 @@ procedure Extended_Euklidean_Mod_Big is
    type Number is new Big_Integer;
    type Positive_Number is new Big_Positive;
    
-   package Extended_Euklidean_Mod is 
-      new Extended_Euklidean_Mod_Generic (Number, Positive_Number, 0, 1);
+   package Extended_Euclidean_Mod is 
+      new Extended_Euclidean_Mod_Generic (Number, Positive_Number, 0, 1);
       
-   use Extended_Euklidean_Mod;
+   use Extended_Euclidean_Mod;
    
    A, B : Positive_Number;
    D    : Positive_Number;
@@ -35,7 +35,7 @@ procedure Extended_Euklidean_Mod_Big is
    function From_String (S : String) return Long_Integer is
       (Long_Integer'Value (S));
    
-begin -- Extended_Euklidean
+begin -- Extended_Euclidean
    A := From_String (Argument (1));
    B := From_String (Argument (2));
    
@@ -49,4 +49,4 @@ begin -- Extended_Euklidean
    Put ("M = "); Put (M'Image); New_Line;
    Put ("N = "); Put (N'Image); New_Line;
    
-end Extended_Euklidean_Mod_Big;
+end Extended_Euclidean_Mod_Big;

@@ -6,7 +6,7 @@ with Ada.Command_Line;    use Ada.Command_Line;
 with Ada.Numerics.Big_Numbers.Big_Integers;
 use Ada.Numerics.Big_Numbers.Big_Integers;
 
-procedure Extended_Euklidean_Big is
+procedure Extended_Euclidean_Big is
    
    -- Test implementaion of the Extended Euclidean Algorithm.
    -- URL: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
@@ -53,7 +53,7 @@ procedure Extended_Euklidean_Big is
    A, B : Big_Positive;
    D : Big_Positive;
    M, N : Big_Integer;
-begin -- Extended_Euklidean
+begin -- Extended_Euclidean
    A := From_String (Argument (1));
    B := From_String (Argument (2));
    
@@ -67,4 +67,4 @@ begin -- Extended_Euklidean
    Put ("M = "); Put (M'Image); New_Line;
    Put ("N = "); Put (N'Image); New_Line;
    
-end Extended_Euklidean_Big;
+end Extended_Euclidean_Big;

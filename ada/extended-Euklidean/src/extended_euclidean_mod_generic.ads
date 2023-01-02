@@ -3,19 +3,15 @@ generic
    type Positive_Number is new Number;
    Zero : Number;
    Unity : Number;
-   
    with function ">" (A, B : Number) return Boolean is <>;
-   with function "abs" (N : Number) return Number is <>;
    with function "-" (A, B : Number) return Number is <>;
-   with function "+" (A, B : Number) return Number is <>;
-   
-   with function ">" (A, B : Positive_Number) return Boolean is <>;
+   with function "/" (A, B : Number) return Number is <>;
+   with function "*" (A, B : Number) return Number is <>;
    with function "-" (A, B : Positive_Number) return Positive_Number is <>;
-   with function "+" (A, B : Positive_Number) return Positive_Number is <>;
    with function "/" (A, B : Positive_Number) return Positive_Number is <>;
    with function "*" (A, B : Positive_Number) return Positive_Number is <>;
      
-package Extended_Euklidean_Generic is
+package Extended_Euclidean_Mod_Generic is
    
    -- subtype Positive_Number is Number range 1 .. Number'Last;
    
@@ -27,4 +23,4 @@ package Extended_Euklidean_Generic is
      )
      with Pre => (Number (A) > Zero and Number (B) > Zero);
    
-end Extended_Euklidean_Generic;
+end Extended_Euclidean_Mod_Generic;

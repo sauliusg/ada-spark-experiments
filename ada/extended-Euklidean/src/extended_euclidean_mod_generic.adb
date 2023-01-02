@@ -1,4 +1,4 @@
-package body Extended_Euklidean_Mod_Generic is
+package body Extended_Euclidean_Mod_Generic is
    
    -- Test implementaion of the Extended Euclidean Algorithm.
    -- URL: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
@@ -33,4 +33,4 @@ package body Extended_Euklidean_Mod_Generic is
       N := T0;
    end GCD;
    
-end Extended_Euklidean_Mod_Generic;
+end Extended_Euclidean_Mod_Generic;

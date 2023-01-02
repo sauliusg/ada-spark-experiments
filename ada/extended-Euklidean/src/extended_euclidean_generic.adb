@@ -1,4 +1,4 @@
-package body Extended_Euklidean_Generic is
+package body Extended_Euclidean_Generic is
    
    -- Test implementaion of the Extended Euclidean Algorithm.
    -- URL: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
@@ -51,4 +51,4 @@ package body Extended_Euklidean_Generic is
       --   );
    end GCD;
    
-end Extended_Euklidean_Generic;
+end Extended_Euclidean_Generic;
