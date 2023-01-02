@@ -37,12 +37,9 @@ procedure Extended_Euklidean_Big is
       end loop;
       D := X;
       if abs P > B / (2 * D) then
-         declare
-            LCM : Big_Positive := A * (B / D); -- Least Common Multiple
-         begin
-            M := P - Big_Integer (LCM / A);
-            N := Q + Big_Integer (LCM / B);
-         end;
+         -- LCM == Least Common Multiple
+         M := P - B / D; -- subtract LCM / A
+         N := Q + A / D; -- add      LCM / B
       else
          M := P;
          N := Q;

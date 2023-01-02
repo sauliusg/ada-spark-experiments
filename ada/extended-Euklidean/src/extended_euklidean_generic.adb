@@ -31,11 +31,10 @@ package body Extended_Euklidean_Generic is
       end loop;
       D := X;
       if Positive_Number (abs P) > B / (Two * D) then
-         declare
-            LCM : Positive_Number := A * (B / D); -- Least Common Multiple
+         -- LCM is the Least Common Multiple
          begin
-            M := P - Number (LCM / A);
-            N := Q + Number (LCM / B);
+            M := P - Number (B / D); -- subtract LCM / A
+            N := Q + Number (A / D); -- add      LCM / B
          end;
       else
          M := P;
