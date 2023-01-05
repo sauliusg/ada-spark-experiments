@@ -43,9 +43,9 @@ begin -- Multiplicative_Inverse
    Put ("I = "); Put (I'Image); New_Line;
    Put ("Check: A*I mod P = ");
    declare
-      Product : Positive_Number;
+      Product : Number;
    begin
-      Product := (A * I) mod P;
+      Product := Number ((A * I) mod P);
       Put (Product'Image);
    end;
    New_Line;

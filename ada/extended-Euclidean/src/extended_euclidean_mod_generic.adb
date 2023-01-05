@@ -1,7 +1,3 @@
-pragma Ada_2022;
-with Text_IO;
-use Text_IO;
-         
 package body Extended_Euclidean_Mod_Generic is
    
    -- Test implementaion of the Extended Euclidean Algorithm.
@@ -51,13 +47,10 @@ package body Extended_Euclidean_Mod_Generic is
    begin
       GCD (A, P, D, M, Dummy);
       
-      if M < Zero then
+      if Zero > M or else Zero = M then
          M := M + Number (P / D);
       end if;
       
-      Put (M'Image);
-      New_Line;
-
       X := Positive_Number (M);
    end;
    

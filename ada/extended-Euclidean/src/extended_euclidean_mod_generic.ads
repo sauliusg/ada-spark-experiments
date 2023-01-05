@@ -4,7 +4,6 @@ generic
    Zero : Number;
    Unity : Number;
    with function ">" (A, B : Number) return Boolean is <>;
-   with function "<" (A, B : Number) return Boolean is <>;
    with function "-" (A, B : Number) return Number is <>;
    with function "+" (A, B : Number) return Number is <>;
    with function "/" (A, B : Number) return Number is <>;
