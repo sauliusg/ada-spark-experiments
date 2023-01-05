@@ -1,3 +1,7 @@
+pragma Ada_2022;
+with Text_IO;
+use Text_IO;
+         
 package body Extended_Euclidean_Mod_Generic is
    
    -- Test implementaion of the Extended Euclidean Algorithm.
@@ -32,5 +36,29 @@ package body Extended_Euclidean_Mod_Generic is
       M := S0;
       N := T0;
    end GCD;
+   
+   -- Find multiplicative inverse for a number.
+   procedure Inverse
+     (
+      A : in Positive_Number; -- a number to find inverse for
+      P : in Positive_Number; -- a prime module
+      X : out Positive_Number -- inverse of A: A*X = 1 (mod P)
+     )
+   is
+      D : Positive_Number;
+      M : Number;
+      Dummy : Number;
+   begin
+      GCD (A, P, D, M, Dummy);
+      
+      if M < Zero then
+         M := M + Number (P / D);
+      end if;
+      
+      Put (M'Image);
+      New_Line;
+
+      X := Positive_Number (M);
+   end;
    
 end Extended_Euclidean_Mod_Generic;

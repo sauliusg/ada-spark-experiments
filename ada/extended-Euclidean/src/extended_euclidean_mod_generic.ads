@@ -4,7 +4,9 @@ generic
    Zero : Number;
    Unity : Number;
    with function ">" (A, B : Number) return Boolean is <>;
+   with function "<" (A, B : Number) return Boolean is <>;
    with function "-" (A, B : Number) return Number is <>;
+   with function "+" (A, B : Number) return Number is <>;
    with function "/" (A, B : Number) return Number is <>;
    with function "*" (A, B : Number) return Number is <>;
    with function "-" (A, B : Positive_Number) return Positive_Number is <>;
@@ -23,4 +25,12 @@ package Extended_Euclidean_Mod_Generic is
      )
      with Pre => (Number (A) > Zero and Number (B) > Zero);
    
+   -- Find multiplicative inverse for a number.
+   procedure Inverse
+     (
+      A : in Positive_Number; -- a number to find inverse for
+      P : in Positive_Number; -- a prime module
+      X : out Positive_Number -- inverse of A: A*X = 1 (mod P)
+     );
+
 end Extended_Euclidean_Mod_Generic;
