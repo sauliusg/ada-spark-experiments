@@ -4,7 +4,7 @@ with Ada.Command_Line;    use Ada.Command_Line;
 
 procedure Extended_Euclidean is
 
-   -- Test implementaion of the Extended Euclidean Algorithm.
+   -- Test implementation of the Extended Euclidean Algorithm.
    -- URL: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
 
    procedure GCD

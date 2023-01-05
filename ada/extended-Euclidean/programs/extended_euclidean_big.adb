@@ -8,7 +8,7 @@ use Ada.Numerics.Big_Numbers.Big_Integers;
 
 procedure Extended_Euclidean_Big is
    
-   -- Test implementaion of the Extended Euclidean Algorithm.
+   -- Test implementation of the Extended Euclidean Algorithm.
    -- URL: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
    
    procedure GCD
