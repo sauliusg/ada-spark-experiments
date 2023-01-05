@@ -8,7 +8,7 @@ use Ada.Numerics.Big_Numbers.Big_Integers;
 
 with Extended_Euclidean_Mod_Generic;
 
-procedure Extended_Euclidean_Mod_Big is
+procedure Extended_Euclidean_Mod_Gen is
    
    -- Test implementaion of the Extended Euclidean Algorithm.
    -- URL: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
@@ -49,4 +49,4 @@ begin -- Extended_Euclidean
    Put ("M = "); Put (M'Image); New_Line;
    Put ("N = "); Put (N'Image); New_Line;
    
-end Extended_Euclidean_Mod_Big;
+end Extended_Euclidean_Mod_Gen;
