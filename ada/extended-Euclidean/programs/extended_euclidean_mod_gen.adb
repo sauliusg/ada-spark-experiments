@@ -13,9 +13,6 @@ procedure Extended_Euclidean_Mod_Gen is
    -- Test implementaion of the Extended Euclidean Algorithm.
    -- URL: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
    
-   -- Test implementaion of the Extended Euclidean Algorithm.
-   -- URL: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
-   
    -- subtype Number is Long_Integer;
    -- subtype Positive_Number is Number range 1 .. Number'Last;
    -- subtype Positive_Number is Number;
