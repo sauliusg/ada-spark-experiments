@@ -4,15 +4,10 @@ generic
    type Element is private;
    Identity : Element;
    with function "*" (E, F: Element) return Element is <>;
-   with function Inverse (E: Element) return Element;
    
 package Group_Theory is
    
    type Group is array (Integer range <>) of Element;
-   
-   function Compute_Inverse (E: Element) return Element
-   is (Inverse (E))
-     with Ghost, Post => E * Compute_Inverse'Result = Identity;
    
    function Is_Identity (I : Element; G : Group) return Boolean
    is (for all E of G => I * E = E and E * I = E)
