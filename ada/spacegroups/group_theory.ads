@@ -24,4 +24,8 @@ package Group_Theory is
    is (A * B = Identity)
      with Ghost;
    
+   function Has_Inverse (GG : Group) return Boolean
+   is (for some G of GG => (Is_Identity (G, GG)))
+     with Ghost;
+   
 end Group_Theory;
