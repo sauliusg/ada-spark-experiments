@@ -24,8 +24,24 @@ package Group_Theory is
    is (A * B = Identity)
      with Ghost;
    
-   function Has_Inverse (GG : Group) return Boolean
+   function Has_Identity (GG : Group) return Boolean
    is (for some G of GG => (Is_Identity (G, GG)))
+     with Ghost;
+   
+   function Has_Inverse (E : Element; GG : Group) return Boolean
+   is (for some G of GG => (E * G = Identity and then G * E = Identity))
+     with Ghost;
+   
+   function Belongs_To (E : Element; GG : Group) return Boolean
+   is (for some G of GG => (E = G))
+     with Ghost;
+   
+   function Is_Group (GG : Group) return Boolean
+   is (Has_Identity (GG) and then
+         (for all E of GG => (Has_Inverse (E, GG))) and then
+         (for all E of GG =>
+            (for all F of GG => (Belongs_To (E*F, GG))))
+      )
      with Ghost;
    
 end Group_Theory;
