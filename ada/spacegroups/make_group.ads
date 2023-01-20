@@ -7,7 +7,7 @@ package Make_Group is
    
    type Ring_Element is mod 7;
    
-   Identity : Ring_Element := 1;
+   Identity : constant Ring_Element := 1;
    
    package Mod_Seven_Group_theory is new Group_Theory (Ring_Element, Identity);
    
