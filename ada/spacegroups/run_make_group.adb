@@ -1,8 +1,9 @@
 pragma Spark_Mode (On);
 
-with Ada.Integer_Text_IO;  use Ada.Integer_Text_IO;
-with Ada.Text_IO;  use Ada.Text_IO;
-with Make_Group;   use Make_Group;
+with Ada.Command_Line;    use Ada.Command_Line;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Text_IO;         use Ada.Text_IO;
+with Make_Group;          use Make_Group;
    
 procedure Run_Make_Group is
    
@@ -20,11 +21,19 @@ procedure Run_Make_Group is
       Put (")");
    end;
    
-begin
+   E : Ring_Element := 2;
+   
+begin -- main program
+   
+   if Argument_Count > 0 then
+      E := Ring_Element'Value (Argument (1));
+   end if;
+   
    declare
-      G : Group := Build_Group (2);
+      G : Group := Build_Group (E);
    begin
       Put (G);
       New_Line;
    end;   
+   
 end Run_Make_Group;
