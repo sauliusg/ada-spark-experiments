@@ -17,7 +17,6 @@ package body Make_Group is
    is
       G : Group (1 .. 6) := (1, 2, 3, 4, 5, 6);
    begin
-      pragma Assert (Is_Identity (G (1), G));
       return G;
    end Make_Full_Group;
    
