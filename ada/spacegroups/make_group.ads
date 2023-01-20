@@ -5,7 +5,7 @@ with Group_Theory;
    
 package Make_Group is
    
-   type Ring_Element is mod 7;
+   type Ring_Element is mod 37;
    
    Identity : constant Ring_Element := 1;
    
