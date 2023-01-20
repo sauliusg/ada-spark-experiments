@@ -72,6 +72,7 @@ package body Make_Group is
                   H : Ring_Element := X * T;
                begin
                   -- Put ("H = "); Put (Ring_Element'Image (H)); New_Line;
+                  pragma Assert (H in Ring_Element'First .. Ring_Element'Last);
                   if not Contains (N (1..NN), H) then
                      NN := NN + 1;
                      N (NN) := H;
