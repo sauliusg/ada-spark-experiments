@@ -9,6 +9,7 @@ package body Make_Group is
    is
       G : Group (1 .. 1) := (1 => E);
    begin
+      pragma Assert (Is_Identity (G (1), G));
       return G;
    end Make_Group;
    
