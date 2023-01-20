@@ -23,16 +23,16 @@ package body Make_Group is
    function Build_Group (E : Ring_Element) return Group
    is
       type Ring_Element_Array is
-        array (1 .. Integer (Ring_Element'Last)) of Ring_Element;
+        array (Integer range <>) of Ring_Element;
       
       -- New elements obtained by multiplication. Eventually they
       -- should be come a new group containing E:
-      N : Ring_Element_Array;
+      N : Ring_Element_Array (1 .. Integer (Ring_Element'Last));
       -- Number of occupied elements in N:
       NN : Natural;
       
       -- Elements still to be tested:
-      L : Ring_Element_Array;
+      L : Ring_Element_Array (1 .. Integer (Ring_Element'Last));
       -- Number of occupied elements in L:
       NL : Natural;
       
@@ -69,14 +69,15 @@ package body Make_Group is
                declare
                   X : Ring_Element := N (I);
                   H : Ring_Element := X * T;
-            begin
-               if not Contains (N (1..NN), H) then
-                  NN := NN + 1;
-                  N (NN) := H;
-                  NL := NL + 1;
-                  L (NL) := H;
-               end if;
-            end;
+               begin
+                  -- Put ("H = "); Put (Ring_Element'Image (H)); New_Line;
+                  if not Contains (N (1..NN), H) then
+                     NN := NN + 1;
+                     N (NN) := H;
+                     NL := NL + 1;
+                     L (NL) := H;
+                  end if;
+               end;
             end loop;
          end;
       end loop;
