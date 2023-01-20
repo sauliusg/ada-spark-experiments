@@ -18,4 +18,8 @@ package Make_Group is
      Pre => E = Identity,
      Post => Is_Group (Make_Group'Result);
    
+   function Make_Full_Group return Group
+     with
+     Post => Is_Group (Make_Full_Group'Result);
+
 end Make_Group;
