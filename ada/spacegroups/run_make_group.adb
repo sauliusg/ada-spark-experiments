@@ -23,10 +23,26 @@ procedure Run_Make_Group is
    
    E : Ring_Element := 2;
    
+   Processed_Error : exception;
+   
 begin -- main program
    
    if Argument_Count > 0 then
-      E := Ring_Element'Value (Argument (1));
+      declare
+      begin
+         E := Ring_Element'Value (Argument (1));
+      exception
+         when CONSTRAINT_ERROR =>
+            Put (Standard_Error,
+                 Command_Name & ": " &
+                 "ERROR, Argument value '" &
+                   Argument (1) &
+                   "' does not fit into range " &
+                   Ring_Element'First'Image & " .." &
+                   Ring_Element'Last'Image
+                );
+            raise PROCESSED_ERROR;
+      end;
    end if;
    
    declare
@@ -35,5 +51,9 @@ begin -- main program
       Put (G);
       New_Line;
    end;   
+   
+exception
+   
+   when PROCESSED_ERROR => null;
    
 end Run_Make_Group;
