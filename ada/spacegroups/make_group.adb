@@ -63,32 +63,48 @@ package body Make_Group is
       end Contains;
       
    begin
-      L (1) := E;
-      NL := 1;
+      L (L'First) := E;
+      NL := L'First;
       
-      N (1) := Identity;
-      NN := 1;
+      N (N'First) := Identity;
+      NN := N'First;
       
       while NL > 0 loop
+         pragma Loop_Invariant (NL >= L'First);
          pragma Loop_Invariant (NL <= L'Last);
          declare
             T : Ring_Element := L (NL);
          begin
             NL := NL - 1;
+            pragma Assert (NL < L'Last);
             for I in N'First .. NN loop
+               pragma Loop_Invariant (NN >= N'First);
+               pragma Loop_Invariant (NN <= N'Last);
+               pragma Loop_Invariant (for all I in N'First .. NN => 
+                                        (for all J in N'First .. NN => 
+                                           (I = J or else N(I) /= N(J))));
+               
+               pragma Loop_Invariant (Ring_Element'Last - Ring_Element'First + 1 <= N'Length);
+               pragma Loop_Invariant (Natural (Ring_Element'Last - Ring_Element'First + 1) <= NN);
+               
                declare
                   X : Ring_Element := N (I);
                   H : Ring_Element := X * T;
                begin
                   -- Put ("H = "); Put (Ring_Element'Image (H)); New_Line;
                   pragma Assert (H in Ring_Element'First .. Ring_Element'Last);
-                  pragma Assert (for all I in 1..NN => (for all J in 1 .. NN => (I = J or else N(I) /= N(J))));
+                  
                   if not Contains (N (1..NN), H) then
                      NN := NN + 1;
                      N (NN) := H;
                      NL := NL + 1;
                      L (NL) := H;
                   end if;
+                  pragma Assert (for all I in N'First..NN => (N(I) /= H));
+                  pragma Assert (if (for all I in N'First..NN => (N(I) /= H)) then 
+                    NN <= 
+                    Natural (Ring_Element'Last - Ring_Element'First + 1));
+                  
                end;
             end loop;
          end;
