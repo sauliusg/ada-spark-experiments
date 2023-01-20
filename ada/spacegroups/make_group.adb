@@ -27,12 +27,12 @@ package body Make_Group is
       
       -- New elements obtained by multiplication. Eventually they
       -- should be come a new group containing E:
-      N : Ring_Element_Array (1 .. Integer (Ring_Element'Last));
+      N : Ring_Element_Array (1 .. Natural (Ring_Element'Last));
       -- Number of occupied elements in N:
       NN : Natural;
       
       -- Elements still to be tested:
-      L : Ring_Element_Array (1 .. Integer (Ring_Element'Last));
+      L : Ring_Element_Array (1 .. Natural (Ring_Element'Last));
       -- Number of occupied elements in L:
       NL : Natural;
       
@@ -80,7 +80,7 @@ package body Make_Group is
                begin
                   -- Put ("H = "); Put (Ring_Element'Image (H)); New_Line;
                   pragma Assert (H in Ring_Element'First .. Ring_Element'Last);
-                  pragma Assert (for all I in 1..NN => (for all J in I .. NN => (I = J or else N(I) /= N(J))));
+                  pragma Assert (for all I in 1..NN => (for all J in 1 .. NN => (I = J or else N(I) /= N(J))));
                   if not Contains (N (1..NN), H) then
                      NN := NN + 1;
                      N (NN) := H;
