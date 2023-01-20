@@ -54,7 +54,6 @@ package body Make_Group is
                pragma Assert (for some E of A => (E = X));
                return True;
             end if;
-            pragma Loop_Invariant (K <= A'Last);
             pragma Loop_Invariant (for all I in A'First .. K => (A(I) /= X));
          end loop;
          pragma Assert (for all E of A => (E /= X));
