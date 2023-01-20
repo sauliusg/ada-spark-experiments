@@ -61,6 +61,7 @@ package body Make_Group is
       NN := 1;
       
       while NL > 0 loop
+         pragma Loop_Invariant (NL <= L'Last);
          declare
             T : Ring_Element := L (NL);
          begin
