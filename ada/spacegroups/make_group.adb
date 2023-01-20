@@ -7,9 +7,8 @@ package body Make_Group is
    
    function Make_Group (E : Ring_Element) return Group
    is
-      G : Group (1 .. 1);
+      G : Group (1 .. 1) := (1 => E);
    begin
-      G (1) := E;
       return G;
    end Make_Group;
    
