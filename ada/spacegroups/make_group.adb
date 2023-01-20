@@ -44,7 +44,6 @@ package body Make_Group is
         )
         return Boolean
         with
-        Pre => (X in Ring_Element'Range), -- maybe obsolete
         Post => ((for some E of A => (E = X)) = Contains'Result)
       is
          Y : Ring_Element;
