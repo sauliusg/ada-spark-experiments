@@ -21,5 +21,9 @@ package Make_Group is
    function Make_Full_Group return Group
      with
      Post => Is_Group (Make_Full_Group'Result);
+   
+   function Build_Group (E : Ring_Element) return Group
+     with
+     Post => Is_Group (Build_Group'Result);
 
 end Make_Group;

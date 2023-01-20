@@ -20,4 +20,68 @@ package body Make_Group is
       return G;
    end Make_Full_Group;
    
+   function Build_Group (E : Ring_Element) return Group
+   is
+      type Ring_Element_Array is
+        array (1 .. Integer (Ring_Element'Last)) of Ring_Element;
+      
+      -- New elements obtained by multiplication. Eventually they
+      -- should be come a new group containing E:
+      N : Ring_Element_Array;
+      -- Number of occupied elements in N:
+      NN : Natural;
+      
+      -- Elements still to be tested:
+      L : Ring_Element_Array;
+      -- Number of occupied elements in L:
+      NL : Natural;
+      
+      -- Check whether the growing array contains the element X:
+      function Contains 
+        (
+         A : Ring_Element_Array;
+         X : Ring_Element
+        )
+        return Boolean
+      is
+      begin
+         for Y of A loop
+            if X = Y then
+               return True;
+            end if;
+         end loop;
+         return False;
+      end Contains;
+      
+   begin
+      L (1) := E;
+      NL := 1;
+      
+      N (1) := Identity;
+      NN := 1;
+      
+      while NL > 0 loop
+         declare
+            T : Ring_Element := L (NL);
+         begin
+            NL := NL - 1;
+            for I in N'First .. NN loop
+               declare
+                  X : Ring_Element := N (I);
+                  H : Ring_Element := X * T;
+            begin
+               if not Contains (N (1..NN), H) then
+                  NN := NN + 1;
+                  N (NN) := H;
+                  NL := NL + 1;
+                  L (NL) := H;
+               end if;
+            end;
+            end loop;
+         end;
+      end loop;
+      
+      return Group (N (1..NN));
+   end Build_Group;
+   
 end Make_Group;
