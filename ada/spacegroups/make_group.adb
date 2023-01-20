@@ -27,13 +27,13 @@ package body Make_Group is
       
       -- New elements obtained by multiplication. Eventually they
       -- should be come a new group containing E:
-      N : Ring_Element_Array (1 .. Natural (Ring_Element'Last)) := 
+      N : Ring_Element_Array (1 .. Positive (Ring_Element'Last)) := 
         (others => 0);
       -- Number of occupied elements in N:
       NN : Natural;
       
       -- Elements still to be tested:
-      L : Ring_Element_Array (1 .. Natural (Ring_Element'Last)) :=
+      L : Ring_Element_Array (1 .. Positive (Ring_Element'Last)) :=
         (others => 0);
       -- Number of occupied elements in L:
       NL : Natural;
