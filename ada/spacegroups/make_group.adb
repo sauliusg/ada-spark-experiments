@@ -23,7 +23,7 @@ package body Make_Group is
    function Build_Group (E : Ring_Element) return Group
    is
       type Ring_Element_Array is
-        array (Integer range <>) of Ring_Element;
+        array (Natural range <>) of Ring_Element;
       
       -- New elements obtained by multiplication. Eventually they
       -- should be come a new group containing E:
@@ -43,13 +43,22 @@ package body Make_Group is
          X : Ring_Element
         )
         return Boolean
+        with
+        Pre => (X in Ring_Element'Range), -- maybe obsolete
+        Post => ((for some E of A => (E = X)) = Contains'Result)
       is
+         Y : Ring_Element;
       begin
-         for Y of A loop
+         for K in A'First .. A'Last loop
+            Y := A (K);
             if X = Y then
+               pragma Assert (for some E of A => (E = X));
                return True;
             end if;
+            pragma Loop_Invariant (K <= A'Last);
+            pragma Loop_Invariant (for all I in A'First .. K => (A(I) /= X));
          end loop;
+         pragma Assert (for all E of A => (E /= X));
          return False;
       end Contains;
       
@@ -73,6 +82,7 @@ package body Make_Group is
                begin
                   -- Put ("H = "); Put (Ring_Element'Image (H)); New_Line;
                   pragma Assert (H in Ring_Element'First .. Ring_Element'Last);
+                  pragma Assert (for all I in 1..NN => (for all J in I .. NN => (I = J or else N(I) /= N(J))));
                   if not Contains (N (1..NN), H) then
                      NN := NN + 1;
                      N (NN) := H;
