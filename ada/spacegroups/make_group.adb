@@ -23,7 +23,7 @@ package body Make_Group is
    function Build_Group (E : Ring_Element) return Group
    is
       type Ring_Element_Array is
-        array (Natural range <>) of Ring_Element;
+        array (Positive range <>) of Ring_Element;
       
       -- New elements obtained by multiplication. Eventually they
       -- should be come a new group containing E:
