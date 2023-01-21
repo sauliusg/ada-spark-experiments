@@ -95,12 +95,12 @@ package body Make_Group is
                   pragma Assert (H in Ring_Element'First .. Ring_Element'Last);
                   
                   if not Contains (N (1..NN), H) then
+                     pragma Assert (for all I in N'First..NN => (N(I) /= H));
                      NN := NN + 1;
                      N (NN) := H;
                      NL := NL + 1;
                      L (NL) := H;
                   end if;
-                  pragma Assert (for all I in N'First..NN => (N(I) /= H));
                   pragma Assert (if (for all I in N'First..NN => (N(I) /= H)) then 
                     NN <= 
                     Natural (Ring_Element'Last - Ring_Element'First + 1));
