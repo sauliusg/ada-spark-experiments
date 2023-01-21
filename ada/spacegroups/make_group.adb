@@ -116,6 +116,8 @@ package body Make_Group is
                   
                   if not Contains (N (1..NN), H) then
                      pragma Assert (for all I in N'First..NN => (N(I) /= H));
+                     pragma Assert (for all I in N'First..NN => 
+                                      (for all J in I .. NN => (N(I) /= N(J))));
                      NN := NN + 1;
                      N (NN) := H;
                      NL := NL + 1;
