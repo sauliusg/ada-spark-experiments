@@ -62,6 +62,21 @@ package body Make_Group is
          return False;
       end Contains;
       
+   function All_Elements_Are_Distinct_In_Prefix
+     (
+      G : Ring_Element_Array;   -- array with group elements to examine
+      N : Positive              -- last index of the array prefix
+     )
+      return Boolean 
+      is
+     (
+      for all I in G'First .. N =>
+         (for all J in I .. N => (I = J or else G(I) /= G(J)))
+     )
+          with 
+            Ghost,
+            Pre => N <= G'Last;
+
    begin
       L (L'First) := E;
       NL := L'First;
@@ -69,7 +84,12 @@ package body Make_Group is
       N (N'First) := Identity;
       NN := N'First;
       
+      pragma Assert (L'First <= L'Last);
+      pragma Assert (NL <= L'Last);
+      
       while NL > 0 loop
+         pragma Loop_Invariant (if NL <= L'Last then 
+                                   All_Elements_Are_Distinct_In_Prefix (L, NL));
          pragma Loop_Invariant (NL >= L'First);
          pragma Loop_Invariant (NL <= L'Last);
          declare
@@ -101,9 +121,11 @@ package body Make_Group is
                      NL := NL + 1;
                      L (NL) := H;
                   end if;
-                  pragma Assert (if (for all I in N'First..NN => (N(I) /= H)) then 
-                    NN <= 
-                    Natural (Ring_Element'Last - Ring_Element'First + 1));
+                  pragma Assert 
+                    (
+                     if (for all I in N'First..NN => (N(I) /= H)) then 
+                          NN <= Natural (Ring_Element'Last - Ring_Element'First + 1)
+                    );
                   
                end;
             end loop;
