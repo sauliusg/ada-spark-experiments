@@ -102,9 +102,11 @@ package body Make_Group is
             for I in N'First .. NN loop
                pragma Loop_Invariant (NN >= N'First);
                pragma Loop_Invariant (NN <= N'Last);
-               pragma Loop_Invariant (for all I in N'First .. NN => 
-                                        (for all J in N'First .. NN => 
-                                           (I = J or else N(I) /= N(J))));
+               
+               pragma Loop_Invariant (if NN <= N'Last then 
+                 (for all I in N'First .. NN => 
+                    (for all J in I .. NN => 
+                       (I = J or else N(I) /= N(J)))));
                
                pragma Loop_Invariant (Ring_Element'Last - Ring_Element'First + 1 <= N'Length);
                pragma Loop_Invariant (Natural (Ring_Element'Last - Ring_Element'First + 1) <= NN);
@@ -116,17 +118,25 @@ package body Make_Group is
                   -- Put ("H = "); Put (Ring_Element'Image (H)); New_Line;
                   pragma Assert (H in Ring_Element'First .. Ring_Element'Last);
                   
-                  if not Contains (N (1..NN), H) then
+                  if not Contains (N (N'First..NN), H) then
                      pragma Assert (for all I in N'First..NN => (N(I) /= H));
                      pragma Assert (for all I in N'First..NN => 
-                                      (for all J in I .. NN => (N(I) /= N(J))));
+                                      (for all J in I .. NN => 
+                                         (I = J or else N(I) /= N(J))));
+                     
+                     pragma Assert (for all I in L'First..NL => (L(I) /= H));
+                     pragma Assert (for all I in L'First..NL => 
+                                      (for all J in I .. NL => 
+                                         (I = J or else L(I) /= L(J))));
+                     
                      NN := NN + 1;
                      N (NN) := H;
                      NL := NL + 1;
                      L (NL) := H;
                      
                      pragma Assert (for all I in N'First..NN => 
-                                      (for all J in I .. NN => (N(I) /= N(J))));
+                                      (for all J in I .. NN =>
+                                         (I = J or else N(I) /= N(J))));
                   end if;
                   pragma Assert 
                     (
