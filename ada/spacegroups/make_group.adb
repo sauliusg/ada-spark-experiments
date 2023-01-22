@@ -87,9 +87,9 @@ package body Make_Group is
       pragma Assert (L'First <= L'Last);
       pragma Assert (NL <= L'Last);
       
-      while NL > 0 loop
-         --pragma Loop_Invariant (if NL <= L'Last then 
-         --                          All_Elements_Are_Distinct_In_Prefix (L, NL));
+      while NL >= L'First loop
+         pragma Loop_Invariant (if NL <= L'Last then 
+                                   All_Elements_Are_Distinct_In_Prefix (L, NL));
          pragma Loop_Invariant (if NN >= N'First and NN <= N'Last then 
                                    All_Elements_Are_Distinct_In_Prefix (N, NN));
          pragma Loop_Invariant (NL >= L'First);
