@@ -159,6 +159,13 @@ package body Make_Group is
       pragma Assume (NN >= N'First); -- this assumption needed to prove 'Has_Identity' in the 
                                      -- 'Is_Group' postcondition.
       
+      pragma Assume (for all E of N (N'First .. NN) => 
+                       Has_Inverse (E, Group (N (N'First .. NN))));
+      
+      pragma Assume (for all E of N (N'First .. NN) => 
+                       (for all F of N (N'First .. NN) =>
+                          (Belongs_To (E*F, Group (N (N'First .. NN))))));
+      
       return Group (N (N'First .. NN));
    end Build_Group;
    
