@@ -111,13 +111,6 @@ package body Make_Group is
                pragma Loop_Invariant (Ring_Element'Last - Ring_Element'First + 1 <= N'Length);
                pragma Loop_Invariant (NN <= Ring_Size);
                
---                Put ("Size = "); Put (Natural'Image (Natural (Ring_Element'Last - Ring_Element'First + 1)));
---                New_Line;
---                Put ("Ring_Size = "); Put (Natural'Image (Ring_Size));
---                New_Line;
---                Put ("NN = "); Put (Natural'Image (NN));
---                New_Line;
-               
                declare
                   X : Ring_Element := N (I);
                   H : Ring_Element := X * T;
