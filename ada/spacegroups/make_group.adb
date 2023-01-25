@@ -15,7 +15,7 @@ package body Make_Group is
    
    function Make_Full_Group return Group
    is
-      G : Group (1 .. 6) := (1, 2, 3, 4, 5, 6);
+      G : Group (1 .. 4) := (1, 6, 36, 31);
    begin
       return G;
    end Make_Full_Group;
