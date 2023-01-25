@@ -124,10 +124,13 @@ package body Make_Group is
                                       (for all J in I .. NN => 
                                          (I = J or else N(I) /= N(J))));
                      
-                     pragma Assert (for all I in L'First..NL => (L(I) /= H));
-                     pragma Assert (for all I in L'First..NL => 
-                                      (for all J in I .. NL => 
-                                         (I = J or else L(I) /= L(J))));
+                     pragma Assert (All_Elements_Are_Distinct_In_Prefix (N, NN));
+                     
+                     pragma Assert (if NL >= L'First then
+                       (for all I in L'First .. NL => (L(I) /= H)));
+                     
+                     pragma Assert (if NL > 0 and then NL <= L'Last
+                                      then All_Elements_Are_Distinct_In_Prefix (L, NL));
                      
                      NN := NN + 1;
                      N (NN) := H;
@@ -137,6 +140,10 @@ package body Make_Group is
                      pragma Assert (for all I in N'First..NN => 
                                       (for all J in I .. NN =>
                                          (I = J or else N(I) /= N(J))));
+                     
+                     pragma Assert (All_Elements_Are_Distinct_In_Prefix (N, NN));
+                     pragma Assert (All_Elements_Are_Distinct_In_Prefix (L, NL));
+
                   end if;
                   pragma Assert 
                     (
