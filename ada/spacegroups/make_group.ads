@@ -9,7 +9,8 @@ package Make_Group is
    
    Identity : constant Ring_Element := 1;
    
-   Ring_Size : Natural := Natural (Ring_Element'Last - Ring_Element'First + 1)
+   Ring_Size : constant Natural :=
+     Natural (Ring_Element'Last - Ring_Element'First) + 1
      with Ghost;
    
    package Mod_Seven_Group_theory is new Group_Theory (Ring_Element, Identity);

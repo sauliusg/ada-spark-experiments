@@ -109,7 +109,15 @@ package body Make_Group is
                        (I = J or else N(I) /= N(J)))));
                
                pragma Loop_Invariant (Ring_Element'Last - Ring_Element'First + 1 <= N'Length);
-               pragma Loop_Invariant (Natural (Ring_Element'Last - Ring_Element'First + 1) <= NN);
+               pragma Loop_Invariant (NN <= Ring_Size);
+               pragma Assert (NN <= Ring_Size);
+               
+--                Put ("Size = "); Put (Natural'Image (Natural (Ring_Element'Last - Ring_Element'First + 1)));
+--                New_Line;
+--                Put ("Ring_Size = "); Put (Natural'Image (Ring_Size));
+--                New_Line;
+--                Put ("NN = "); Put (Natural'Image (NN));
+--                New_Line;
                
                declare
                   X : Ring_Element := N (I);
@@ -141,7 +149,7 @@ package body Make_Group is
                   pragma Assert 
                     (
                      if (for all I in N'First..NN => (N(I) /= H)) then 
-                          NN <= Natural (Ring_Element'Last - Ring_Element'First + 1)
+                    NN <= Ring_Size
                     );
                   
                end;
