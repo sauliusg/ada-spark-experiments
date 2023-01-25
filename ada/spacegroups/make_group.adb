@@ -94,6 +94,8 @@ package body Make_Group is
            All_Elements_Are_Distinct_In_Prefix (N, NN));
          
          pragma Loop_Invariant (NN <= N'Last);
+         pragma Assume (NL <= L'Last);
+         -- pragma Loop_Invariant (NL <= L'Last);
          
          declare
             T : Ring_Element := L (NL);
@@ -120,6 +122,11 @@ package body Make_Group is
                      
                      pragma Assert (for all I in N'First..NN => (N(I) /= H));
                      pragma Assert (All_Elements_Are_Distinct_In_Prefix (N, NN));
+                     
+                     pragma Assume (if not Contains (N (N'First..NN), H) then
+                       NN < N'Last);
+                     pragma Assume (if not Contains (N (N'First..NN), H) then
+                       NL < L'Last);
                      
                      NN := NN + 1;
                      N (NN) := H;
