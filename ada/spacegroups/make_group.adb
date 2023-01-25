@@ -86,14 +86,15 @@ package body Make_Group is
       
       pragma Assert (L'First <= L'Last);
       pragma Assert (NL <= L'Last);
+      pragma Assert (NN <= N'Last);
       
       while NL >= L'First loop
-         pragma Loop_Invariant (if NL <= L'Last then 
-                                   All_Elements_Are_Distinct_In_Prefix (L, NL));
+         
          pragma Loop_Invariant (if NN >= N'First and NN <= N'Last then 
-                                   All_Elements_Are_Distinct_In_Prefix (N, NN));
-         pragma Loop_Invariant (NL >= L'First);
-         pragma Loop_Invariant (NL <= L'Last);
+           All_Elements_Are_Distinct_In_Prefix (N, NN));
+         
+         pragma Loop_Invariant (NN <= N'Last);
+         
          declare
             T : Ring_Element := L (NL);
          begin
@@ -104,9 +105,7 @@ package body Make_Group is
                pragma Loop_Invariant (NN <= N'Last);
                
                pragma Loop_Invariant (if NN <= N'Last then 
-                 (for all I in N'First .. NN => 
-                    (for all J in I .. NN => 
-                       (I = J or else N(I) /= N(J)))));
+                 All_Elements_Are_Distinct_In_Prefix (N, NN));
                
                pragma Loop_Invariant (Ring_Size <= N'Length + 1);
                pragma Loop_Invariant (NN <= Ring_Size);
@@ -116,40 +115,20 @@ package body Make_Group is
                   H : Ring_Element := X * T;
                begin
                   -- Put ("H = "); Put (Ring_Element'Image (H)); New_Line;
-                  pragma Assert (H in Ring_Element'First .. Ring_Element'Last);
                   
                   if not Contains (N (N'First..NN), H) then
+                     
                      pragma Assert (for all I in N'First..NN => (N(I) /= H));
-                     pragma Assert (for all I in N'First..NN => 
-                                      (for all J in I .. NN => 
-                                         (I = J or else N(I) /= N(J))));
-                     
                      pragma Assert (All_Elements_Are_Distinct_In_Prefix (N, NN));
-                     
-                     pragma Assert (if NL >= L'First then
-                       (for all I in L'First .. NL => (L(I) /= H)));
-                     
-                     pragma Assert (if NL > 0 and then NL <= L'Last
-                                      then All_Elements_Are_Distinct_In_Prefix (L, NL));
                      
                      NN := NN + 1;
                      N (NN) := H;
                      NL := NL + 1;
                      L (NL) := H;
                      
-                     pragma Assert (for all I in N'First..NN => 
-                                      (for all J in I .. NN =>
-                                         (I = J or else N(I) /= N(J))));
-                     
                      pragma Assert (All_Elements_Are_Distinct_In_Prefix (N, NN));
-                     pragma Assert (All_Elements_Are_Distinct_In_Prefix (L, NL));
 
                   end if;
-                  pragma Assert 
-                    (
-                     if (for all I in N'First..NN => (N(I) /= H)) then 
-                    NN <= Ring_Size
-                    );
                   
                end;
             end loop;
