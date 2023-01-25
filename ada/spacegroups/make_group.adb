@@ -84,6 +84,9 @@ package body Make_Group is
       N (N'First) := Identity;
       NN := N'First;
       
+      pragma Assert (Is_Identity (N (N'First), Group (N (N'First .. NN))));
+      pragma Assert (N (N'First) = Identity);
+      
       pragma Assert (L'First <= L'Last);
       pragma Assert (NL <= L'Last);
       pragma Assert (NN <= N'Last);
@@ -94,8 +97,11 @@ package body Make_Group is
            All_Elements_Are_Distinct_In_Prefix (N, NN));
          
          pragma Loop_Invariant (NN <= N'Last);
+         pragma Loop_Invariant (Is_Identity (N (N'First), Group (N (N'First .. NN))));
+         pragma Loop_Invariant (N (N'First) = Identity);
          pragma Assume (NL <= L'Last);
          -- pragma Loop_Invariant (NL <= L'Last);
+         
          
          declare
             T : Ring_Element := L (NL);
@@ -112,6 +118,9 @@ package body Make_Group is
                pragma Loop_Invariant (Ring_Size <= N'Length + 1);
                pragma Loop_Invariant (NN <= Ring_Size);
                
+               pragma Loop_Invariant (Is_Identity (N (N'First), Group (N (N'First .. NN))));
+               pragma Loop_Invariant (N (N'First) = Identity);
+               
                declare
                   X : Ring_Element := N (I);
                   H : Ring_Element := X * T;
@@ -122,6 +131,7 @@ package body Make_Group is
                      
                      pragma Assert (for all I in N'First..NN => (N(I) /= H));
                      pragma Assert (All_Elements_Are_Distinct_In_Prefix (N, NN));
+                     pragma Assert (N (N'First) = Identity);
                      
                      pragma Assume (if not Contains (N (N'First..NN), H) then
                        NN < N'Last);
@@ -133,16 +143,23 @@ package body Make_Group is
                      NL := NL + 1;
                      L (NL) := H;
                      
+                     pragma Assert (NN > N'First);
                      pragma Assert (All_Elements_Are_Distinct_In_Prefix (N, NN));
+                     pragma Assert (All_Elements_Are_Distinct_In_Prefix (N, NN));
+                     pragma Assert (N (N'First) = Identity);
 
                   end if;
-                  
                end;
             end loop;
          end;
       end loop;
       
-      return Group (N (1..NN));
+      pragma Assert (N (N'First) = Identity);
+      pragma Assert (Is_Identity (N (N'First), Group (N (N'First .. NN))));
+      pragma Assume (NN >= N'First); -- this assumption needed to prove 'Has_Identity' in the 
+                                     -- 'Is_Group' postcondition.
+      
+      return Group (N (N'First .. NN));
    end Build_Group;
    
 end Make_Group;
