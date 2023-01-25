@@ -108,7 +108,7 @@ package body Make_Group is
                     (for all J in I .. NN => 
                        (I = J or else N(I) /= N(J)))));
                
-               pragma Loop_Invariant (Ring_Element'Last - Ring_Element'First + 1 <= N'Length);
+               pragma Loop_Invariant (Ring_Size <= N'Length + 1);
                pragma Loop_Invariant (NN <= Ring_Size);
                
                declare
