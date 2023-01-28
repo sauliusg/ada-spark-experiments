@@ -128,19 +128,25 @@ begin
                  I'Image;
             end if;
             
-            Put ("Permissible digits: ");
-            Put (Permissible_Digits (Permissible_Digits'First .. Sudoku_Integer (N_Digits)));
-            New_Line;
+            -- Put ("Permissible digits: ");
+            -- Put (Permissible_Digits (Permissible_Digits'First .. Sudoku_Integer (N_Digits)));
+            -- New_Line;
 
             Field (L,I) := Permissible_Digits 
               (
                Random_Index (Sudoku_State, Permissible_Digits'First, 
                              Sudoku_Integer (N_Digits))
               );
-            Put ("Digit chosen:" & Field (L,I)'Image);
-            New_Line;
+            -- Put ("Digit chosen:" & Field (L,I)'Image);
+            -- New_Line;
          end;
       end loop;
+      declare
+         Line : Sudoku_Line := (for I in Field'Range(2) => Field (L,I));
+      begin
+         Put (Line);
+         New_Line;
+      end;
    end loop;
    
    Put (Field);
