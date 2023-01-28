@@ -10,7 +10,9 @@ procedure Gen_Filled_Sudoku is
    
    subtype Sudoku_Integer is Sudoku_Field_Content range 1 .. 9;
    
-   type Sudoku_Line is array (Sudoku_Integer) of Sudoku_Integer;
+   type Sudoku_Line_Segment is array (Sudoku_Integer range <>) of Sudoku_Integer;
+   
+   subtype Sudoku_Line is Sudoku_Line_Segment (Sudoku_Integer);
    
    type Sudoku_Field is array (Sudoku_Integer, Sudoku_Integer) of
      Sudoku_Field_Content;
@@ -65,6 +67,22 @@ procedure Gen_Filled_Sudoku is
       return Linear_Map (Random_Less_Than_One (G), First, Last);
    end;
    
+   function Digit_Is_Permissible
+     (
+      F : Sudoku_Field;     -- The Sudoku field, filled from the top to the bottom
+      N : Sudoku_Integer;   -- The number to be checked
+      L, C : Sudoku_Integer -- line and column of the new number
+     ) return Boolean is separate;
+   
+   NO_PERMISSIBLE_DIGITS : exception;
+   
+   procedure Put (Line : Sudoku_Line_Segment) is
+   begin
+      for I in Line'Range loop
+         Put (Line (I)'Image);
+      end loop;
+   end;
+   
 begin
    
    Reset (Sudoku_State);
@@ -81,7 +99,45 @@ begin
       for I in Line'Range loop
          Field (1,I) := Line (I);
       end loop;
+      Put (Line);
+      New_Line;
    end;
+   
+   
+   for L in Field'First + 1 .. Field'Last loop
+      for I in Field'Range(2) loop
+         declare
+            Permissible_Digits : Sudoku_Line;
+            N_Digits : Integer := Integer (Permissible_Digits'First) - 1;
+         begin
+            for D in Sudoku_Integer'Range loop
+               if Digit_Is_Permissible (Field, D, L, I) then
+                  N_Digits := N_Digits + 1;
+                  Permissible_Digits (Sudoku_Integer (N_Digits)) := D;
+               end if;
+            end loop;
+            
+            Put ("Permissible digits: ");
+            Put (Permissible_Digits (Permissible_Digits'First .. Sudoku_Integer (N_Digits)));
+            New_Line;
+
+            if N_Digits < Integer (Permissible_Digits'First) then
+               raise NO_PERMISSIBLE_DIGITS with
+                 "No permissible digits could be found for row " &
+                 L'Image &
+                 ", column " &
+                 I'Image;
+            end if;
+            Field (L,I) := Permissible_Digits 
+              (
+               Random_Index (Sudoku_State, Permissible_Digits'First, 
+                             Sudoku_Integer (N_Digits))
+              );
+            Put ("Digit chosen:" & Field (L,I)'Image);
+            New_Line;
+         end;
+      end loop;
+   end loop;
    
    Put (Field);
    New_Line;
