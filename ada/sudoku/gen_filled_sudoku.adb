@@ -103,7 +103,6 @@ begin
       New_Line;
    end;
    
-   
    for L in Field'First + 1 .. Field'Last loop
       for I in Field'Range(2) loop
          declare
