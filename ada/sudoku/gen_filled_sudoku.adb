@@ -98,7 +98,7 @@ begin
          -- Fisher–Yates shuffle:
          -- https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
          for I in Line'First .. Line'Last - 1 loop
-            Swap (Line (I), Line (Random_Index (Sudoku_State, Line'First, Line'Last)));
+            Swap (Line (I), Line (Random_Index (Sudoku_State, I, Line'Last)));
          end loop;
          for I in Line'Range loop
             Field (1,I) := Line (I);
