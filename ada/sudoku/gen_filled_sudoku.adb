@@ -120,10 +120,6 @@ begin
                end if;
             end loop;
             
-            Put ("Permissible digits: ");
-            Put (Permissible_Digits (Permissible_Digits'First .. Sudoku_Integer (N_Digits)));
-            New_Line;
-
             if N_Digits < Integer (Permissible_Digits'First) then
                raise NO_PERMISSIBLE_DIGITS with
                  "No permissible digits could be found for row " &
@@ -131,6 +127,11 @@ begin
                  ", column " &
                  I'Image;
             end if;
+            
+            Put ("Permissible digits: ");
+            Put (Permissible_Digits (Permissible_Digits'First .. Sudoku_Integer (N_Digits)));
+            New_Line;
+
             Field (L,I) := Permissible_Digits 
               (
                Random_Index (Sudoku_State, Permissible_Digits'First, 
