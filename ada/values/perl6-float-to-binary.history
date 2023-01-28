@@ -1,0 +1,1 @@
+ 1865  perl6 -e 'my $n = 99999994039535522460937500; my $d = 10**((log($n)/log(10) + 1).Int); print $n, " ", $d," ", ($n/$d).base(10,26),"\n"; my $l = 100; while ($n > 0 && $l > 0) {$l--; my $m = ($n * 2 / $d).Int; $n = ($n * 2) % $d; print $m.Int}; print "\n"'
