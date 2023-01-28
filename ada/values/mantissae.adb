@@ -13,6 +13,24 @@ begin
 
    Put ("Float'Model_Mantissa   = ");
    Put (Float'Model_Mantissa);
-   New_Line;   
-   
+   New_Line;
+   New_Line;
+
+   Put ("Long_Float'Machine_Mantissa = ");
+   Put (Long_Float'Machine_Mantissa);
+   New_Line;
+
+   Put ("Long_Float'Model_Mantissa   = ");
+   Put (Long_Float'Model_Mantissa);
+   New_Line;
+   New_Line;
+
+   Put ("Long_Long_Float'Machine_Mantissa = ");
+   Put (Long_Long_Float'Machine_Mantissa);
+   New_Line;
+
+   Put ("Long_Long_Float'Model_Mantissa   = ");
+   Put (Long_Long_Float'Model_Mantissa);
+   New_Line;
+
 end;
