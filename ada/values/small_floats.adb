@@ -108,4 +108,12 @@ begin
    New_Line;
    New_Line;
    
+   -- ----------------------------------------------------------------------
+   
+   Y := 1.0;
+   
+   Put (Float'Adjacent (Y, 0.0) = Y - Eps);
+   Put (" True when Y - Eps is adjacent to Y towards 0.0");
+   New_Line;
+   
 end;
