@@ -94,7 +94,6 @@ begin
       
       declare
          Line : Sudoku_Line := Sudoku_Digits;
-         N : Positive := Positive (Line'Last);
       begin
          -- Fisher–Yates shuffle:
          -- https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
