@@ -22,7 +22,8 @@ procedure Gen_Filled_Sudoku is
    
    Sudoku_State : Ada.Numerics.Float_Random.Generator;
    
-   Field : Sudoku_Field := (others => (others => 0));
+   Empty_Field : constant Sudoku_Field := (others => (others => 0));
+   Field : Sudoku_Field;
    
    procedure Put (F : in Sudoku_Field) is separate;
    
@@ -87,70 +88,87 @@ procedure Gen_Filled_Sudoku is
       end loop;
    end;
    
+   Max_Line : Sudoku_Integer;
+   
 begin
    
    Reset (Sudoku_State);
    
-   declare
-      Line : Sudoku_Line := Sudoku_Digits;
-      N : Positive := Positive (Line'Last);
-   begin
-      -- Fisher–Yates shuffle:
-      -- https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-      for I in Line'First .. Line'Last - 1 loop
-         Swap (Line (I), Line (Random_Index (Sudoku_State, Line'First, Line'Last)));
-      end loop;
-      for I in Line'Range loop
-         Field (1,I) := Line (I);
-      end loop;
-      Put (Line);
-      New_Line;
-   end;
-   
-   for L in Field'First + 1 .. Field'Last loop
-      for I in Field'Range(2) loop
-         declare
-            Permissible_Digits : Sudoku_Line;
-            N_Digits : Integer := Integer (Permissible_Digits'First) - 1;
-         begin
-            for D in Sudoku_Integer'Range loop
-               if Digit_Is_Permissible (Field, D, L, I) then
-                  N_Digits := N_Digits + 1;
-                  Permissible_Digits (Sudoku_Integer (N_Digits)) := D;
-               end if;
-            end loop;
-            
-            if N_Digits < Integer (Permissible_Digits'First) then
-               raise NO_PERMISSIBLE_DIGITS with
-                 "No permissible digits could be found for row " &
-                 L'Image &
-                 ", column " &
-                 I'Image;
-            end if;
-            
-            -- Put ("Permissible digits: ");
-            -- Put (Permissible_Digits (Permissible_Digits'First .. Sudoku_Integer (N_Digits)));
-            -- New_Line;
-
-            Field (L,I) := Permissible_Digits 
-              (
-               Random_Index (Sudoku_State, Permissible_Digits'First, 
-                             Sudoku_Integer (N_Digits))
-              );
-            -- Put ("Digit chosen:" & Field (L,I)'Image);
-            -- New_Line;
-         end;
-      end loop;
+   loop
+      
+      Field := Empty_Field;
+      
       declare
-         Line : Sudoku_Line := (for I in Field'Range(2) => Field (L,I));
+         Line : Sudoku_Line := Sudoku_Digits;
+         N : Positive := Positive (Line'Last);
       begin
+         -- Fisher–Yates shuffle:
+         -- https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+         for I in Line'First .. Line'Last - 1 loop
+            Swap (Line (I), Line (Random_Index (Sudoku_State, Line'First, Line'Last)));
+         end loop;
+         for I in Line'Range loop
+            Field (1,I) := Line (I);
+         end loop;
          Put (Line);
          New_Line;
       end;
-   end loop;
-   New_Line;
+      
+  Generate_Field:
+      for L in Field'First + 1 .. Field'Last loop
+         Max_Line := L;
+         for I in Field'Range(2) loop
+            declare
+               Permissible_Digits : Sudoku_Line;
+               N_Digits : Integer := Integer (Permissible_Digits'First) - 1;
+            begin
+               for D in Sudoku_Integer'Range loop
+                  if Digit_Is_Permissible (Field, D, L, I) then
+                     N_Digits := N_Digits + 1;
+                     Permissible_Digits (Sudoku_Integer (N_Digits)) := D;
+                  end if;
+               end loop;
+               
+               if N_Digits < Integer (Permissible_Digits'First) then
+                  exit Generate_Field;
+               end if;
+               
+               if N_Digits < Integer (Permissible_Digits'First) then
+                  raise NO_PERMISSIBLE_DIGITS with
+                    "No permissible digits could be found for row " &
+                    L'Image &
+                    ", column " &
+                    I'Image;
+               end if;
+               
+               -- Put ("Permissible digits: ");
+               -- Put (Permissible_Digits (Permissible_Digits'First .. Sudoku_Integer (N_Digits)));
+               -- New_Line;
+
+               Field (L,I) := Permissible_Digits 
+                 (
+                  Random_Index (Sudoku_State, Permissible_Digits'First, 
+                                Sudoku_Integer (N_Digits))
+                 );
+               -- Put ("Digit chosen:" & Field (L,I)'Image);
+               -- New_Line;
+            end;
+         end loop;
+         declare
+            Line : Sudoku_Line := (for I in Field'Range(2) => Field (L,I));
+         begin
+            Put (Line);
+            New_Line;
+         end;
+      end loop Generate_Field;
+      New_Line;
+      
+      if Max_Line = Field'Last(1) then
+         Put (Field);
+         New_Line;
+         exit;
+      end if;
    
-   Put (Field);
-   New_Line;
+   end loop;
    
 end Gen_Filled_Sudoku;
