@@ -26,7 +26,7 @@ begin
    Put (Eps);
    New_Line;
    
-   X := 256.0;
+   X := 4.0;
    Y := 1.0;
    
    Z := X * Y;
