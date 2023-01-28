@@ -57,7 +57,14 @@ begin
    
    Y := Y - Eps;
    
-   Put ("Y Fraction = "); Put (Float'Fraction (Y), 1, 23, 0); New_Line;
+   Put ("Y Fraction = "); Put (Long_Float'Fraction (Long_Float (Y)), 1, 26, 0);
+   Put (" (Long_Float)");
+   New_Line;
+   
+   Put ("Y Fraction = "); Put (Float'Fraction (Y), 1, 26, 0); 
+   Put (" (Float)");
+   New_Line;
+   
    Put ("Y Exponent = "); Put (Float'Exponent (Y), 12); New_Line;
    New_Line;
    
@@ -79,11 +86,11 @@ begin
    
    Y := Float'Adjacent (Y, 0.0);
    
-   Put ("Y Fraction = "); Put (Long_Float'Fraction (Long_Float (Y)), 1, 25, 0);
+   Put ("Y Fraction = "); Put (Long_Float'Fraction (Long_Float (Y)), 1, 26, 0);
    Put (" (Long_Float)");
    New_Line;
    
-   Put ("Y Fraction = "); Put (Float'Fraction (Y), 1, 25, 0); 
+   Put ("Y Fraction = "); Put (Float'Fraction (Y), 1, 26, 0); 
    Put (" (Float)");
    New_Line;
    
