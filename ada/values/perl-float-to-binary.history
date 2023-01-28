@@ -1,0 +1,1 @@
+ 1637  perl -e '$x = 0.9999998807907104492187500; while ($x > 0) {$x *= 2; print int ($x); $x = $x - int ($x)}; print "\n"' 
