@@ -52,6 +52,7 @@ procedure Gen_Filled_Sudoku is
       -- First                                       Last
       --  <- 0.25 ->|<- 0.50 ->|<- 0.75 ->|<- 1.00 ->|
       --     => 0       => 1       => 2       => 3
+      pragma Assert (Rnd < 1.0);
       return Sudoku_Integer (Natural (First) + Natural (Float'Floor (Float (Last - First) * Rnd)));
    end Linear_Map;
    
