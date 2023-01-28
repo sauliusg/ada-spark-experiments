@@ -10,7 +10,7 @@ begin
          end if;
       end loop;
       New_Line;
-      if I mod 3 = 0 then
+      if I mod 3 = 0 and then I < F'Last(1) then
          New_Line;
       end if;
    end loop;

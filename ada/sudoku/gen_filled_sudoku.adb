@@ -81,13 +81,6 @@ procedure Gen_Filled_Sudoku is
    
    NO_PERMISSIBLE_DIGITS : exception;
    
-   procedure Put (Line : Sudoku_Line_Segment) is
-   begin
-      for I in Line'Range loop
-         Put (Line (I)'Image);
-      end loop;
-   end;
-   
    Max_Line : Sudoku_Integer;
    
 begin
@@ -110,8 +103,6 @@ begin
          for I in Line'Range loop
             Field (1,I) := Line (I);
          end loop;
-         Put (Line);
-         New_Line;
       end;
       
   Generate_Field:
@@ -141,31 +132,17 @@ begin
                     I'Image;
                end if;
                
-               -- Put ("Permissible digits: ");
-               -- Put (Permissible_Digits (Permissible_Digits'First .. Sudoku_Integer (N_Digits)));
-               -- New_Line;
-
                Field (L,I) := Permissible_Digits 
                  (
                   Random_Index (Sudoku_State, Permissible_Digits'First, 
                                 Sudoku_Integer (N_Digits))
                  );
-               -- Put ("Digit chosen:" & Field (L,I)'Image);
-               -- New_Line;
             end;
          end loop;
-         declare
-            Line : Sudoku_Line := (for I in Field'Range(2) => Field (L,I));
-         begin
-            Put (Line);
-            New_Line;
-         end;
       end loop Generate_Field;
-      New_Line;
       
       if Max_Line = Field'Last(1) then
          Put (Field);
-         New_Line;
          exit;
       end if;
    
