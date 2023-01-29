@@ -17,17 +17,33 @@ procedure Binary is
    
    type Float_Array is array (Integer range <>) of FLoat;
    
+   procedure Pad (S : in out String; C : Character) is
+   begin
+      for I in S'Range loop
+         if S (I) = ' ' or else S (I) = '#' or else S (I) = '2' then
+            S (I) := C;
+         end if;
+      end loop;
+      S (S'Last) := '#';
+      S (S'First) := '2';
+      S (S'First + 1) := '#';
+   end;
+   
 begin
    
-   for M of Float_Array'(Machine_Epsilon, Float'Model_epsilon) loop
+   for M of Float_Array'(1.0, Machine_Epsilon, Float'Model_epsilon) loop
       declare
-         FM : Float := M * 2.0**24;
+         Exp : constant Integer := 24;
+         FM : Float := M * 2.0**Exp;
          IM : Integer := Integer (FM);
+         Buffer : String (1 .. Exp + 4);
       begin
          Put (M); New_Line;
          Put (FM); New_Line;
          Put (IM); New_Line;
-         Put (IM, Base => 2); New_Line;
+         Put (Buffer, IM, Base => 2);
+         Pad (Buffer, '0');
+         Put (Buffer); New_Line;
          New_Line;
       end;
    end loop;
