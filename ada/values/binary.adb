@@ -34,9 +34,11 @@ begin
    for M of Float_Array'(1.0, Machine_Epsilon, Float'Model_epsilon) loop
       declare
          Exp : constant Integer := 24;
+         Width : constant Integer := Exp + 4;
+         
          FM : Float := M * 2.0**Exp;
          IM : Integer := Integer (FM);
-         Buffer : String (1 .. Exp + 4);
+         Buffer : String (1 .. Width);
       begin
          Put (M); New_Line;
          Put (FM); New_Line;
