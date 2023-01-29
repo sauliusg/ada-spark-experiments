@@ -46,16 +46,16 @@ begin
          Put (Buffer, IM, Base => 2);
          Pad (Buffer, '0');
          Put (Buffer); New_Line;
-         New_Line;
          
          -- Check whether the printed value can be parsed:
          declare
             Dummy : Integer;
          begin
-            Buffer := "2#0000000000000000000000010#";
             Get (Buffer, IM, Dummy);
             Put_Line ("Got back the value: " & IM'Image);
          end;
+         
+         New_Line;
       end;
    end loop;
    
