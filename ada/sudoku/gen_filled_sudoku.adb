@@ -1,24 +1,11 @@
 pragma Ada_2022;
 
 with Ada.Text_IO; use Ada.Text_IO;
+with Sudoku;      use Sudoku;
 
 with Ada.Numerics.Float_Random; use Ada.Numerics.Float_Random;
 
 procedure Gen_Filled_Sudoku is
-   
-   type Sudoku_Field_Content is new Integer range 0 .. 9;
-   
-   subtype Sudoku_Integer is Sudoku_Field_Content range 1 .. 9;
-   
-   type Sudoku_Line_Segment is array (Sudoku_Integer range <>) of Sudoku_Integer;
-   
-   subtype Sudoku_Line is Sudoku_Line_Segment (Sudoku_Integer);
-   
-   type Sudoku_Field is array (Sudoku_Integer, Sudoku_Integer) of
-     Sudoku_Field_Content;
-   
-   Sudoku_Digits : constant Sudoku_Line :=
-     (1, 2, 3, 4, 5, 6, 7, 8, 9);
    
    Sudoku_State : Ada.Numerics.Float_Random.Generator;
    
@@ -72,13 +59,6 @@ procedure Gen_Filled_Sudoku is
    begin
       return Linear_Map (Random_Less_Than_One (G), First, Last);
    end;
-   
-   function Digit_Is_Permissible
-     (
-      F : Sudoku_Field;     -- The Sudoku field, filled from the top to the bottom
-      N : Sudoku_Integer;   -- The number to be checked
-      L, C : Sudoku_Integer -- line and column of the new number
-     ) return Boolean is separate;
    
    NO_PERMISSIBLE_DIGITS : exception;
    

@@ -1,4 +1,4 @@
-separate(Gen_Filled_Sudoku)
+separate(Sudoku)
 
 function Digit_Is_Permissible
   (
