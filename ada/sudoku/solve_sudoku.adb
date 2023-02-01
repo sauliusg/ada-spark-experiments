@@ -20,13 +20,15 @@ procedure Solve_Sudoku is
       end loop;
    end;
    
-   Input_File : File_Type;
+   procedure Load_Field (File_Name : String; S : out Sudoku_Field) is
+      Input_File : File_Type;
+   begin
+      Open (Input_File, In_File, File_Name);
+      Load_Field (Input_File, S);
+      Close (Input_File);
+   end;
    
 begin
-   Open (Input_File, In_File, Argument (1));
-   
-   Load_Field (Input_File, Field);
+   Load_Field (Argument (1), Field);
    Put (Field);
-   
-   Close (Input_File);
 end Solve_Sudoku;
