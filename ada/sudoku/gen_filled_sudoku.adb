@@ -12,8 +12,6 @@ procedure Gen_Filled_Sudoku is
    Empty_Field : constant Sudoku_Field := (others => (others => 0));
    Field : Sudoku_Field;
    
-   procedure Put (F : in Sudoku_Field) is separate;
-   
    procedure Swap (A, B : in out Sudoku_Integer) is
       Tmp : Sudoku_Integer := A;
    begin

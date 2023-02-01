@@ -1,4 +1,4 @@
-separate(Gen_Filled_Sudoku)
+separate(Sudoku)
 
 procedure Put (F : in Sudoku_Field) is
 begin

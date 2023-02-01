@@ -22,4 +22,6 @@ package Sudoku is
       L, C : Sudoku_Integer -- line and column of the new number
      ) return Boolean;
    
+   procedure Put (F : in Sudoku_Field);
+   
 end Sudoku;
