@@ -1,0 +1,1 @@
+  565  awk 'BEGIN {srand()} NF > 1 {for (i = 1; i <= NF; i++) {if (rand() < 0.6) {$i = 0}; printf "%2s", $i; if (i % 3 == 0) {printf " "}} print ""} NF < 1 {print ""}' sudoku_field.txt  > sudoku_puzzle.txt 
