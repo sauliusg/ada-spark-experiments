@@ -47,8 +47,6 @@ procedure Solve_Sudoku is
       N_Candidates : in Integer;
       State : in out Sudoku_Solution_State
      ) is
-      X : Sudoku_Integer := Candidates (N).X;
-      Y : Sudoku_Integer := Candidates (N).Y;
    begin
       
       if N > N_Candidates then
@@ -56,23 +54,30 @@ procedure Solve_Sudoku is
          return;
       end if;
       
-      for Val in Sudoku_Integer'Range loop
-         if Digit_Is_Permissible (F, Val, X, Y) then
-            F (X, Y) := Val;
-            Solve (F, Candidates, N + 1, N_Candidates, State);
-            if State = Solved then
-               Put (F);
-               New_Line;
-               New_Line;
-               -- return;
-               -- search for more solutions
-               State := In_Progress;
+      declare
+         X : Sudoku_Integer := Candidates (N).X;
+         Y : Sudoku_Integer := Candidates (N).Y;
+      begin
+         
+         for Val in Sudoku_Integer'Range loop
+            if Digit_Is_Permissible (F, Val, X, Y) then
+               F (X, Y) := Val;
+               Solve (F, Candidates, N + 1, N_Candidates, State);
+               if State = Solved then
+                  Put (F);
+                  New_Line;
+                  New_Line;
+                  -- return;
+                  -- search for more solutions
+                  State := In_Progress;
+               end if;
             end if;
-         end if;
-      end loop;
-      
-      -- backtrack:
-      F (X, Y) := 0;
+         end loop;
+         
+         -- backtrack:
+         F (X, Y) := 0;
+         
+      end;      
       
    end Solve;
    
