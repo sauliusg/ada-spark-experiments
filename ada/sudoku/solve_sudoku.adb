@@ -61,7 +61,12 @@ procedure Solve_Sudoku is
             F (X, Y) := Val;
             Solve (F, Candidates, N + 1, N_Candidates, State);
             if State = Solved then
-               return;
+               Put (F);
+               New_Line;
+               New_Line;
+               -- return;
+               -- search for more solutions
+               State := In_Progress;
             end if;
          end if;
       end loop;
@@ -116,9 +121,9 @@ begin
    
    Solve (Field, State);
    
-   if State = Solved then
-      Put (Field);
-   else
-      Put_Line ("No solutions could be found");
-   end if;
+   -- if State = Solved then
+   --    Put (Field);
+   -- else
+   --    Put_Line ("No solutions could be found");
+   -- end if;
 end Solve_Sudoku;
