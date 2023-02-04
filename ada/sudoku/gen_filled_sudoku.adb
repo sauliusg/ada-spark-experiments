@@ -1,10 +1,11 @@
 pragma Ada_2022;
 
-with Ada.Text_IO;  use Ada.Text_IO;
-with Ada.Calendar; use Ada.Calendar;
-with Ada.Calendar.Formatting; use Ada.Calendar.Formatting;
-with Sudoku;       use Sudoku;
+with Ada.Command_Line; use Ada.Command_Line;
+with Ada.Text_IO;      use Ada.Text_IO;
+with Ada.Calendar;     use Ada.Calendar;
+with Sudoku;           use Sudoku;
 
+with Ada.Calendar.Formatting;   use Ada.Calendar.Formatting;
 with Ada.Numerics.Float_Random; use Ada.Numerics.Float_Random;
 
 procedure Gen_Filled_Sudoku is
@@ -125,6 +126,10 @@ procedure Gen_Filled_Sudoku is
    Random_Seed : Integer := Integer (Lowest_Bits (Seconds_Since_Epoch));
    
 begin
+   
+   if Argument_Count > 0 then
+      Random_Seed := Integer'Value (Argument (1));
+   end if;
    
    Put_Line ("#TIME: " & Duration'Image (Seconds_Since_Epoch));
    Put_Line ("#SEED: " & Random_Seed'Image);
