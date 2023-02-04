@@ -129,7 +129,7 @@ begin
    Put_Line ("#TIME: " & Duration'Image (Seconds_Since_Epoch));
    Put_Line ("#SEED: " & Random_Seed'Image);
    
-   Reset (Sudoku_State);
+   Reset (Sudoku_State, Random_Seed);
    
    loop
       
