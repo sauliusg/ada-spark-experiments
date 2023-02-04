@@ -81,12 +81,8 @@ procedure Gen_Filled_Sudoku is
       return S / Duration'Small; -- Restores the integer part.
    end;
    
-   Scaled_Seconds : constant Duration := Seconds_Since_Epoch / 1E12;
-   High_Second_Digits : constant Duration := Scaled_Seconds * 1E12;
-   Low_Second_Digits : constant Duration := Seconds_Since_Epoch - High_Second_Digits;
-   
    Microsecond_Part_Since_Epoch : constant Duration :=
-     Low_Second_Digits * 1E6;
+     ((Seconds_Since_Epoch / 1E3) - Int (Seconds_Since_Epoch / 1E3)) * 1E9;
    
    function Reduce_Small_Mod (D : Duration) return Small_Mod is
       Divisor : Duration := (Duration (Small_Mod'Last) + 1.0);
