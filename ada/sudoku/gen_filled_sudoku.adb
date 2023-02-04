@@ -70,8 +70,8 @@ procedure Gen_Filled_Sudoku is
    
    Seconds_Since_Epoch : constant Duration := Current_Time - Epoch;
    
-   type Small_Mod is mod 2**31;
-   type Mod_Integer is mod 2**31; -- Long_Integer'Last + 1;
+   type Small_Mod is mod 2**8;
+   type Mod_Integer is mod Long_Integer'Last + 1;
    
    function Int (D : Duration) return Duration is
       -- Rounds away what used to be a fractional part:
@@ -103,21 +103,21 @@ procedure Gen_Filled_Sudoku is
       K : Mod_Integer := 1;
       S : constant Mod_Integer := Mod_Integer (Small_Mod'Last) + 1;
       M : Small_Mod;
-      N : Natural := 1;
+      -- N : Natural := 1;
    begin
       while C /= 0.0 loop
-         Put_Line ("B = " & B'Image);
-         Put_Line ("C = " & C'Image);
-         Put_Line ("M = " & M'Image);
-         Put_Line ("K = " & K'Image);
-         Put_Line ("S = " & S'Image);
-         Put_Line ("N = " & N'Image);
-         New_Line;
+         -- Put_Line ("B = " & B'Image);
+         -- Put_Line ("C = " & C'Image);
+         -- Put_Line ("M = " & M'Image);
+         -- Put_Line ("K = " & K'Image);
+         -- Put_Line ("S = " & S'Image);
+         -- Put_Line ("N = " & N'Image);
+         -- New_Line;
          M := Reduce_Small_Mod (C);
          C := Int (C / (Duration (Small_Mod'Last) + 1.0));
          B := B + Mod_Integer (M) * K;
          K := K * S;
-         N := N + 1;
+         -- N := N + 1;
       end loop;
       return B;
    end;
@@ -126,12 +126,8 @@ procedure Gen_Filled_Sudoku is
    
 begin
    
-   Put_Line ("#Small_Mod (Seconds_Since_Epoch) = " & Small_Mod'Image (Reduce_Small_Mod (Seconds_Since_Epoch)));
-   Put_Line ("#Lowest_Bits (Seconds_Since_Epoch) = " & Mod_Integer'Image (Lowest_Bits (Seconds_Since_Epoch)));
-   
    Put_Line ("#TIME: " & Duration'Image (Seconds_Since_Epoch));
-   Put_Line ("#SEED: " & Integer'Image (Integer (Seconds_Since_Epoch)));
-   Put_Line ("#SEED: " & Long_Integer'Image (Random_Seed));
+   Put_Line ("#SEED: " & Random_Seed'Image);
    
    Reset (Sudoku_State);
    
