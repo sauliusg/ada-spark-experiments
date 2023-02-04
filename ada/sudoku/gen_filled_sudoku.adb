@@ -122,7 +122,7 @@ procedure Gen_Filled_Sudoku is
       return B;
    end;
       
-   Random_Seed : Long_Integer := Long_Integer (Lowest_Bits (Current_Time - Epoch));
+   Random_Seed : Integer := Integer (Lowest_Bits (Current_Time - Epoch));
    
 begin
    
