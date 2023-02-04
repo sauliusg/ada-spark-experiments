@@ -135,7 +135,7 @@ begin
    end if;
    
    Put_Line ("#TIME: " & Duration'Image (Seconds_Since_Epoch));
-   Put_Line ("#MSPR: " & Duration'Image (Microsecond_Part_Since_Epoch));
+   -- Put_Line ("#MSPR: " & Duration'Image (Microsecond_Part_Since_Epoch));
    Put_Line ("#SEED: " & Random_Seed'Image);
    
    Reset (Sudoku_State, Random_Seed);
