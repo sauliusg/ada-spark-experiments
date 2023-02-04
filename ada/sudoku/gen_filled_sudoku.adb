@@ -64,7 +64,7 @@ procedure Gen_Filled_Sudoku is
    
    Max_Line : Sudoku_Integer;
    
-   Epoch : constant Time := Formatting.Time_Of(1970, 1, 1, 0.0);
+   Epoch : constant Time := Formatting.Time_Of (1970, 1, 1, 0.0);
    
    Current_Time : constant Time := Clock;
    
