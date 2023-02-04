@@ -13,11 +13,21 @@ procedure Solve_Sudoku is
       Value : Integer;
    begin
       for I in S'Range(1) loop
-         for J in S'Range(1) loop
-            Get (F, Value);
-            S (I,J) := Sudoku_Field_Content (Value);
+         loop
+            declare
+               Line : String := Get_Line (F);
+               Pos : Integer := Line'First - 1;
+            begin
+               if Line'Length > 0 and then Line (Line'First) /= '#' then
+                  for J in S'Range(2) loop
+                     Get (Line (Pos + 1 .. Line'Last), Value, Pos);
+                     S (I,J) := Sudoku_Field_Content (Value);
+                  end loop;
+                  exit;
+               end if;
+            end;
          end loop;
-      end loop;
+      end loop;         
    end;
    
    procedure Load_Field (File_Name : String; S : out Sudoku_Field) is
