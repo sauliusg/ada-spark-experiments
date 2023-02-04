@@ -106,7 +106,7 @@ procedure Gen_Filled_Sudoku is
    end;
    
    function Lowest_Bits (D : Duration) return Mod_Integer is
-      C : Duration := Int (D); -- Currectn value of D in the loop;
+      C : Duration := Int (D); -- Current value of D in the loop;
       B : Mod_Integer := 0;
       K : Mod_Integer := 1;
       S : constant Mod_Integer := Mod_Integer (Small_Mod'Last) + 1;
