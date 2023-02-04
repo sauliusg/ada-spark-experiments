@@ -1,7 +1,9 @@
 pragma Ada_2022;
 
-with Ada.Text_IO; use Ada.Text_IO;
-with Sudoku;      use Sudoku;
+with Ada.Text_IO;  use Ada.Text_IO;
+with Ada.Calendar; use Ada.Calendar;
+with Ada.Calendar.Formatting; use Ada.Calendar.Formatting;
+with Sudoku;       use Sudoku;
 
 with Ada.Numerics.Float_Random; use Ada.Numerics.Float_Random;
 
@@ -62,7 +64,74 @@ procedure Gen_Filled_Sudoku is
    
    Max_Line : Sudoku_Integer;
    
+   Epoch : constant Time := Formatting.Time_Of(1970, 1, 1, 0.0);
+   
+   Current_Time : constant Time := Clock;
+   
+   Seconds_Since_Epoch : constant Duration := Current_Time - Epoch;
+   
+   type Small_Mod is mod 2**31;
+   type Mod_Integer is mod 2**31; -- Long_Integer'Last + 1;
+   
+   function Int (D : Duration) return Duration is
+      -- Rounds away what used to be a fractional part:
+      S : Duration := D * Duration'Small;
+   begin
+      return S / Duration'Small; -- Restores the integer part.
+   end;
+   
+   function Reduce_Small_Mod (D : Duration) return Small_Mod is
+      Divisor : Duration := (Duration (Small_Mod'Last) + 1.0);
+      DI : Duration := Int (D);            -- Integer part of D
+      DQ : Duration := Int (DI / Divisor); -- Quotient
+      DR : Duration := DI - DQ * Divisor;  -- Reminder; provably smaller than Divisor
+      R : Small_Mod := Small_Mod (DR);     -- Should never trigger range check error
+   begin
+      -- New_Line;
+      -- Put_Line ("Divisor = " & Divisor'Image);
+      -- Put_Line ("D = " & D'Image);
+      -- Put_Line ("DI = " & DI'Image);
+      -- Put_Line ("DQ = " & DQ'Image);
+      -- Put_Line ("DR = " & DR'Image);
+      -- Put_Line ("R  = " & R'Image);
+      return R;
+   end;
+   
+   function Lowest_Bits (D : Duration) return Mod_Integer is
+      C : Duration := Int (D); -- Currectn value of D in the loop;
+      B : Mod_Integer := 0;
+      K : Mod_Integer := 1;
+      S : constant Mod_Integer := Mod_Integer (Small_Mod'Last) + 1;
+      M : Small_Mod;
+      N : Natural := 1;
+   begin
+      while C /= 0.0 loop
+         Put_Line ("B = " & B'Image);
+         Put_Line ("C = " & C'Image);
+         Put_Line ("M = " & M'Image);
+         Put_Line ("K = " & K'Image);
+         Put_Line ("S = " & S'Image);
+         Put_Line ("N = " & N'Image);
+         New_Line;
+         M := Reduce_Small_Mod (C);
+         C := Int (C / (Duration (Small_Mod'Last) + 1.0));
+         B := B + Mod_Integer (M) * K;
+         K := K * S;
+         N := N + 1;
+      end loop;
+      return B;
+   end;
+      
+   Random_Seed : Long_Integer := Long_Integer (Lowest_Bits (Current_Time - Epoch));
+   
 begin
+   
+   Put_Line ("#Small_Mod (Seconds_Since_Epoch) = " & Small_Mod'Image (Reduce_Small_Mod (Seconds_Since_Epoch)));
+   Put_Line ("#Lowest_Bits (Seconds_Since_Epoch) = " & Mod_Integer'Image (Lowest_Bits (Seconds_Since_Epoch)));
+   
+   Put_Line ("#TIME: " & Duration'Image (Seconds_Since_Epoch));
+   Put_Line ("#SEED: " & Integer'Image (Integer (Seconds_Since_Epoch)));
+   Put_Line ("#SEED: " & Long_Integer'Image (Random_Seed));
    
    Reset (Sudoku_State);
    
