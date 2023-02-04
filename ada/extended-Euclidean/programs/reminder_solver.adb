@@ -27,8 +27,9 @@ begin
       Product : Positive_Number := 1;
    begin
       for I in 1 .. Argument_Count / 2 loop
-         Reminders (I) := From_String (Argument ((I-1)*2+1));
          Divisors (I) := From_String (Argument ((I-1)*2+2));
+         Reminders (I) := From_String (Argument ((I-1)*2+1)) mod 
+           Number (Divisors (I));
       end loop;
       
       Put ("Reminders : ");
