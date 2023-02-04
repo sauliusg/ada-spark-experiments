@@ -81,9 +81,6 @@ procedure Gen_Filled_Sudoku is
       return S / Duration'Small; -- Restores the integer part.
    end;
    
-   Microsecond_Part_Since_Epoch : constant Duration :=
-     ((Seconds_Since_Epoch / 1E3) - Int (Seconds_Since_Epoch / 1E3)) * 1E9;
-   
    function Reduce_Small_Mod (D : Duration) return Small_Mod is
       Divisor : Duration := (Duration (Small_Mod'Last) + 1.0);
       DI : Duration := Int (D);            -- Integer part of D
@@ -126,7 +123,7 @@ procedure Gen_Filled_Sudoku is
       return B;
    end;
       
-   Random_Seed : Integer := Integer (Lowest_Bits (Microsecond_Part_Since_Epoch));
+   Random_Seed : Integer := Integer (Lowest_Bits (Seconds_Since_Epoch));
    
 begin
    
