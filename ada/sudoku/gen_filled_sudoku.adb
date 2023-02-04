@@ -75,7 +75,7 @@ procedure Gen_Filled_Sudoku is
    type Mod_Integer is mod Integer'Last + 1;
    
    function Int (D : Duration) return Duration is
-      -- Rounds away what used to be a fractional part:
+      -- Rounds away the fractional part:
       S : Duration := D * Duration'Small;
    begin
       return S / Duration'Small; -- Restores the integer part.
