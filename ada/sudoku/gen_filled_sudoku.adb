@@ -72,7 +72,7 @@ procedure Gen_Filled_Sudoku is
    Seconds_Since_Epoch : constant Duration := Current_Time - Epoch;
    
    type Small_Mod is mod 2**8;
-   type Mod_Integer is mod Long_Integer'Last + 1;
+   type Mod_Integer is mod Integer'Last + 1;
    
    function Int (D : Duration) return Duration is
       -- Rounds away what used to be a fractional part:
