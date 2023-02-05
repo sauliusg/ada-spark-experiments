@@ -2,13 +2,10 @@ pragma Spark_Mode (On);
 
 with Ada.Text_IO;  use Ada.Text_IO;
 with Group_Theory;
--- with Mod_Type_Group_Theory; use Mod_Type_Group_Theory;
 
 package Make_Group is
    
    type Ring_Element is mod 37;
-   
-   -- subtype Ring_Element is Mod_Type_Group_Theory.Element;
    
    Identity : constant Ring_Element := 1;
    
