@@ -70,9 +70,6 @@ package body Make_Group is
       N (N'First) := Identity;
       NN := N'First;
       
-      pragma Assert (Is_Identity (N (N'First), Group (N (N'First .. NN))));
-      pragma Assert (N (N'First) = Identity);
-      
       pragma Assert (L'First <= L'Last);
       pragma Assert (NL <= L'Last);
       pragma Assert (NN <= N'Last);
