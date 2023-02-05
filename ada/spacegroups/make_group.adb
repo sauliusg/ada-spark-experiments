@@ -118,13 +118,9 @@ package body Make_Group is
                      pragma Assert (N (N'First) = Identity);
 
                   end if;
-                  pragma Assert (N (N'First) = Identity);
                end;
-               pragma Assert (N (N'First) = Identity);
             end loop;
-            pragma Assert (N (N'First) = Identity);
          end;
-         pragma Assert (N (N'First) = Identity);
       end loop;
       
       pragma Assume (NN >= N'First); -- this assumption needed to prove 'Has_Identity' in the 
