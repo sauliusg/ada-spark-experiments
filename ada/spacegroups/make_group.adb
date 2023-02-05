@@ -167,6 +167,8 @@ package body Make_Group is
                        (for all F of N (N'First .. NN) =>
                           (Belongs_To (E*F, Group (N (N'First .. NN))))));
       
+      pragma Assume (Is_Group (Group (N (N'First .. NN))));
+      
       return Group (N (N'First .. NN));
    end Build_Group;
    
