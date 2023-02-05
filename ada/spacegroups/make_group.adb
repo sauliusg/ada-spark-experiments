@@ -1,7 +1,6 @@
 pragma Spark_Mode (On);
 
 with Ada.Text_IO;  use Ada.Text_IO;
--- with Group_Theory;
    
 package body Make_Group is
    
