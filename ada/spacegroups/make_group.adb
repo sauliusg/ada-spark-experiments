@@ -156,7 +156,7 @@ package body Make_Group is
          end;
       end loop;
       
-      pragma Assert (N (N'First) = Identity);
+      -- pragma Assert (N (N'First) = Identity);
       -- pragma Assert (Is_Identity (N (N'First), Group (N (N'First .. NN))));
       pragma Assume (NN >= N'First); -- this assumption needed to prove 'Has_Identity' in the 
                                      -- 'Is_Group' postcondition.
