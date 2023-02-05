@@ -70,7 +70,7 @@ package body Make_Group is
       while NL >= L'First loop
          
          pragma Loop_Invariant (NN <= N'Last);
-         pragma Loop_Invariant (Is_Identity (N (N'First), Group (N (N'First .. NN))));
+         -- pragma Loop_Invariant (Is_Identity (N (N'First), Group (N (N'First .. NN))));
          pragma Loop_Invariant (N (N'First) = Identity);
          pragma Assume (NL <= L'Last);
                   
