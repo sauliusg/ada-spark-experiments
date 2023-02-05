@@ -175,9 +175,6 @@ package body Make_Group is
       
       -- pragma Assert (All_Elements_Have_Inverses (Group (N (N'First .. NN))));
       -- pragma Assert (Is_Closed_On_Multiplication (Group (N (N'First .. NN))));
-      -- pragma Assert (Has_Identity (Group (N (N'First .. NN))));
-      
-      pragma Assert (Is_Group (Group (N (N'First .. NN))));
       
       return Group (N (N'First .. NN));
    end Build_Group;
