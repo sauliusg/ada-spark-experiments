@@ -30,11 +30,19 @@ package Mod_Type_Group_Theory is
    is (for some F of G => (E = F))
      with Ghost;
    
+   function Is_Closed_On_Multiplication (G : Group) return Boolean
+   is (for all E of G =>
+         (for all F of G => (Belongs_To (E*F, G))))
+     with Ghost;
+   
+   function All_Elements_Have_Inverses (G : Group) return Boolean
+   is (for all E of G => Has_Inverse (E, G))
+     with Ghost;
+   
    function Is_Group (G : Group) return Boolean
    is (Has_Identity (G) and then
-         (for all E of G => (Has_Inverse (E, G))) and then
-         (for all E of G =>
-            (for all F of G => (Belongs_To (E*F, G))))
+         All_Elements_Have_Inverses (G) and then
+         Is_Closed_On_Multiplication (G)
       )
      with Ghost;
    

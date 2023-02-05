@@ -21,15 +21,6 @@ package body Make_Group is
       return G;
    end Make_Full_Group;
    
-   function Is_Closed_On_Multiplication (G : Group) return Boolean
-   is (for all E of G =>
-         (for all F of G => (Belongs_To (E*F, G))))
-     with Ghost;
-   
-   function All_Elements_Have_Inverses (G : Group) return Boolean
-   is (for all E of G => Has_Inverse (E, G))
-     with Ghost;
-   
    function Build_Group (E : Ring_Element) return Group
    is
       type Ring_Element_Array is
