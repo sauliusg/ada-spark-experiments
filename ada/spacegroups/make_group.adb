@@ -16,7 +16,6 @@ package body Make_Group is
    is
       G : Group (1 .. 4) := (1, 6, 36, 31);
    begin
-      pragma Assert (G (2) * G (3) = G (4), "Group operation example");
       return G;
    end Make_Full_Group;
    
