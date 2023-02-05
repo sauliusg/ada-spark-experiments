@@ -85,8 +85,7 @@ package body Make_Group is
                pragma Loop_Invariant (N (N'First) = Identity);
                
                declare
-                  X : Ring_Element := N (I);
-                  H : Ring_Element := X * T;
+                  H : Ring_Element := N (I) * T;
                begin
                   
                   pragma Assume (if not Contains (N (N'First..NN), H) then
