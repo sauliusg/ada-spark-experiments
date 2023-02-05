@@ -70,10 +70,6 @@ package body Make_Group is
       N (N'First) := Identity;
       NN := N'First;
       
-      pragma Assert (L'First <= L'Last);
-      pragma Assert (NL <= L'Last);
-      pragma Assert (NN <= N'Last);
-      
       while NL >= L'First loop
          
          pragma Loop_Invariant (NN <= N'Last);
