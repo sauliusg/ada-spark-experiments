@@ -52,8 +52,7 @@ begin
          declare
             A : Access_Open_Array;
          begin
-            A := new Open_Array (1 .. I);
-            A.all := (for V in A.all'First .. A.all'Last => V * V);
+            A := new Open_Array'(for V in 1 .. I => V * V);
             Put_Line (A.all'Image);
             Free (A);
             -- Put_Line (A.all'Image);
