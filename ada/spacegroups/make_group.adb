@@ -118,9 +118,13 @@ package body Make_Group is
                      pragma Assert (N (N'First) = Identity);
 
                   end if;
+                  pragma Assert (N (N'First) = Identity);
                end;
+               pragma Assert (N (N'First) = Identity);
             end loop;
+            pragma Assert (N (N'First) = Identity);
          end;
+         pragma Assert (N (N'First) = Identity);
       end loop;
       
       pragma Assume (NN >= N'First); -- this assumption needed to prove 'Has_Identity' in the 
@@ -128,6 +132,7 @@ package body Make_Group is
       
       pragma Assert (Is_Identity (N (N'First), Group (N (N'First .. NN))));
       pragma Assert (N (N'First) = Identity);
+      pragma Assert ((N (N'First) = Identity) = Is_Identity (N (N'First), Group (N (N'First .. NN))));
       
       pragma Assume (All_Elements_Have_Inverses (Group (N (N'First .. NN))));
       pragma Assume (Is_Closed_On_Multiplication (Group (N (N'First .. NN))));
