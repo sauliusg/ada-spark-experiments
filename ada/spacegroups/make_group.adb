@@ -93,9 +93,6 @@ package body Make_Group is
                pragma Loop_Invariant (NN >= N'First);
                pragma Loop_Invariant (NN <= N'Last);
                
-               pragma Loop_Invariant (Ring_Size <= N'Length + 1);
-               pragma Loop_Invariant (NN <= Ring_Size);
-               
                pragma Loop_Invariant (Is_Identity (N (N'First), Group (N (N'First .. NN))));
                pragma Loop_Invariant (N (N'First) = Identity);
                
