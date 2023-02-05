@@ -21,6 +21,15 @@ package body Make_Group is
       return G;
    end Make_Full_Group;
    
+   function Is_Closed_On_Multiplication (G : Group) return Boolean
+   is (for all E of G =>
+         (for all F of G => (Belongs_To (E*F, G))))
+     with Ghost;
+   
+   function All_Elements_Have_Inverses (G : Group) return Boolean
+   is (for all E of G => Has_Inverse (E, G))
+     with Ghost;
+   
    function Build_Group (E : Ring_Element) return Group
    is
       type Ring_Element_Array is
@@ -62,6 +71,7 @@ package body Make_Group is
          pragma Assert (for all E of A => (E /= X));
          return False;
       end Contains;
+      
       
    function All_Elements_Are_Distinct_In_Prefix
      (
@@ -160,14 +170,25 @@ package body Make_Group is
       pragma Assume (NN >= N'First); -- this assumption needed to prove 'Has_Identity' in the 
                                      -- 'Is_Group' postcondition.
       
-      pragma Assume (for all E of N (N'First .. NN) => 
-                       Has_Inverse (E, Group (N (N'First .. NN))));
+      pragma Assume (All_Elements_Have_Inverses (Group (N (N'First .. NN))));
+      pragma Assume (Is_Closed_On_Multiplication (Group (N (N'First .. NN))));
       
-      pragma Assume (for all E of N (N'First .. NN) => 
-                       (for all F of N (N'First .. NN) =>
-                          (Belongs_To (E*F, Group (N (N'First .. NN))))));
+      pragma Assume
+        (
+         if Is_Closed_On_Multiplication (Group (N (N'First .. NN)))
+           and then
+           All_Elements_Have_Inverses (Group (N (N'First .. NN)))
+           and then
+           Has_Identity (Group (N (N'First .. NN)))
+         then
+           Is_Group (Group (N (N'First .. NN)))
+        );
       
-      pragma Assume (Is_Group (Group (N (N'First .. NN))));
+      pragma Assert (Is_Closed_On_Multiplication (Group (N (N'First .. NN))));
+      pragma Assert (All_Elements_Have_Inverses (Group (N (N'First .. NN))));
+      pragma Assert (Has_Identity (Group (N (N'First .. NN))));
+      
+      pragma Assert (Is_Group (Group (N (N'First .. NN))));
       
       return Group (N (N'First .. NN));
    end Build_Group;
