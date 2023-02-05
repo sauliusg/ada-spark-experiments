@@ -13,9 +13,9 @@ package Make_Group is
      Natural (Ring_Element'Last - Ring_Element'First) + 1
      with Ghost;
    
-   package Mod_Seven_Group_theory is new Group_Theory (Ring_Element, Identity);
+   package Mod_Group_theory is new Group_Theory (Ring_Element, Identity);
    
-   use Mod_Seven_Group_Theory;
+   use Mod_Group_Theory;
    
    function Make_Group (E : Ring_Element) return Group
      with

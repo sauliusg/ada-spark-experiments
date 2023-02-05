@@ -5,7 +5,7 @@ with Make_Group;          use Make_Group;
    
 procedure Run_Make_Group is
    
-   use Mod_Seven_Group_Theory;
+   use Mod_Group_Theory;
 
    procedure Put (G : Group) is
    begin
