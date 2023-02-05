@@ -81,6 +81,48 @@ procedure Gen_Filled_Sudoku is
       return S / Duration'Small; -- Restores the integer part.
    end;
    
+   function Int_Decimal_Digits (D : Duration) return Natural is
+      Current_Value : Duration := D;
+      N : Natural := 0;
+   begin
+      while Current_Value >= 1.0 loop
+         Current_Value := Current_Value / 10.0;
+         N := N + 1;
+      end loop;
+      return N;
+   end;
+   
+   Duration_Integer_Part_Digits : constant Natural :=
+     Int_Decimal_Digits (Duration'Last);
+   
+   function Leading_Decimal_Digits (D : Duration; N_Digits : Natural)
+                                   return Duration is
+      N : Natural;
+      Current_Value : Duration := D;
+      Coefficient : Duration := 1.0;
+   begin
+      if N_Digits >= Duration_Integer_Part_Digits then
+         return Int (D);
+      else
+         N := Duration_Integer_Part_Digits - N_Digits;
+         for I in 1 .. N loop
+            Current_Value := Current_Value / 10.0;
+            Coefficient := Coefficient * 10.0;
+         end loop;
+         return Int (Current_Value) * Coefficient;
+      end if;
+   end;
+   
+   function Shift_Decimal_Digits_Left (D : Duration; N_Digits : Natural)
+                                      return Duration is
+      Coefficient : Duration := 1.0;
+   begin
+      for I in 2 .. N_Digits loop
+         Coefficient := Coefficient * 10.0;
+      end loop;
+      return (D - Leading_Decimal_Digits (D, N_Digits)) * Coefficient;
+   end;
+   
    function Reduce_Small_Mod (D : Duration) return Small_Mod is
       Divisor : Duration := (Duration (Small_Mod'Last) + 1.0);
       DI : Duration := Int (D);            -- Integer part of D
@@ -122,8 +164,11 @@ procedure Gen_Filled_Sudoku is
       end loop;
       return B;
    end;
-      
-   Random_Seed : Integer := Integer (Lowest_Bits (Seconds_Since_Epoch));
+   
+   Random_Seed : Integer := Integer
+     (
+      Lowest_Bits (Shift_Decimal_Digits_Left (Seconds_Since_Epoch,3))
+     );
    
 begin
    
