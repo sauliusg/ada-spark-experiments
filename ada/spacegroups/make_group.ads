@@ -1,24 +1,24 @@
 pragma Spark_Mode (On);
 
 with Ada.Text_IO;  use Ada.Text_IO;
--- with Group_Theory;
-with Mod_Type_Group_Theory; use Mod_Type_Group_Theory;
+with Group_Theory;
+-- with Mod_Type_Group_Theory; use Mod_Type_Group_Theory;
 
 package Make_Group is
    
-   -- type Ring_Element is mod 37;
+   type Ring_Element is mod 37;
    
-   subtype Ring_Element is Mod_Type_Group_Theory.Element;
+   -- subtype Ring_Element is Mod_Type_Group_Theory.Element;
    
-   -- Identity : constant Ring_Element := 1;
+   Identity : constant Ring_Element := 1;
    
    Ring_Size : constant Natural :=
      Natural (Ring_Element'Last - Ring_Element'First) + 1
      with Ghost;
    
-   -- package Mod_Group_theory is new Group_Theory (Ring_Element, Identity);
+   package Mod_Group_theory is new Group_Theory (Ring_Element, Identity);
    
-   -- use Mod_Group_Theory;
+   use Mod_Group_Theory;
    
    function Make_Group (E : Ring_Element) return Group
      with

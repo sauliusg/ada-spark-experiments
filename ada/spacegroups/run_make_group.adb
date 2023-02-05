@@ -2,11 +2,11 @@ with Ada.Command_Line;    use Ada.Command_Line;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Ada.Text_IO;         use Ada.Text_IO;
 with Make_Group;          use Make_Group;
-with Mod_Type_Group_Theory; use Mod_Type_Group_Theory;
+-- with Mod_Type_Group_Theory; use Mod_Type_Group_Theory;
 
 procedure Run_Make_Group is
    
-   -- use Mod_Group_Theory;
+   use Mod_Group_Theory;
 
    procedure Put (G : Group) is
    begin
