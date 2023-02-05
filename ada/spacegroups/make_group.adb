@@ -105,12 +105,12 @@ package body Make_Group is
                begin
                   -- Put ("H = "); Put (Ring_Element'Image (H)); New_Line;
                   
-                  if not Contains (N (N'First..NN), H) then
+                  pragma Assume (if not Contains (N (N'First..NN), H) then
+                    NN < N'Last);
+                  pragma Assume (if not Contains (N (N'First..NN), H) then
+                    NL < L'Last);
                      
-                     pragma Assume (if not Contains (N (N'First..NN), H) then
-                       NN < N'Last);
-                     pragma Assume (if not Contains (N (N'First..NN), H) then
-                       NL < L'Last);
+                  if not Contains (N (N'First..NN), H) then
                      
                      NN := NN + 1;
                      N (NN) := H;
