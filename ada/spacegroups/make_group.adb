@@ -107,9 +107,6 @@ package body Make_Group is
                   
                   if not Contains (N (N'First..NN), H) then
                      
-                     pragma Assert (for all I in N'First..NN => (N(I) /= H));
-                     pragma Assert (N (N'First) = Identity);
-                     
                      pragma Assume (if not Contains (N (N'First..NN), H) then
                        NN < N'Last);
                      pragma Assume (if not Contains (N (N'First..NN), H) then
