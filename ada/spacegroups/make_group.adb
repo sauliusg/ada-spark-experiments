@@ -95,7 +95,6 @@ package body Make_Group is
                   X : Ring_Element := N (I);
                   H : Ring_Element := X * T;
                begin
-                  -- Put ("H = "); Put (Ring_Element'Image (H)); New_Line;
                   
                   pragma Assume (if not Contains (N (N'First..NN), H) then
                     NN < N'Last);
