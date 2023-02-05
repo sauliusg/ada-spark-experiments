@@ -70,6 +70,7 @@ package body Make_Group is
       while NL >= L'First loop
          
          pragma Loop_Invariant (NN <= N'Last);
+         pragma Loop_Invariant (NN >= N'First);
          pragma Loop_Invariant (N (N'First) = Identity);
          pragma Assume (NL <= L'Last);
                   
@@ -105,9 +106,6 @@ package body Make_Group is
             end loop;
          end;
       end loop;
-      
-      pragma Assume (NN >= N'First); -- this assumption needed to prove 'Has_Identity' in the 
-                                     -- 'Is_Group' postcondition.
       
       pragma Assume (All_Elements_Have_Inverses (Group (N (N'First .. NN))));
       pragma Assume (Is_Closed_On_Multiplication (Group (N (N'First .. NN))));
