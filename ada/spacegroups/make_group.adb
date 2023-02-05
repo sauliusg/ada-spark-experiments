@@ -70,7 +70,6 @@ package body Make_Group is
       while NL >= L'First loop
          
          pragma Loop_Invariant (NN <= N'Last);
-         -- pragma Loop_Invariant (Is_Identity (N (N'First), Group (N (N'First .. NN))));
          pragma Loop_Invariant (N (N'First) = Identity);
          pragma Assume (NL <= L'Last);
                   
@@ -83,12 +82,8 @@ package body Make_Group is
                pragma Loop_Invariant (NN >= N'First);
                pragma Loop_Invariant (NN <= N'Last);
                
-               -- pragma Loop_Invariant (Is_Identity (N (N'First), Group (N (N'First .. NN))));
                pragma Loop_Invariant (N (N'First) = Identity);
                
-               pragma Assert ((N (N'First) = Identity) = 
-                                Is_Identity (N (N'First), Group (N (N'First .. NN))));
-      
                declare
                   X : Ring_Element := N (I);
                   H : Ring_Element := X * T;
