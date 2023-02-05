@@ -79,9 +79,9 @@ package body Make_Group is
             NL := NL - 1;
             pragma Assert (NL < L'Last);
             for I in N'First .. NN loop
+               
                pragma Loop_Invariant (NN >= N'First);
                pragma Loop_Invariant (NN <= N'Last);
-               
                pragma Loop_Invariant (N (N'First) = Identity);
                
                declare
