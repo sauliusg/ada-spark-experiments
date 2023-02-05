@@ -173,20 +173,20 @@ package body Make_Group is
       pragma Assume (All_Elements_Have_Inverses (Group (N (N'First .. NN))));
       pragma Assume (Is_Closed_On_Multiplication (Group (N (N'First .. NN))));
       
-      pragma Assume
-        (
-         if Is_Closed_On_Multiplication (Group (N (N'First .. NN)))
-           and then
-           All_Elements_Have_Inverses (Group (N (N'First .. NN)))
-           and then
-           Has_Identity (Group (N (N'First .. NN)))
-         then
-           Is_Group (Group (N (N'First .. NN)))
-        );
+      -- pragma Assume
+      --   (
+      --    if Is_Closed_On_Multiplication (Group (N (N'First .. NN)))
+      --      and then
+      --      All_Elements_Have_Inverses (Group (N (N'First .. NN)))
+      --      and then
+      --      Has_Identity (Group (N (N'First .. NN)))
+      --    then
+      --      Is_Group (Group (N (N'First .. NN)))
+      --   );
       
-      pragma Assert (Is_Closed_On_Multiplication (Group (N (N'First .. NN))));
-      pragma Assert (All_Elements_Have_Inverses (Group (N (N'First .. NN))));
-      pragma Assert (Has_Identity (Group (N (N'First .. NN))));
+      -- pragma Assert (Is_Closed_On_Multiplication (Group (N (N'First .. NN))));
+      -- pragma Assert (All_Elements_Have_Inverses (Group (N (N'First .. NN))));
+      -- pragma Assert (Has_Identity (Group (N (N'First .. NN))));
       
       pragma Assert (Is_Group (Group (N (N'First .. NN))));
       
