@@ -47,11 +47,9 @@ package body Make_Group is
         with
         Post => ((for some E of A => (E = X)) = Contains'Result)
       is
-         Y : Ring_Element;
       begin
          for K in A'First .. A'Last loop
-            Y := A (K);
-            if X = Y then
+            if X = A (K) then
                return True;
             end if;
             pragma Loop_Invariant (for all I in A'First .. K => (A(I) /= X));
