@@ -49,7 +49,8 @@ package Group_Theory is
    
    function Is_Subgroup (H, G : Group) return Boolean
    is (Is_Group (G) and then
-         (for all E of H => (for some F of G => (E = F)))
+       Is_Group (H) and then
+         (for all E of H => Belongs_To (E, G))
       )
      with Ghost;
    
