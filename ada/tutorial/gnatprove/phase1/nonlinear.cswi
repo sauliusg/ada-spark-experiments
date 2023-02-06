@@ -1,0 +1,7 @@
+20230206173527
+-c
+-x
+ada
+-gnatA
+-gnatc
+-gnates=/home/saulius/tests/ada/tutorial/gnatprove/d73b353f.tmp

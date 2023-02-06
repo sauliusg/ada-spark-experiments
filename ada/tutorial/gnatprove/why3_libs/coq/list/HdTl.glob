@@ -1,0 +1,31 @@
+DIGEST da6f65309c2a5c228c54fce68003735b
+FWhy3.list.HdTl
+R834:840 Why3.BuiltIn <> <> lib
+R851:857 Why3.BuiltIn <> <> lib
+R868:876 Why3.list.List <> <> lib
+R887:899 Why3.option.Option <> <> lib
+def 936:937 <> hd
+R954:960 Why3.BuiltIn <> WhyType class
+R962:962 Why3.list.HdTl <> a var
+R968:986 Coq.Init.Datatypes <> list ind
+R988:988 Why3.list.HdTl <> a var
+R997:1017 Coq.Init.Datatypes <> option ind
+R1019:1019 Why3.list.HdTl <> a var
+R1032:1032 Why3.list.HdTl <> l var
+R1043:1060 Coq.Init.Datatypes <> nil constr
+R1065:1083 Coq.Init.Datatypes <> None constr
+R1089:1107 Coq.Init.Datatypes <> cons constr
+R1116:1134 Coq.Init.Datatypes <> Some constr
+def 1179:1180 <> tl
+R1197:1203 Why3.BuiltIn <> WhyType class
+R1205:1205 Why3.list.HdTl <> a var
+R1211:1229 Coq.Init.Datatypes <> list ind
+R1231:1231 Why3.list.HdTl <> a var
+R1240:1260 Coq.Init.Datatypes <> option ind
+R1263:1281 Coq.Init.Datatypes <> list ind
+R1283:1283 Why3.list.HdTl <> a var
+R1297:1297 Why3.list.HdTl <> l var
+R1308:1325 Coq.Init.Datatypes <> nil constr
+R1330:1348 Coq.Init.Datatypes <> None constr
+R1354:1372 Coq.Init.Datatypes <> cons constr
+R1381:1399 Coq.Init.Datatypes <> Some constr

@@ -1,0 +1,23 @@
+DIGEST e3405137f08dc4b6e68e97da3cf31fb1
+FWhy3.HighOrd
+R726:732 Why3.BuiltIn <> <> lib
+def 747:750 <> func
+R806:809 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R806:809 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+def 835:842 <> infix_at
+R867:873 Why3.BuiltIn <> WhyType class
+R875:875 Why3.HighOrd <> a var
+R895:901 Why3.BuiltIn <> WhyType class
+R903:903 Why3.HighOrd <> b var
+R907:907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R914:918 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R920:923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R924:924 Why3.HighOrd <> b var
+R919:919 Why3.HighOrd <> a var
+R909:912 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R913:913 Why3.HighOrd <> b var
+R908:908 Why3.HighOrd <> a var
+def 985:988 <> pred
+R1003:1006 Why3.HighOrd <> func def
+R1010:1013 Coq.Init.Datatypes <> bool ind
+R1008:1008 Why3.HighOrd <> a var

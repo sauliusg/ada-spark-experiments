@@ -1,0 +1,340 @@
+module Standard__natural [@GNAT-comment:Module for axiomatizing type "natural", created in Gnat2Why.Types.Translate_Type]
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type natural = <range 0 2147483647>
+  
+  val function first : int
+    ensures { result = (0 : int) }
+  
+  val function last : int
+    ensures { result = (2147483647 : int) }
+  
+  predicate in_range [@GP_Inline] (x: int) =
+    (([@GP_Pretty_Ada:-1] (first <= x)) /\ ([@GP_Pretty_Ada:-2] (x <= last)))
+  
+  val in_range [@GP_Inline] (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = natural,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type natural__ref = { mutable natural__content : natural }
+  
+  function natural__ref_natural__content__projection (a: natural__ref) : natural =
+    a.natural__content
+  
+  meta "model_projection" function natural__ref_natural__content__projection
+  
+  meta "inline:no" function natural__ref_natural__content__projection
+  
+  val natural__havoc (x: natural__ref) : unit
+    writes { x }
+end
+
+module Standard__natural___axiom [@GNAT-comment:Module giving axioms for type "natural", created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__natural as Standard__natural
+  
+  predicate dynamic_invariant (temp___expr_46: int) (temp___is_init_42: bool) (temp___skip_constant_43: bool) (temp___do_toplevel_44: bool) (temp___do_typ_inv_45: bool) =
+    if ((temp___is_init_42 = True) \/
+          (Standard__natural.first <= Standard__natural.last)) then
+      ([@rac:call_id:1]
+       (Standard__natural.dynamic_property
+          Standard__natural.first
+          Standard__natural.last
+          temp___expr_46))
+    else true
+  
+  val dynamic_invariant (temp___expr_46: int) (temp___is_init_42: bool) (temp___skip_constant_43: bool) (temp___do_toplevel_44: bool) (temp___do_typ_inv_45: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_46 : int)
+                   (temp___is_init_42 : bool)
+                   (temp___skip_constant_43 : bool)
+                   (temp___do_toplevel_44 : bool)
+                   (temp___do_typ_inv_45 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_47: int) (temp___skip_top_level_48: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_47: int) (temp___skip_top_level_48: bool) : 
+    bool
+    ensures { result
+                <->
+                (default_initial_assumption
+                   (temp___expr_47 : int)
+                   (temp___skip_top_level_48 : bool)) }
+end
+
+module Standard__positive [@GNAT-comment:Module for axiomatizing type "positive", created in Gnat2Why.Types.Translate_Type]
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  
+  type positive = <range 1 2147483647>
+  
+  val function first : int
+    ensures { result = (1 : int) }
+  
+  val function last : int
+    ensures { result = (2147483647 : int) }
+  
+  predicate in_range [@GP_Inline] (x: int) =
+    (([@GP_Pretty_Ada:-1] (first <= x)) /\ ([@GP_Pretty_Ada:-2] (x <= last)))
+  
+  val in_range [@GP_Inline] (x: int) : bool
+    ensures { result <-> (in_range (x : int)) }
+  
+  clone export ada__model.Static_Discrete with
+    axiom .,
+    type t = positive,
+    function first = first,
+    function last = last,
+    predicate in_range = in_range
+  
+  type positive__ref = { mutable positive__content : positive }
+  
+  function positive__ref_positive__content__projection (a: positive__ref) : positive =
+    a.positive__content
+  
+  meta "model_projection" function positive__ref_positive__content__projection
+  
+  meta "inline:no" function positive__ref_positive__content__projection
+  
+  val positive__havoc (x: positive__ref) : unit
+    writes { x }
+end
+
+module Standard__positive___axiom [@GNAT-comment:Module giving axioms for type "positive", created in Gnat2Why.Types.Generate_Type_Completion]
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use Standard__positive as Standard__positive
+  
+  predicate dynamic_invariant (temp___expr_53: int) (temp___is_init_49: bool) (temp___skip_constant_50: bool) (temp___do_toplevel_51: bool) (temp___do_typ_inv_52: bool) =
+    if ((temp___is_init_49 = True) \/
+          (Standard__positive.first <= Standard__positive.last)) then
+      ([@rac:call_id:2]
+       (Standard__positive.dynamic_property
+          Standard__positive.first
+          Standard__positive.last
+          temp___expr_53))
+    else true
+  
+  val dynamic_invariant (temp___expr_53: int) (temp___is_init_49: bool) (temp___skip_constant_50: bool) (temp___do_toplevel_51: bool) (temp___do_typ_inv_52: bool) : 
+    bool
+    ensures { result
+                <->
+                (dynamic_invariant
+                   (temp___expr_53 : int)
+                   (temp___is_init_49 : bool)
+                   (temp___skip_constant_50 : bool)
+                   (temp___do_toplevel_51 : bool)
+                   (temp___do_typ_inv_52 : bool)) }
+  
+  predicate default_initial_assumption (temp___expr_54: int) (temp___skip_top_level_55: bool) =
+    true
+  
+  val default_initial_assumption (temp___expr_54: int) (temp___skip_top_level_55: bool) : 
+    bool
+    ensures { result
+                <->
+                (default_initial_assumption
+                   (temp___expr_54 : int)
+                   (temp___skip_top_level_55 : bool)) }
+end
+
+module Nonlinear__x [@GNAT-comment:Module for defining the constant "x" defined at nonlinear.adb:1, created in Gnat2Why.Decls.Translate_Constant]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function x [@model_trace:822] [@name:X] [#"nonlinear.adb" 1 0 0] : 
+    int
+end
+
+module Nonlinear__y [@GNAT-comment:Module for defining the constant "y" defined at nonlinear.adb:1, created in Gnat2Why.Decls.Translate_Constant]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function y [@model_trace:823] [@name:Y] [#"nonlinear.adb" 1 0 0] : 
+    int
+end
+
+module Nonlinear__z [@GNAT-comment:Module for defining the constant "z" defined at nonlinear.adb:1, created in Gnat2Why.Decls.Translate_Constant]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val function z [@model_trace:824] [@name:Z] [#"nonlinear.adb" 1 0 0] : 
+    int
+end
+
+module Nonlinear__r1 [@GNAT-comment:Module for defining a ref holding the value of variable "r1" defined at nonlinear.adb:1, created in Gnat2Why.Decls.Translate_Variable]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val r1 [@model_trace:829] [@name:R1] [@model_projected] [#"nonlinear.adb" 1 0 0] : 
+    int__ref
+end
+
+module Nonlinear__r2 [@GNAT-comment:Module for defining a ref holding the value of variable "r2" defined at nonlinear.adb:1, created in Gnat2Why.Decls.Translate_Variable]
+  use _gnatprove_standard.Main
+  use int.Int
+  
+  val r2 [@name:R2] [@model_projected] [@model_trace:830] [#"nonlinear.adb" 1 0 0] : 
+    int__ref
+end
+
+module Nonlinear__x___axiom [@GNAT-comment:Module giving an empty axiom for the entity "x" defined at nonlinear.adb:1, created in Gnat2Why.Driver.Translate_Entity.Generate_Empty_Axiom_Theory]
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Nonlinear__y___axiom [@GNAT-comment:Module giving an empty axiom for the entity "y" defined at nonlinear.adb:1, created in Gnat2Why.Driver.Translate_Entity.Generate_Empty_Axiom_Theory]
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Nonlinear__z___axiom [@GNAT-comment:Module giving an empty axiom for the entity "z" defined at nonlinear.adb:1, created in Gnat2Why.Driver.Translate_Entity.Generate_Empty_Axiom_Theory]
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Nonlinear__r1___axiom [@GNAT-comment:Module giving an empty axiom for the entity "r1" defined at nonlinear.adb:1, created in Gnat2Why.Driver.Translate_Entity.Generate_Empty_Axiom_Theory]
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Nonlinear__r2___axiom [@GNAT-comment:Module giving an empty axiom for the entity "r2" defined at nonlinear.adb:1, created in Gnat2Why.Driver.Translate_Entity.Generate_Empty_Axiom_Theory]
+  use _gnatprove_standard.Main
+  use int.Int
+end
+
+module Nonlinear__subprogram_def [@GNAT-comment:Module for checking contracts and absence of run-time errors in subprogram "nonlinear" defined at nonlinear.adb:1, created in Gnat2Why.Subprograms.Generate_VCs_For_Subprogram]
+  use _gnatprove_standard.Main
+  use int.Int
+  use int.Int
+  use _gnatprove_standard.Int_Division as Int_Division
+  use Standard__natural___axiom as Standard__natural___axiom
+  use Standard__positive___axiom as Standard__positive___axiom
+  use Nonlinear__x as Nonlinear__x
+  use Nonlinear__y as Nonlinear__y
+  use Nonlinear__z as Nonlinear__z
+  use Nonlinear__r1 as Nonlinear__r1
+  use Nonlinear__r2 as Nonlinear__r2
+  use Standard__natural___axiom as Standard__natural___axiom
+  use Standard__positive___axiom as Standard__positive___axiom
+  use Nonlinear__x___axiom as Nonlinear__x___axiom
+  use Nonlinear__y___axiom as Nonlinear__y___axiom
+  use Nonlinear__z___axiom as Nonlinear__z___axiom
+  use Nonlinear__r1___axiom as Nonlinear__r1___axiom
+  use Nonlinear__r2___axiom as Nonlinear__r2___axiom
+  
+  let def [#"nonlinear.adb" 1 0 0] (__void_param : unit)
+    requires { [#"nonlinear.adb" 1 0 0] true }
+    ensures { [#"nonlinear.adb" 1 0 0]
+              [#"nonlinear.adb" 4 0 0]
+              [@GP_Check:2:VC_POSTCONDITION:nonlinear.adb:4:11]
+              [@GP_Shape:pragargs__cmp]
+              [@model_vc_post]
+              ((Nonlinear__r1.r1.int__content)
+                 <= (Nonlinear__r2.r2.int__content)) }
+  = [@vc:divergent]
+    (([@GNAT-comment:Assume dynamic invariants of inputs of the subprogram nonlinear.adb:1]
+      ());
+     assume {
+       [@rac:call_id:3]
+       (Standard__positive___axiom.dynamic_invariant
+          Nonlinear__x.x
+          True
+          False
+          True
+          True) };
+     assume {
+       [@rac:call_id:4]
+       (Standard__positive___axiom.dynamic_invariant
+          Nonlinear__y.y
+          True
+          False
+          True
+          True) };
+     assume {
+       [@rac:call_id:5]
+       (Standard__positive___axiom.dynamic_invariant
+          Nonlinear__z.z
+          True
+          False
+          True
+          True) };
+     assume {
+       [@rac:call_id:6]
+       (Standard__natural___axiom.dynamic_invariant
+          (Nonlinear__r1.r1.int__content)
+          False
+          False
+          True
+          True) };
+     assume {
+       [@rac:call_id:7]
+       (Standard__natural___axiom.dynamic_invariant
+          (Nonlinear__r2.r2.int__content)
+          False
+          False
+          True
+          True) };
+     ([@GNAT-comment:Assume moved pointers in outputs of the subprogram nonlinear.adb:1]
+      ());
+     ([@GNAT-comment:Check for RTE in the Pre of the subprogram nonlinear.adb:1]
+      ());
+     (begin
+        ensures { true }
+        [@rac:call_id:8]
+        (let _ = let _ = (Nonlinear__y.y > Nonlinear__z.z) in () in ())
+      end);
+     ([@GNAT-comment:Assume Pre of the subprogram nonlinear.adb:1] ());
+     assume { (Nonlinear__y.y > Nonlinear__z.z) };
+     (try
+        ([#"nonlinear.adb" 4 0 0] ());
+        ([#"nonlinear.adb" 3 0 0] ());
+        ([#"nonlinear.adb" 2 0 0] ());
+        ([#"nonlinear.adb" 7 0 0]
+         [#"nonlinear.adb" 7 0 0]
+         (Nonlinear__r1.r1.int__content <-
+            ([#"nonlinear.adb" 7 0 0]
+             [@vc:annotation]
+             [@GP_Shape:r1_assign__div]
+             [@GP_Check:0:VC_DIVISION_CHECK:nonlinear.adb:7:12]
+             [@rac:call_id:9]
+             (Int_Division.div_ Nonlinear__x.x Nonlinear__y.y))));
+        ([#"nonlinear.adb" 8 0 0]
+         [#"nonlinear.adb" 8 0 0]
+         (Nonlinear__r2.r2.int__content <-
+            ([#"nonlinear.adb" 8 0 0]
+             [@vc:annotation]
+             [@GP_Check:1:VC_DIVISION_CHECK:nonlinear.adb:8:12]
+             [@GP_Shape:r2_assign__div]
+             [@rac:call_id:10]
+             (Int_Division.div_ Nonlinear__x.x Nonlinear__z.z))));
+        (raise Return__exc)
+      with Return__exc -> ()
+      end);
+     (begin
+        ensures { true }
+        [@rac:call_id:11]
+        (let _ =
+           let _ =
+             ((Nonlinear__r1.r1.int__content)
+                <= (Nonlinear__r2.r2.int__content)) in
+           () in
+         ())
+      end))
+end

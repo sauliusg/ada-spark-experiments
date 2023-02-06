@@ -1,0 +1,38 @@
+DIGEST 032817bc055b86f634dabe8f5a5c84a2
+FWhy3.option.Option
+R834:840 Why3.BuiltIn <> <> lib
+R851:857 Why3.BuiltIn <> <> lib
+def 894:900 <> is_none
+R917:923 Why3.BuiltIn <> WhyType class
+R925:925 Why3.option.Option <> a var
+R931:951 Coq.Init.Datatypes <> option ind
+R953:953 Why3.option.Option <> a var
+R978:978 Why3.option.Option <> o var
+R989:1007 Coq.Init.Datatypes <> None constr
+R1012:1015 Coq.Init.Logic <> True ind
+R1021:1039 Coq.Init.Datatypes <> Some constr
+R1046:1050 Coq.Init.Logic <> False ind
+prf 1082:1093 <> is_none'spec
+R1110:1116 Why3.BuiltIn <> WhyType class
+R1118:1118 Why3.option.Option <> a var
+R1135:1155 Coq.Init.Datatypes <> option ind
+R1157:1157 Why3.option.Option <> a var
+R1170:1175 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1199:1199 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1161:1167 Why3.option.Option <> is_none def
+R1169:1169 Why3.option.Option <> o var
+R1177:1179 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1176:1176 Why3.option.Option <> o var
+R1180:1198 Coq.Init.Datatypes <> None constr
+inst 1279:1292 <> option_WhyType
+R1313:1319 Why3.BuiltIn <> WhyType class
+R1321:1321 Why3.option.Option <> T var
+R1325:1331 Why3.BuiltIn <> WhyType class
+R1334:1339 Coq.Init.Datatypes <> option ind
+R1341:1341 Why3.option.Option <> T var
+R1366:1369 Coq.Init.Datatypes <> None constr
+R1366:1369 Coq.Init.Datatypes <> None constr
+R1435:1450 Why3.BuiltIn <> why_decidable_eq meth
+R1435:1450 Why3.BuiltIn <> why_decidable_eq meth
+R1483:1489 Coq.Init.Logic <> f_equal thm
+R1483:1489 Coq.Init.Logic <> f_equal thm
