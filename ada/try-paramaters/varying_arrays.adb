@@ -21,7 +21,7 @@ procedure Varying_Arrays is
    
 begin
    VA1 := (4,(2,4,6,8));
-   for I in 1..4 loop
+   for I in 1 .. VA1.M loop
       VA1 := (VA1.M, (for J in 1 .. VA1.M => (if J <= I then J else 0)));
       Put_Line (VA1'Image);
    end loop;
