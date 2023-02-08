@@ -1,3 +1,5 @@
+pragma Ada_2022;
+
 with Text_IO; use Text_IO;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO; 
 
@@ -20,6 +22,7 @@ procedure Varying_Arrays is
 begin
    VA1 := (4,(2,4,6,8));
    for I in 1..4 loop
-      VA1 := (I,(1..I => 0));
+      VA1 := (VA1.M, (for J in 1 .. VA1.M => (if J <= I then J else 0)));
+      Put_Line (VA1'Image);
    end loop;
 end;
