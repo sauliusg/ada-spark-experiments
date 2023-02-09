@@ -262,7 +262,7 @@ Theorem def'vc :
 Proof.
 intros r1 r2 h1 h2 h3 h4 h5 h6 r11 h7 r21 h8.
 subst.
-SearchAbout Z.quot.
+Search Z.quot.
 apply Z.quot_le_compat_l.
 unfold dynamic_invariant1 in h1.
 unfold in_range1 in h1.
