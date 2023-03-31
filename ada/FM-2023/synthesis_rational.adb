@@ -17,23 +17,30 @@ procedure Synthesis_Rational is
    Z : Integer := 2**12;
    
    Two : Rational := One + One;
+   
+   procedure Put_Rational (R : Rational) is separate;
+   
 begin
    
    while (X < Z) loop
       X := 2 * X;
       Y := Y / Two + One;
-      Put_Line ("Y = " & Y'Image);
+      Put ("Y = ");
+      Put_Rational (Y);
+      New_Line;
    end loop;
    
    Put_Line ("X = " & X'Image);
-   Put_Line ("Y = " & Y'Image);
+   Put ("Y = ");
+   Put_Rational (Y);
+   New_Line;
    Put_Line ("Z = " & Z'Image);
    New_Line;
    
    declare
       Rational_Z : Rational := Z / 1;
    begin
-      Put (Rational'Image ((Y - Two) * Rational_Z + Two));
+      Put_Rational ((Y - Two) * Rational_Z + Two);
    end;
    New_Line;
    New_Line;
