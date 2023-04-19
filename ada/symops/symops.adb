@@ -10,4 +10,6 @@ package body Symops is
       Put (Matrix (S));
    end;
    
+   procedure Parse (Text : in String; S : out Symop) is separate;
+   
 end Symops;

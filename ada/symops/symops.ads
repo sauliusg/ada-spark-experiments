@@ -16,4 +16,6 @@ package Symops is
    
    procedure Put (S : Symop);
    
+   procedure Parse (Text : in String; S : out Symop);
+   
 end Symops;
