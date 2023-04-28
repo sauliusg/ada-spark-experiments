@@ -1,4 +1,5 @@
-with Text_IO; use Text_IO;
+with Text_IO;          use Text_IO;
+with Ada.Strings.Maps; use Ada.Strings.Maps;
 
 package body Symops is
    
