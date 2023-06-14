@@ -4,25 +4,17 @@ with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 procedure Insertion_Sort with Spark_Mode Is
    type Integer_Array is array (Positive range <>) of Integer;
    
-   function Occurences (A : Integer_Array; E : Integer) return Natural with Ghost is
-      Count : Natural := 0;
-   begin
-      for X of A loop
-         if X = E then
-            Count := Count + 1;
-         end if;
-      end loop;
-      return Count;
-   end;
-   
-   function Is_Perm (A, B : Integer_Array) return Boolean is
-      (for all E in Integer => Occurences (A, E) = Occurences (B, E))
-        with Ghost;
-   
    function Is_Sorted (A : Integer_Array) return Boolean is
       (if A'First < A'Last then (for all K in A'First .. A'Last - 1 => A(K) <= A(K + 1)))
         with Ghost;
-   
+      
+   -- function Is_Sorted (A : Integer_Array) return Boolean 
+   -- is
+   --    (for all I in A'Range =>
+   --       (for all J in I .. A'Last =>
+   --          A(I) <= A(J)))
+   --      with ghost;
+      
    procedure Sort
      (Arr : in out Integer_Array)
    with
@@ -35,7 +27,8 @@ procedure Insertion_Sort with Spark_Mode Is
       Sorted_Range : Positive := Arr'First with Ghost;
    begin
       for I in Arr'First + 1 .. Arr'Last loop
-         pragma Loop_Invariant (Is_Sorted (Arr (Arr'First .. Sorted_Range)));
+         pragma Loop_Invariant (Is_Sorted (Arr (Arr'First .. I - 1)));
+         pragma Loop_Invariant (Is_Sorted (Arr (Arr'First .. Sorted_Range - 1)));
          Item := Arr(I);
          Position := I - 1;
          pragma Assert (Position < Arr'Last);
@@ -48,16 +41,19 @@ procedure Insertion_Sort with Spark_Mode Is
             Position := Position - 1;
          end loop;
          pragma Assert (Position < Arr'Last);
-         pragma Assert (for all K in Position + 1 .. I => Item <= Arr(K));
          Arr(Position + 1) := Item;
-         pragma Assert (Is_Sorted (Arr (Position .. Position + 1)));
+         pragma Assert (Is_Sorted (Arr (Position + 1 .. I - 1)));
+         pragma Assert (for all K in Position + 1 .. I - 1 => Item <= Arr(K));
          Sorted_Range := I;
       end loop;
+      pragma Assert(Sorted_Range = Arr'Last);
+      pragma Assert (Is_Sorted (Arr (Arr'First .. Sorted_Range)));
    end Sort;
 
    Arr : Integer_Array (1 .. 10) := (9, 5, 7, 1, 3, 2, 6, 8, 4, 10);
        
 begin
+   
    Sort(Arr);
    -- Print the sorted array
    for I in Arr'Range loop
