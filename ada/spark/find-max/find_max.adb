@@ -4,17 +4,20 @@ procedure Find_Max with Spark_Mode is
    
    type Element is new Integer;
    
-   type Array_Of_Element is array (1..7) of Element;
+   type Array_Of_Element is array (Positive range <>) of Element;
    
    function Max (A : Array_Of_Element) return Element 
      with
+     Pre => A'Length > 0,
      Post => (for all E of A => E <= Max'Result)
    is
-      M : Element := A (A'First);
+      M : Element;
    begin
-      for E of A loop
-         if M < E then
-            M := E;
+      M := A (A'First);
+      for I in A'Range loop
+         pragma Loop_Invariant (for all J in A'First .. I - 1 => M >= A(J));
+         if M < A(I) then
+            M := A(I);
          end if;
       end loop;
       return M;
