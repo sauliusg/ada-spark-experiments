@@ -2,6 +2,6 @@
 
 project Main is
 
-  for Source_Dirs use (".", "src/spacegroups");
+  for Source_Dirs use (".", "src/spacegroups", "programs");
 
 end Main;
