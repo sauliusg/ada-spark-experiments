@@ -10,11 +10,12 @@ package Prove_Unity_Integers_Are_Group with Spark_Mode is
    
    use Unity_Group_Theory;
    
-   procedure Unity_Integers_Are_Group (A : Unity_Integer_Array)
+   Units : constant Unity_Integer_Array := (1, -1);
+   
+   procedure Unity_Integers_Are_Group
      with
      Ghost,
-     Pre => (A = Unity_Integer_Array'(-1, 1)),
-     Post => (Is_Group (Group (A)));
+     Post => (Is_Group (Group (Units)));
    
    function Make_Full_Group return Group
      with
