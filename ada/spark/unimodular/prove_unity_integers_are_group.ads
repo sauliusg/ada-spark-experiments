@@ -16,8 +16,4 @@ package Prove_Unity_Integers_Are_Group with Spark_Mode is
      Pre => (A = Unity_Integer_Array'(1, -1)),
      Post => (Is_Group (Group (A)));
    
-   function Make_Full_Group return Group
-     with
-     Post => Is_Group (Make_Full_Group'Result);
-   
 end Prove_Unity_Integers_Are_Group;
