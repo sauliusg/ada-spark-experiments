@@ -19,8 +19,8 @@ procedure Insertion_Sort with Spark_Mode Is
      (Arr : in out Integer_Array)
    with
      Pre => Arr'Length > 1 and Arr'First < Integer'Last and Arr'Last < Integer'Last,
-     Post => Is_Sorted (Arr)
-     -- Post => (for all I in Arr'First + 1 .. Arr'Last => Arr(I) >= Arr(I-1))
+     -- Post => Is_Sorted (Arr)
+     Post => (for all I in Arr'First + 1 .. Arr'Last => Arr(I) >= Arr(I-1))
    is
       Item : Integer;
       Position : Natural;
