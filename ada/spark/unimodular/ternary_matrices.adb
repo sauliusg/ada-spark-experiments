@@ -6,7 +6,6 @@ package body Ternary_Matrices with Spark_Mode is
    begin
       for I in A'Range(1) loop
          for J in B'Range(2) loop
-            R(I,J) := 0;
             for K in A'Range(2) loop
                pragma Assume
                  (
