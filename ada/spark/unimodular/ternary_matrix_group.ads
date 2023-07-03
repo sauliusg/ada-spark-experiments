@@ -33,6 +33,24 @@ package Ternary_Matrix_Group with Spark_Mode is
    
    -- Lemata:
    
+   procedure Unity_Matrix_Times_Itself_Gives_Unity
+     with 
+     Ghost,
+     Post => Unity_Matrix * Unity_Matrix = Unity_Matrix;
+     
+   procedure Unity_Matrix_Times_Dyad_Z_Gives_Dyad_Z
+     with 
+     Ghost,
+     Post => 
+     Unity_Matrix * Dyad_Z_Axis_Matrix = Dyad_Z_Axis_Matrix and
+     Dyad_Z_Axis_Matrix * Unity_Matrix = Dyad_Z_Axis_Matrix;
+     
+   procedure Unity_Matrix_Is_Identity
+     with 
+     Ghost,
+     Post => 
+     (for all E of P2_Group => Unity_Matrix * E = E and E * Unity_Matrix = E);
+   
    procedure P2_Is_Group
      with
      Ghost,
