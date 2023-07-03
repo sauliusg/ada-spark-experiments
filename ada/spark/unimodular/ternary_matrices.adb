@@ -8,7 +8,9 @@ package body Ternary_Matrices with Spark_Mode is
          for J in B'Range(2) loop
             R(I,J) := 0;
             for K in A'Range(2) loop
-               R(I,J) := R(I,J) + A(I,K) * B(K,J);
+               pragma Assume (R(I,J) = 0 or else A(I,K) * B(K,J) = 0);
+               -- R(I,J) := R(I,J) + A(I,K) * B(K,J);
+               R(I,J) := A(I,K) * B(K,J);
             end loop;
          end loop;
       end loop;
