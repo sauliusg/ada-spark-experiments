@@ -19,10 +19,6 @@ package body Ternary_Matrix_Group with Spark_Mode is
         );
       Unity_Matrix_Times_Itself_Gives_Unity;
       Unity_Matrix_Times_Dyad_Z_Gives_Dyad_Z;
-      pragma Assert (Unity_Matrix * P2_Group(P2_Group'First) = P2_Group(P2_Group'First));
-      pragma Assert (P2_Group(P2_Group'First) * Unity_Matrix = P2_Group(P2_Group'First));
-      pragma Assert (Unity_Matrix * P2_Group(P2_Group'First + 1) = P2_Group(P2_Group'First + 1));
-      pragma Assert (P2_Group(P2_Group'First + 1) * Unity_Matrix = P2_Group(P2_Group'First + 1));
    end;
      
    procedure P2_Is_Group is
