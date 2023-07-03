@@ -4,14 +4,14 @@ with Group_Theory;
 
 package Ternary_Matrix_Group with Spark_Mode is
 
-   Unity_Matrix : Ternary_Matrix :=
+   Unity_Matrix : constant Ternary_Matrix :=
      (
       (1, 0, 0),
       (0, 1, 0),
       (0, 0, 1)
      );
    
-   Dyad_Z_Axis_Matrix : Ternary_Matrix :=
+   Dyad_Z_Axis_Matrix : constant Ternary_Matrix :=
      (
       (-1,  0,  0),
       ( 0, -1,  0),
@@ -23,7 +23,7 @@ package Ternary_Matrix_Group with Spark_Mode is
    type Ternary_Matrix_Array is 
      array (Integer range <>) of Ternary_Matrix_3x3;
 
-   P2_Group : Ternary_Matrix_Array :=
+   P2_Group : constant Ternary_Matrix_Array :=
      (Unity_Matrix, Dyad_Z_Axis_Matrix);
      
    package Ternary_Matrix_Group_Theory is 
@@ -34,6 +34,7 @@ package Ternary_Matrix_Group with Spark_Mode is
    procedure P2_Is_Group (A : Ternary_Matrix_Array)
      with
      Ghost,
+     Global => Unity_Matrix,
      Post => (Is_Group (Group (P2_Group)));   
 
 end Ternary_Matrix_Group;
