@@ -22,6 +22,7 @@ package body Ternary_Matrix_Group with Spark_Mode is
       Unity_Matrix_Times_Itself_Gives_Unity;
       Unity_Matrix_Times_Dyad_Z_Gives_Dyad_Z;
       pragma Assert (Is_Identity (P2_Group(P2_Group'First), Group (P2_Group)));
+      
       pragma Assume (All_Elements_Have_Inverses (Group (P2_Group)));
       pragma Assume (Is_Closed_On_Multiplication (Group (P2_Group)));
       null;
