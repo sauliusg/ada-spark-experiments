@@ -13,10 +13,6 @@ package body Ternary_Matrix_Group with Spark_Mode is
    
    procedure Unity_Matrix_Is_Identity is
    begin
-      pragma Assume
-        (for all E of P2_Group => 
-           Unity_Matrix * E = E and E * Unity_Matrix = E
-        );
       Unity_Matrix_Times_Itself_Gives_Unity;
       Unity_Matrix_Times_Dyad_Z_Gives_Dyad_Z;
    end;
