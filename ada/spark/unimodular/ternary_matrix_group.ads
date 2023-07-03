@@ -31,10 +31,9 @@ package Ternary_Matrix_Group with Spark_Mode is
    
    use Ternary_Matrix_Group_Theory;
    
-   procedure P2_Is_Group (A : Ternary_Matrix_Array)
+   procedure P2_Is_Group
      with
      Ghost,
-     Global => Unity_Matrix,
      Post => (Is_Group (Group (P2_Group)));   
 
 end Ternary_Matrix_Group;
