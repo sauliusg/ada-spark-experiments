@@ -29,6 +29,15 @@ procedure Sigmoid_Gradient_Descent is
       end loop;
    end Target_Function_Derivative;
 
+   procedure Put (V : Vector) is
+   begin
+      Put ("[");
+      for E of V loop
+         Put (E);
+      end loop;
+      Put ("]");
+   end;
+   
    -- Define the gradient descent optimizer
    procedure Gradient_Descent_Optimizer(
       Learning_Rate : Float;
@@ -47,6 +56,8 @@ procedure Sigmoid_Gradient_Descent is
                X(J) := X(J) - Learning_Rate * Derivative(J);
             end loop;
          end;
+         Put (X);
+         New_Line;
       end loop;
 
       -- Print the optimized value of X
@@ -62,7 +73,7 @@ begin
    -- Perform gradient descent optimization
    Gradient_Descent_Optimizer(
       Learning_Rate => 0.1,  -- Learning rate for the optimization
-      Max_Iterations => 100,  -- Maximum number of iterations
-      Initial_X => (0.0, 0.0, 0.0),  -- Initial values of X as a vector
+      Max_Iterations => 10000,  -- Maximum number of iterations
+      Initial_X => (5.0, 7.0, 9.0),  -- Initial values of X as a vector
       Y => 1.0);  -- Example target value Y for logistic regression
 end Sigmoid_Gradient_Descent;
