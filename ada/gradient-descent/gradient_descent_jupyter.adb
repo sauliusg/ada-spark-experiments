@@ -12,9 +12,9 @@ procedure Gradient_Descent_Jupyter is
 begin
    -- Perform gradient descent optimization
    Gradient_Descent_Optimizer(
-      Quadratic_Function'Access,
-      Quadratic_Function_Derivative'Access,
+      Sin_Function'Access,
+      Sin_Function_Derivative'Access,
       Learning_Rate => 0.1,  -- Learning rate for the optimization
       Max_Iterations => 100,  -- Maximum number of iterations
-      Initial_X => (2.0, 3.0, 4.0));  -- Initial values of X as a vector
+      Initial_X => (12.0, 3.0, 4.0));  -- Initial values of X as a vector
 end Gradient_Descent_Jupyter;
