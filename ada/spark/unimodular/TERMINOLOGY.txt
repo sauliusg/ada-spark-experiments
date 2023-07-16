@@ -12,20 +12,141 @@ the matrices are of a simple form. In fact, each entry of the
 resulting matrices will be either 1, 0 or -1. In chapter 6 we will
 show that every lattice left invariant by a point group G will contain
 a sublattice that has a basis of the type we define for G in this
-chapter and the next". (Boisen & Gibbs, 1990: p. 141)
+chapter and the next" (Boisen & Gibbs, 1990: p. 141).
 
 
 "(D6.2) *Definition:* A matrix T all of whose entries are integers is
 called an _integral matrix_.  If, in addition det(T) = ±1, T is said
 to be _unimodular over the integers_ or, for our purposes, simply
 _unimodular_. If T is integral and det(T) = 1, then T is said to be a
-_proper unimodular matrix_".  (Boisen & Gibbs, 1990: p. 200)
+_proper unimodular matrix_"  (Boisen & Gibbs, 1990: p. 200).
 
+
+Unimodular Matrices
+===================
+
+"A unimodular matrix M is a square integer matrix having determinant
++1 or −1. Equivalently, it is an integer matrix that is invertible
+over the integers: there is an integer matrix N that is its inverse"
+(Wikipedia, 2022).
+
+All orthogonal matrices are unimodular; isometries are represented by
+orthogonal matrices in a Cartesian reference frame. (S.G.; proofs
+are available and short (< 1 page))
+
+However, in a non-Cartesian frame, isometry matrices may be
+non-orthogonal (example: a tree-fold axis in a standard
+crystallographic frame, cell parameters: a = b, c, 90, 90, 120,
+matrix: [[0,-1,0],[1,-1,0],[0,0,1]]). The matrices will be still
+unimodular (S.G.).
+
+Not every unimodular matrix is orthogonal; a counterexample is
+[[2,1],[1,1]] – it is unimodular but not orthogonal (S.G.).
+
+Unimodular matrices and orthogonal matrices both are closed under
+multiplication and inversion, and thus form subgroups of GL(n,ℝ).
+
+Totally Unimodular Matrices
+===========================
+
+"A totally unimodular matrix (TU matrix) is a matrix for which every
+square non-singular submatrix is unimodular. Equivalently, every
+square submatrix has determinant 0, +1 or −1. A totally unimodular
+matrix need not be square itself. From the definition it follows that
+any submatrix of a totally unimodular matrix is itself totally
+unimodular (TU). Furthermore it follows that any TU matrix has only 0,
++1 or −1 entries. The converse is not true, i.e., a matrix with only
+0, +1 or −1 entries is not necessarily unimodular" (Wikipedia, 2022).
+
+Thus, it seems that Boisen & Gibbs (1990: p. 200) claim that all
+crystallographic operators will be represented by Non-singular Totally
+Unimodular matrices (S.G.).
+
+The terminology is confusing since a Totally Unimodular matrix may be
+*not* Unimodular – it can be singular (det == 0) or even
+non-square. We need to be careful with assumptions (S.G.).
+
+Totally Unimodular Square Matrices are not Closed Under Multiplication
+======================================================================
+
+A counterexample (in 'ipython'):
+
+	saulius@tasmanijos-velnias ~/ $ python
+	Python 3.8.10 (default, May 26 2023, 14:05:08) 
+	[GCC 9.4.0] on linux
+	Type "help", "copyright", "credits" or "license" for more information.
+	>>> from numpy import *
+	>>> from scipy.linalg import det
+	>>> m2 = matrix([[1, 0, 1], [0, -1, 1], [0, 1, 0]])
+	>>> m2
+	matrix([[ 1,  0,  1],
+	        [ 0, -1,  1],
+	        [ 0,  1,  0]])
+	>>> det(m2)
+	-1.0
+	>>> m2 * m2
+	matrix([[ 1,  1,  1],
+	        [ 0,  2, -1],
+	        [ 0, -1,  1]])
+	>>> det(m2 * m2)
+	1.0
+
+Thus, the 'm2' matrix is non-singular and Totally Unimodular (TU)
+(please double-check...), but the product 'm2*m2' is not, since it has
+2 as an element (at i=2,j=2,one-based) (S.G.).
+
+A Group of Symmetry Operations is a Group of TU Matrices? (S.G.)
+================================================================
+
+Since the crystallographic symmetry operations form a group under
+multiplication and are represented by non-singular TU matrices
+(NSTU). But the non-singular TU matrices, in general, are not closed
+under multiplication and therefore do not form a group. Moreover, some
+symmetry operations are represented by non-orthogonal matrices in some
+frames, thus we can *not* say that space groups are represented by
+orthogonal NSTU.
+
+Thus there must be some additional condition (constraint) on NSTU
+matrices that ensures the closure under multiplication. Unfortunately,
+I can not formulate this condition at the moment.
+
+An example of NSTU matrices that *do* from a group (a threefold
+rotation around the z axis, forming a P3 space group):
+
+	saulius@tasmanijos-velnias ~/ $ python
+	Python 3.8.10 (default, May 26 2023, 14:05:08) 
+	[GCC 9.4.0] on linux
+	Type "help", "copyright", "credits" or "license" for more information.
+	>>> from numpy import *
+	>>> from scipy.linalg import det
+	>>> r3 = matrix([[0, -1, 0], [1, -1, 0], [0, 0, 1]])
+	>>> r3
+	matrix([[ 0, -1,  0],
+	        [ 1, -1,  0],
+	        [ 0,  0,  1]])
+	>>> r3 * r3
+	matrix([[-1,  1,  0],
+	        [-1,  0,  0],
+	        [ 0,  0,  1]])
+	>>> r3 * r3 * r3
+	matrix([[1, 0, 0],
+	        [0, 1, 0],
+	        [0, 0, 1]])
+
+We see that P3 is a cyclic group generated by r3; $r3^{-1} = r3^{2}$
+The r3 element is represented by a non-orthogonal NSTU. The frame of
+references uses three vectors a, b and c s.t. |a| = |b| /= |c|, α = β = 90°,
+γ = 120°(S.G.).
 
 References:
 ===========
 
-Boisen, Jr., M. B. & Gibbs, G. V. (1990) Mathematical crystallography:
+1. Boisen, Jr., M. B. & Gibbs, G. V. (1990) Mathematical crystallography:
 An introduction to the mathematical foundations of crystallography.
 Mineralogical Society of America. In series: Ribbe,
 P. H. (Ed.). Reviews in Mineralogy, vol. 15, Revised edition.
+
+2. Wikipedia (2022) Unimodular matrix. URL:
+https://en.wikipedia.org/wiki/Unimodular_matrix [Accessed:
+2023-07-16T12:29+03:00; Permalink:
+https://en.wikipedia.org/w/index.php?title=Unimodular_matrix&amp;oldid=1110420484].
