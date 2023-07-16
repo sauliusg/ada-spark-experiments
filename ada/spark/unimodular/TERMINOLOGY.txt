@@ -1,0 +1,31 @@
+Matrix representations of the symmetry operators
+================================================
+
+"*Matrix representations and basis vectors:*  In order to obtain a
+matrix representation for each of the point isometries for a given
+group, we need to select a basis for each group.
+
+To accomplish this, we will define, for each crystallographic point
+group G, a set of bases such that the matrix representations of the
+isometries is [sic] the same for any basis in the set and such that
+the matrices are of a simple form. In fact, each entry of the
+resulting matrices will be either 1, 0 or -1. In chapter 6 we will
+show that every lattice left invariant by a point group G will contain
+a sublattice that has a basis of the type we define for G in this
+chapter and the next". (Boisen & Gibbs, 1990: p. 141)
+
+
+"(D6.2) *Definition:* A matrix T all of whose entries are integers is
+called an _integral matrix_.  If, in addition det(T) = ±1, T is said
+to be _unimodular over the integers_ or, for our purposes, simply
+_unimodular_. If T is integral and det(T) = 1, then T is said to be a
+_proper unimodular matrix_".  (Boisen & Gibbs, 1990: p. 200)
+
+
+References:
+===========
+
+Boisen, Jr., M. B. & Gibbs, G. V. (1990) Mathematical crystallography:
+An introduction to the mathematical foundations of crystallography.
+Mineralogical Society of America. In series: Ribbe,
+P. H. (Ed.). Reviews in Mineralogy, vol. 15, Revised edition.
