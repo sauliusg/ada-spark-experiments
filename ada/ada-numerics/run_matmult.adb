@@ -18,7 +18,7 @@ procedure Run_Matmult is
      (
       (-1, -1,  0 ),
       ( 0,  0,  1 ),
-      ( 0, -1, -1 )
+      ( 0, -1,  1 )
      );
 
    P : Integer_Matrix(1..3,1..3);
