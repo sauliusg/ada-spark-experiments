@@ -18,7 +18,10 @@ procedure Run_Matmult is
       end loop;      
       return R;
    end;
-
+   
+   -- This is an example of totally unimodular matrix the square of
+   --  which is not totally unimodular:
+   
    -- M : Integer_Matrix(1..3, 1..3) :=
    --   (
    --    ( 1,  0,  1 ),
@@ -28,11 +31,11 @@ procedure Run_Matmult is
    
    M : Integer_Matrix(1..3, 1..3) :=
      (
-      ( 1,  0,  1 ),
+      (-1, -1,  0 ),
       ( 0,  0,  1 ),
       ( 0, -1, -1 )
      );
-   
+
    P : Integer_Matrix(1..3,1..3);
    
    procedure Put_Matrix (M : Integer_Matrix) is
