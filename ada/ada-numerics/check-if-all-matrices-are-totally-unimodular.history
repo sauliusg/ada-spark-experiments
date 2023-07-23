@@ -1,0 +1,1 @@
+  765  ( N=1; for i in $(seq 1 $(expr $(./run_matmult | wc -l) / 5)); do M="$(./run_matmult | tail -n +$N | head -5)"; echo "$M"; unimodularity-test /dev/stdin <<< "$M"; N=$(expr $N + 5); echo =======================; done ) 2>&1 | tr -d '\r' | less -R
