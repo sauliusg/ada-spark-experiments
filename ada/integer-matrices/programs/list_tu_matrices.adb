@@ -52,35 +52,22 @@ procedure List_TU_Matrices is
    
    Count : Integer := 0;
    
-   function Cyclic_Group_Order (A : Integer_Matrix) return Integer is              
+   function Cyclic_Group_Order (A : Integer_Matrix) return Integer is
+      Unity : Integer_Matrix :=
+        (
+         for I in A'Range(1) =>
+           (for J in A'Range(2) =>
+              (if I = J then 1 else 0)
+           )
+        );
+      
       R : Integer_Matrix := A;
       Order : Integer := 0;
       Max_Order : Integer := 100;
       
-      function Is_Zero_One_Diag (A : Integer_Matrix) return Boolean is
-      begin
-         if Det (A) = 0 then
-            return True;
-         end if;
-         for I in A'Range(1) loop
-            for J in A'Range(2) loop
-               if I = J then
-                  if A (I,J) not in -1 .. 1 then 
-                     return False;
-                  end if;
-               else
-                  if A (I,J) /= 0 then 
-                     return False;
-                  end if;
-               end if;
-            end loop;
-         end loop;
-         return True;
-      end;
-      
    begin
       loop
-         exit when Is_Zero_One_Diag (R);
+         exit when R = Unity;
          R := R * A;
          Order := Order + 1;
          if Order > Max_Order then
@@ -90,7 +77,7 @@ procedure List_TU_Matrices is
       return Order;
    exception 
       when CONSTRAINT_ERROR =>
-         return 0;
+         return -1;
    end;
    
 begin
