@@ -1,5 +1,5 @@
--- pragma Ada_2022;
-pragma Ada_2020;
+pragma Ada_2022;
+-- pragma Ada_2020;
 
 with Ada.Text_IO; use Ada.Text_IO;
 
