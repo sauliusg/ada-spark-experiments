@@ -32,7 +32,7 @@ include ${GNATMAKE_ADA_DEPEND}
 RUN_ARGUMENT ?= 
 
 run: ${GNATMAKE_ADA_EXE}
-	for FILE in $^; do \
+	@for FILE in $^; do \
 		BASE="$$(basename $${FILE})"; \
 		eval ARG1=\$${ARGUMENT_1_$${BASE}}; \
 		if [ -z "$${ARG1}" ]; then \

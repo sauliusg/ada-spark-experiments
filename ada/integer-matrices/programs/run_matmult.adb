@@ -27,7 +27,7 @@ begin
    
    P := ((1,0,0), (0,1,0), (0,0,1));
    
-   for I in 1 .. 20 loop
+   for I in 1 .. 3 loop
       P := P * M;
       Put_Matrix (P);
       New_Line;
