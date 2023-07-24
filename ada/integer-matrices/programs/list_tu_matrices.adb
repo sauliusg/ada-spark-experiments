@@ -4,9 +4,9 @@ with Integer_Matrices; use Integer_Matrices;
 
 procedure List_Tu_Matrices is
    
-   M : Integer_Matrix (1..2, 1..2);
+   M : Integer_Matrix (1..3, 1..3);
    
-   Z : constant Integer_Matrix (1..2, 1..2) := ((0,0), (0,0));
+   Z : constant Integer_Matrix (1..3, 1..3) := ((0,0,0), (0,0,0), (0,0,0));
    
    procedure Generate_Matrices
      (
