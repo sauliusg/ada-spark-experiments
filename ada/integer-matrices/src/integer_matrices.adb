@@ -16,6 +16,15 @@ package body Integer_Matrices is
       return R;
    end;
    
+   function Trace (M : Integer_Matrix) return Integer is
+      T : Integer := 0;
+   begin
+      for I in M'Range(1) loop
+         T := T + M (I,I);
+      end loop;
+      return T;
+   end;
+   
    function Submatrix 
      (
       M : Integer_Matrix;

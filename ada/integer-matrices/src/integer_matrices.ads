@@ -3,6 +3,8 @@ package Integer_Matrices with Spark_Mode Is
    type Integer_Matrix is 
      array (Integer range <>, Integer range <>) of Integer;   
    
+   function Trace (M : Integer_Matrix) return Integer;
+
    function Submatrix
      (
       M : Integer_Matrix;

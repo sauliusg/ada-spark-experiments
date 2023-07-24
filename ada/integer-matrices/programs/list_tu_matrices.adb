@@ -1,6 +1,8 @@
 with Ada.Text_IO;  use Ada.Text_IO;
 
 with Integer_Matrices; use Integer_Matrices;
+with Lazy_Determinant; use Lazy_Determinant;
+with Lazy_Check_TU;    use Lazy_Check_TU;
 
 procedure List_Tu_Matrices is
    
@@ -46,11 +48,22 @@ procedure List_Tu_Matrices is
    
    Last : Boolean := False;
    
+   Count : Integer := 0;
+   
 begin
    
    M := Z;
    
    while not Last loop
+      Count := Count + 1;
+      Put (Count'Image);
+      Put (ASCII.HT);
+      Put (Integer'Image(Trace(M)));
+      Put (ASCII.HT);
+      Put (Integer'Image(Det(M)));
+      Put (ASCII.HT);
+      Put (Boolean'Image(Is_Total_Unimodular(M)));
+      Put (ASCII.HT);
       Put_Matrix_Line (M);
       New_Line;
       Generate_Matrices (M, Last);
