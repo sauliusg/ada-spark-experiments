@@ -27,4 +27,21 @@ package body Integer_Matrices is
       end loop;
    end Put_Matrix;
 
+   procedure Put_Matrix_Line (M : Integer_Matrix) is
+   begin
+      Put (Integer'Image(M'Length(1)) & " " & Integer'Image(M'Length(2)) & "  ");
+      for I in M'Range (1) loop
+         for J in M'Range (2) loop
+            Put (Integer'Image (M (I, J)));
+            if J /= M'Last(2) then
+               Put (" ");
+            end if;
+         end loop;
+         if I /= M'Last(1) then
+            Put ("  ");
+         end if;
+      end loop;
+      New_Line;
+   end Put_Matrix_Line;
+
 end;

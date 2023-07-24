@@ -13,4 +13,6 @@ package Integer_Matrices with Spark_Mode Is
       
    procedure Put_Matrix (M : Integer_Matrix);
       
+   procedure Put_Matrix_Line (M : Integer_Matrix);
+      
 end;
