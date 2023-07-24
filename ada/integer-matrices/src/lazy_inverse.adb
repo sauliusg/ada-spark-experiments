@@ -14,7 +14,9 @@ package body Lazy_Inverse is
    begin
       D := Det (M);
       
-      pragma Assert (abs(D) = 1);
+      pragma Assert (abs(D) = 1,
+                     "Only integer matrices with " &
+                       "determinant 1 or -1 are invertible");
       
       for I in M'Range(1) loop
          for J in M'Range(1) loop
