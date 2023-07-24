@@ -1,3 +1,5 @@
+pragma Ada_2022;
+
 with Ada.Text_IO;  use Ada.Text_IO;
 
 with Integer_Matrices; use Integer_Matrices;
@@ -50,6 +52,47 @@ procedure List_TU_Matrices is
    
    Count : Integer := 0;
    
+   function Cyclic_Group_Order (A : Integer_Matrix) return Integer is              
+      R : Integer_Matrix := A;
+      Order : Integer := 0;
+      Max_Order : Integer := 100;
+      
+      function Is_Zero_One_Diag (A : Integer_Matrix) return Boolean is
+      begin
+         if Det (A) = 0 then
+            return True;
+         end if;
+         for I in A'Range(1) loop
+            for J in A'Range(2) loop
+               if I = J then
+                  if A (I,J) not in -1 .. 1 then 
+                     return False;
+                  end if;
+               else
+                  if A (I,J) /= 0 then 
+                     return False;
+                  end if;
+               end if;
+            end loop;
+         end loop;
+         return True;
+      end;
+      
+   begin
+      loop
+         exit when Is_Zero_One_Diag (R);
+         R := R * A;
+         Order := Order + 1;
+         if Order > Max_Order then
+            return -Max_Order;
+         end if;
+      end loop;
+      return Order;
+   exception 
+      when CONSTRAINT_ERROR =>
+         return 0;
+   end;
+   
 begin
    
    M := Z;
@@ -61,6 +104,8 @@ begin
       Put (Integer'Image(Trace(M)));
       Put (ASCII.HT);
       Put (Integer'Image(Det(M)));
+      Put (ASCII.HT);
+      Put (Integer'Image(Cyclic_Group_Order(M)));
       Put (ASCII.HT);
       Put (Boolean'Image(Is_Total_Unimodular(M)));
       Put (ASCII.HT);
