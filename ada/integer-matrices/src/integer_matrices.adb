@@ -16,6 +16,30 @@ package body Integer_Matrices is
       return R;
    end;
    
+   function Submatrix 
+     (
+      M : Integer_Matrix;
+      P, Q : Integer
+     ) return Integer_Matrix is
+      A : Integer_Matrix (1 .. M'Length(1) - 1, 1 .. M'Length(2) - 1);
+      K, L : Integer;
+   begin
+      K := 1; L := 1;
+      for I in M'Range(1) loop
+         if I /= P then 
+            for J in M'Range(2) loop
+               if J /= Q then
+                  A(K,L) := M(I,J);
+                  L := L + 1;
+               end if;
+            end loop;
+            L := 1;
+            K := K + 1;
+         end if;
+      end loop;
+      return A;
+   end Submatrix;
+   
    procedure Put_Matrix (M : Integer_Matrix) is
    begin
       Put_Line (Integer'Image(M'Length(1)) & " " & Integer'Image(M'Length(2)));

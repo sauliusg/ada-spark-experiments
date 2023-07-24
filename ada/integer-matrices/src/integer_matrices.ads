@@ -3,6 +3,12 @@ package Integer_Matrices with Spark_Mode Is
    type Integer_Matrix is 
      array (Integer range <>, Integer range <>) of Integer;   
    
+   function Submatrix
+     (
+      M : Integer_Matrix;
+      P, Q : Integer
+     ) return Integer_Matrix;
+
    function "*" (A, B : Integer_Matrix) return Integer_Matrix
      with
      Pre => A'First(2) = B'First(1) and A'Last(2) = B'Last(1),
