@@ -41,7 +41,6 @@ package body Integer_Matrices is
             Put ("  ");
          end if;
       end loop;
-      New_Line;
    end Put_Matrix_Line;
 
 end;
