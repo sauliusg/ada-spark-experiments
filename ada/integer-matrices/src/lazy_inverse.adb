@@ -19,7 +19,7 @@ package body Lazy_Inverse is
                        "determinant 1 or -1 are invertible");
       
       for I in M'Range(1) loop
-         for J in M'Range(1) loop
+         for J in M'Range(2) loop
             Inv (I,J) := Coef * Det (Submatrix(M,I,J)) * D;
             Coef := - Coef;
          end loop;
