@@ -21,8 +21,9 @@ package body Lazy_Determinant is
             -- Lazy evaluation: only calculate the minor if the
             --  coefficient is not zero:
             if M (I,J) /= 0 then
-               Value := Value + Coef * Det (Submatrix (M, I, J));
+               Value := Value + Coef * M (I,J) * Det (Submatrix (M, I, J));
             end if;
+            Coef := - Coef;
          end loop;
          return Value;
       end if;
