@@ -62,7 +62,7 @@ procedure List_TU_Matrices is
         );
       
       R : Integer_Matrix := A;
-      Order : Integer := 0;
+      Order : Integer := 1;
       Max_Order : Integer := 100;
       
    begin
