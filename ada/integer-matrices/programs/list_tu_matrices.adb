@@ -64,6 +64,10 @@ begin
       Put (ASCII.HT);
       Put (Boolean'Image(Is_Total_Unimodular(M)));
       Put (ASCII.HT);
+      Put (Boolean'Image(Is_Total_Unimodular(M * M)));
+      Put (ASCII.HT);
+      Put (Boolean'Image(Is_Total_Unimodular(M * M * M)));
+      Put (ASCII.HT);
       Put_Matrix_Line (M);
       New_Line;
       Generate_Matrices (M, Last);
