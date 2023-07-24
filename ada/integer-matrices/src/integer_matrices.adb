@@ -40,6 +40,21 @@ package body Integer_Matrices is
       return A;
    end Submatrix;
    
+   function Transpose (M : in Integer_Matrix) return Integer_Matrix is
+      T : Integer_Matrix
+        (
+         M'First(2) .. M'Last (2),
+         M'First(1) .. M'Last (1)
+        );
+   begin
+      for I in M'Range(1) loop
+         for J in M'Range(1) loop
+            T (J,I) := M (I,J);
+         end loop;
+      end loop;
+      return T;
+   end;
+   
    procedure Put_Matrix (M : Integer_Matrix) is
    begin
       Put_Line (Integer'Image(M'Length(1)) & " " & Integer'Image(M'Length(2)));
