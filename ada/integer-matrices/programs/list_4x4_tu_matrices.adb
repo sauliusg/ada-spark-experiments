@@ -1,4 +1,4 @@
-pragma Ada_2022;
+-- pragma Ada_2022;
 
 with Ada.Text_IO;  use Ada.Text_IO;
 
@@ -59,19 +59,18 @@ procedure List_TU_Matrices is
    Count : Integer := 0;
    
    function Cyclic_Group_Order (A : Integer_Matrix) return Integer is
-      Unity : Integer_Matrix :=
-        (
-         for I in A'Range(1) =>
-           (for J in A'Range(2) =>
-              (if I = J then 1 else 0)
-           )
-        );
+      Unity : Integer_Matrix (A'First(1) .. A'Last(1), 
+                              A'First(2) .. A'Last(2)) :=
+        (others => (others => 0));
       
       R : Integer_Matrix := A;
       Order : Integer := 1;
       Max_Order : Integer := 100;
       
    begin
+      for I in Unity'Range(1) loop
+         Unity (I,I) := 1;
+      end loop;
       loop
          exit when R = Unity;
          R := R * A;
