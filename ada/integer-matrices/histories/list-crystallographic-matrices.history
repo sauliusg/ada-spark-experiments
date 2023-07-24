@@ -1,0 +1,1 @@
+  866  ./bin/list_tu_matrices | awk -F"\t" '$4 > 0 && /TRUE\tTRUE\tTRUE\tTRUE\tTRUE/' | less
