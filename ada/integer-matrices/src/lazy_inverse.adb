@@ -20,7 +20,7 @@ package body Lazy_Inverse is
       
       for I in M'Range(1) loop
          for J in M'Range(2) loop
-            Inv (I,J) := Coef * Det (Submatrix(M,I,J)) * D;
+            Inv (J,I) := Coef * Det (Submatrix(M,I,J)) * D;
             Coef := - Coef;
          end loop;
          Coef := (if I mod 2 = 0 then 1 else -1);
