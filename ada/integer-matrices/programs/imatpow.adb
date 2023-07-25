@@ -4,7 +4,7 @@ with Integer_Matrix_File; use Integer_Matrix_File;
 
 with Ada.Command_Line;          use Ada.Command_Line;
 
-procedure IMatMul is
+procedure IMatPow is
    
    Power : Integer;
    
