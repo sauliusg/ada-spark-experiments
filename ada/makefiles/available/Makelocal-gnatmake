@@ -39,7 +39,8 @@ run: ${GNATMAKE_ADA_EXE}
 			( set -x; $${FILE} ${RUN_ARGUMENT} ) \
 		else \
 			( set -x; $${FILE} "$${ARG1}" ${RUN_ARGUMENT} ) \
-		fi; \
+		fi \
+		| head -n 30; \
 	done
 
 #------------------------------------------------------------------------------
