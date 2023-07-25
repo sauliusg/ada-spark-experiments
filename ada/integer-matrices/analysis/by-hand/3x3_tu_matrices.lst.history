@@ -1,0 +1,1 @@
+  739  ( set -x; directory-metadata; ./bin/list_tu_matrices > analysis/by-hand/3x3_tu_matrices.lst; date ) &> analysis/by-hand/3x3_tu_matrices.lst.log &
