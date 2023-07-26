@@ -1,16 +1,38 @@
 \documentclass{article}
 \pagestyle{empty}
 
+\usepackage{xcolor}
+\usepackage{listings}
 \usepackage{graphicx}
+\usepackage{needspace}
+\usepackage{printlen}
+
+\lstset{
+  basicstyle=\tt,
+  morekeywords={imatpowers,ifronorm,awk},
+  keywordstyle=\color{blue}\bf\tt,
+  language=bash,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}
+}
+
+\hoffset -1cm
+\voffset -3.5cm
+\addtolength{\textheight}{6cm}
 
 \begin{document}
 
-\hoffset -1cm
+%%\printlength{\textheight}\footnote{Footnotes are here now}
 
+\lstinputlisting[morekeywords={imatpowers,ifronorm,awk}]{norms.dat.history}
+\vspace{-2\baselineskip}
 \includegraphics[height=\textwidth,angle=-90]{norms.eps}
-\vfill
-\vfill
 
+\vspace{3\baselineskip}
+
+%%\needspace{10cm}
+\lstinputlisting[morekeywords={imatpowers,ifronorm,awk}]{linear-norms.dat.history}
+\vspace{-2\baselineskip}
 \includegraphics[height=\textwidth,angle=-90]{linear-norms.eps}
 
 \end{document}
