@@ -1,0 +1,6 @@
+1. Nr. – matricos eilės numeris; matricos generuojamos trejetainių skaičių didėjimo tvarka, laikant skaitmenimis didėjimo tvarka 0,1,-1;
+2. Tr – matricos pėdsakas (naudingas, kad nustatyti posūkio ašies eilę);
+3. Det – matricos determinantas
+4. Order – matricos eilė (t.y. jos sugeneruotos ciklinės grupės eilė); -100 reiškia, kad per 100 žingsnių nebuvo gauta vienetinė matrica, o -1 reiškia, kad įvyko sveikų skaičių perpildymas, nepasiekus 100 žingsnių;
+5–9. Ar matricos atitinkamas laipsnis (M^1, M^2, ..., M^5) yra totalus unimoduliarinis;
+10. Pati matrica. pirmu du skaičiai – matricos eilučių ir stulpelių skaičiai, toliau – matricos elementai. Tokiame pavidale matricas skaito programėlės mano minėtoje repo, o taip pat 'unimodularity-test' įrankis iš http://matthiaswalter.org/TUtest/.
