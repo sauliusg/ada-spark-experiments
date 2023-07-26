@@ -9,4 +9,6 @@ package Integer_Matrix_File is
    
    procedure Skip_To_Next_Matrix (File : File_Type);
    
+   procedure Skip_To_Next_Matrix (File : File_Type; Empty_Line : out Boolean);
+      
 end;

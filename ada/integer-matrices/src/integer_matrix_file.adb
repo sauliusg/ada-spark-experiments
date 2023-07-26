@@ -34,10 +34,35 @@ package body Integer_Matrix_File is
    end;
    
    procedure Skip_To_Next_Matrix (File : File_Type) is
+      Dummy : Boolean;
+   begin
+      Skip_To_Next_Matrix (File, Dummy);
+   end;
+
+   procedure Skip_To_Next_Matrix (File : File_Type; Empty_Line : out Boolean) is
       C, Dummy : Character;
       End_Of_Line : Boolean;
+      Skipped_Lines : Integer := 0;
+      
+      procedure Safe_Inc (X : in out Integer) is
+      begin
+         if X < Integer'Last then
+            X := X + 1;
+         end if;
+      end;
+      
+      procedure Skip_And_Count_Line
+        (
+         File : in File_Type;
+         Count : in out Integer
+        ) is
+      begin
+         Skip_Line (File);
+         Safe_Inc (Count);
+      end;
       
    begin
+      Empty_Line := False;
       while not End_Of_File (File) loop
          End_Of_Line := False;
          while not End_Of_Line loop
@@ -45,9 +70,12 @@ package body Integer_Matrix_File is
             if not End_Of_Line then
                case C is
                   when '#' => 
-                     Skip_Line (File);
+                     Skip_And_Count_Line (File, Skipped_Lines);
                   when others =>
                      if C in '0' .. '9' then
+                        if Skipped_Lines > 1 then
+                           Empty_Line := True;
+                        end if;
                         return;
                      else
                         Get (File, Dummy); -- skip the character
@@ -55,7 +83,7 @@ package body Integer_Matrix_File is
                end case;
             else
                if not End_Of_File (File) then
-                  Skip_Line (File);
+                  Skip_And_Count_Line (File, Skipped_Lines);
                end if;
             end if;
          end loop;
