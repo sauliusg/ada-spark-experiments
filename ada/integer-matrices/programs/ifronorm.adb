@@ -36,6 +36,7 @@ begin
             Put (ASCII.HT);
             Put_Matrix_Line (M);
             New_Line;
+            Skip_To_Next_Matrix (File);
          end;
       end loop;
       Close (File);

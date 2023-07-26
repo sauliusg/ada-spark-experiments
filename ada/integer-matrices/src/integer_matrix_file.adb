@@ -33,4 +33,33 @@ package body Integer_Matrix_File is
       end;
    end;
    
+   procedure Skip_To_Next_Matrix (File : File_Type) is
+      C, Dummy : Character;
+      End_Of_Line : Boolean;
+      
+   begin
+      while not End_Of_File (File) loop
+         End_Of_Line := False;
+         while not End_Of_Line loop
+            Look_Ahead (File, C, End_Of_Line);
+            if not End_Of_Line then
+               case C is
+                  when '#' => 
+                     Skip_Line (File);
+                  when others =>
+                     if C in '0' .. '9' then
+                        return;
+                     else
+                        Get (File, Dummy); -- skip the character
+                     end if;
+               end case;
+            else
+               if not End_Of_File (File) then
+                  Skip_Line (File);
+               end if;
+            end if;
+         end loop;
+      end loop;
+   end;
+   
 end;
