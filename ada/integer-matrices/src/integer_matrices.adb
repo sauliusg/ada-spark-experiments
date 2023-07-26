@@ -16,6 +16,28 @@ package body Integer_Matrices is
       return R;
    end;
    
+   function "+" (A, B : Integer_Matrix) return Integer_Matrix is
+      R : Integer_Matrix := A;
+   begin
+      for I in A'Range(1) loop
+         for J in B'Range(2) loop
+            R(I,J) := R(I,J) + B(I,J);
+         end loop;
+      end loop;      
+      return R;
+   end;
+   
+   function "-" (A, B : Integer_Matrix) return Integer_Matrix is
+      R : Integer_Matrix := A;
+   begin
+      for I in A'Range(1) loop
+         for J in B'Range(2) loop
+            R(I,J) := R(I,J) - B(I,J);
+         end loop;
+      end loop;      
+      return R;
+   end;
+   
    function Trace (M : Integer_Matrix) return Integer is
       T : Integer := 0;
    begin
