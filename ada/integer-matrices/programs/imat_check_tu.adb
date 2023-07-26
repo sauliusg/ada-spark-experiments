@@ -7,24 +7,39 @@ with Ada.Command_Line;    use Ada.Command_Line;
 
 procedure IMat_Check_TU is
    
+   File : File_Type;
+   
+   Empty_Line : Boolean := False;
+
 begin
    
    for I in 1 .. Argument_Count loop
-      declare
-         File_Name : String := Argument (I);
-         M : Integer_Matrix := Load_Integer_Matrix (File_Name);
-      begin
+      Open (File, In_File, Argument (I));
+      Empty_Line := False;
+      while not End_Of_File (File) loop
+         declare
+            M : Integer_Matrix := Load_Integer_Matrix (File);
+         begin
+            if Empty_Line then
+               New_Line;
+            end if;
          
-         if Is_Total_Unimodular (M) then
-            Put ("yes");
-         else
-            Put ("no");
-         end if;
+            if Is_Total_Unimodular (M) then
+               Put ("yes");
+            else
+               Put ("no");
+            end if;
          
-         Put (ASCII.HT);
-         Put_Matrix_Line (M);
+            Put (ASCII.HT);
+            Put_Matrix_Line (M);
+            New_Line;
+            Skip_To_Next_Matrix (File, Empty_Line);
+         end;
+      end loop;
+      Close (File);
+      if I < Argument_Count then
          New_Line;
-      end;
+      end if;
    end loop;
    
 end;
