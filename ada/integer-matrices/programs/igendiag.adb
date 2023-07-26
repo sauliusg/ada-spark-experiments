@@ -18,8 +18,6 @@ begin
    
    if Ada.Directories.Simple_Name (Command_Name) = "igenunity" then
       Value := 1;
-   elsif Ada.Directories.Simple_Name (Command_Name) = "igenzero" then
-      Value := 0;
    else
       Value := Integer'Value (Argument(2));
    end if;
