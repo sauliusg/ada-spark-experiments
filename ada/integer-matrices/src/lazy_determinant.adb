@@ -6,14 +6,20 @@ package body Lazy_Determinant is
       Value : Integer := 0;
       I, J : Integer;
       Coef : Integer := 1;
+      
+      function Has_Index_Range (M : Integer_Matrix; IFirst, ILast : Integer)
+                               return Boolean is
+         (M'First(1) = IFirst and then M'First(2) = IFirst and then 
+            M'Last(1) = IFirst and then M'Last(2) = ILast);
+      
    begin
       if M'Length(1) = 1 and then M'Length(2) = 1 then
          I := M'First(1);
          J := M'First(2);
          return M (I,J);
-      elsif M'Length(1) = 2 and then M'Length(2) = 2 then
+      elsif Has_Index_Range (M, 1, 2) then
          return Det2 (M);
-      elsif M'Length(1) = 3 and then M'Length(2) = 3 then
+      elsif Has_Index_Range (M, 1, 3) then
          return Det3 (M);
       else
          I := M'First(1);
