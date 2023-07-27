@@ -44,6 +44,5 @@ begin
    end loop;
    
    Put_Matrix (Result.all);
-   New_Line;
    Free (Result);
 end;
