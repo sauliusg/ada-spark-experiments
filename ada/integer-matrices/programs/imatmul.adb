@@ -27,8 +27,7 @@ begin
             M : Integer_Matrix := Load_Integer_Matrix (File);
          begin
             if Result = null then
-               Result := new Integer_Matrix (M'Range(1), M'Range(2));
-               Result.all := M;
+               Result := new Integer_Matrix'(M);
             else
                declare
                   Product : Integer_Matrix := Result.all * M;

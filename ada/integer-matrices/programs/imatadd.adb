@@ -32,8 +32,7 @@ begin
          M : Integer_Matrix := Load_Integer_Matrix (File_Name);
       begin
          if Result = null then
-            Result := new Integer_Matrix (M'Range(1), M'Range(2));
-            Result.all := M;
+            Result := new Integer_Matrix'(M);
          else
             case Operation is
                when ADD => Result.all := Result.all + M;
