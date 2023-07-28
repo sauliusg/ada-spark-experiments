@@ -1,0 +1,37 @@
++ directory-metadata
++ whoami
+saulius
++ hostname -f
+kukutis
++ pwd
+/home/saulius/tests/ada/integer-matrices
++ svnversion
+2279
++ svn info
+Path: .
+Working Copy Root Path: /home/saulius/tests
+URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/tests/ada/integer-matrices
+Relative URL: ^/ada/integer-matrices
+Repository Root: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/tests
+Repository UUID: 7d3c22fc-10a8-428c-9238-cefecdfad580
+Revision: 2279
+Node Kind: directory
+Schedule: normal
+Last Changed Author: saulius
+Last Changed Rev: 2279
+Last Changed Date: 2023-07-28 09:09:15 +0300 (Fri, 28 Jul 2023)
+
++ df -h .
+Filesystem                  Size  Used Avail Use% Mounted on
+/dev/mapper/linux--vg-home  3.5T  3.0T  370G  90% /home
++ type osname
+osname is /home/saulius/scripts/osname
++ osname
+Ubuntu-20.04
++ uname -a
+Linux kukutis 5.4.0-153-generic #170-Ubuntu SMP Fri Jun 16 13:43:31 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
++ date
+Fri 28 Jul 2023 09:10:00 AM EEST
++ ./bin/list_2x2_tu_matrices
++ date
+Fri 28 Jul 2023 09:10:00 AM EEST

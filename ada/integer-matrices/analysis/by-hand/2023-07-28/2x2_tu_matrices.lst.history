@@ -1,0 +1,1 @@
+  537  ( set -x; directory-metadata; ./bin/list_2x2_tu_matrices > analysis/by-hand/2023-07-28/2x2_tu_matrices.lst; date ) &> analysis/by-hand/2023-07-28/2x2_tu_matrices.lst.log
