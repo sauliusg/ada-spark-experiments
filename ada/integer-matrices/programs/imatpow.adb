@@ -24,6 +24,10 @@ begin
             M : Integer_Matrix := Load_Integer_Matrix (File);
             Result : Integer_Matrix (M'Range(1), M'Range(2));
          begin
+            if Empty_Line then
+               New_Line;
+            end if;
+            
             for I in Result'Range(1) loop
                for J in Result'Range(1) loop
                   if I = J then
