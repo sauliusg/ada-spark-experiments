@@ -21,5 +21,6 @@ begin
    
    Put (M'Image);
    New_Line;
+   New_Line;
    
 end Run_P2_Is_A_Group_Check;
