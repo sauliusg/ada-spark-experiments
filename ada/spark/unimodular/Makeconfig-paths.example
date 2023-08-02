@@ -5,7 +5,7 @@
 #$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/multiscript-testing-shell/Makelocal-multiscript-testing-shell $
 #------------------------------------------------------------------------
 
-# Configure additional path variables:
+# Configure additional paths in the PATH and other variables:
 
 CWD := $(shell pwd)
 
