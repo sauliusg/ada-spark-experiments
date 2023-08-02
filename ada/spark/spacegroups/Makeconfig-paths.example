@@ -5,8 +5,9 @@
 #$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/multiscript-testing-shell/Makelocal-multiscript-testing-shell $
 #------------------------------------------------------------------------
 
-# Specify options for 'gnatmake' in this project:
+# Configure additional paths in the PATH and other variables:
 
-GNATMAKE_OPTIONS = -Isrc/spacegroups/src
+CWD := $(shell pwd)
 
-GNATMAKE_OPTIONS += -gnata
+## PATH := ${CWD}/tools:${PATH}
+## export PATH 

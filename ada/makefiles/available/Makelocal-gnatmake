@@ -64,6 +64,7 @@ ${GNATMAKE_PRG_DIR}/.%.d: ${GNATMAKE_PRG_DIR}/%.adb
 .PHONY: gnatmake-clean gnatmake-distclean gnatmake-mostlyclean gnatmake-cleanAll
 
 gnatmake-clean gnatmake-mostlyclean:
+	rm -rf ${GNATMAKE_OBJ_DIR}/gnatprove
 	rm -f ${GNATMAKE_OBJ_DIR}/*
 
 gnatmake-distclean gnatmake-cleanAll: gnatmake-clean
