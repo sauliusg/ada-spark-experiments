@@ -13,7 +13,9 @@
 
 MAX_DISPLAY ?= 1000
 
-VARIABLE=PATH
+# Allow to shorten 'make display VARIABLE=X' to 'make display VAR=X':
+VAR      ?= PATH
+VARIABLE ?= ${VAR}
 
 .PHONY: display display-all
 
