@@ -8,6 +8,8 @@
 # GPR_ARGUMENTS ?= -report=provers
 # GPR_ARGUMENTS ?= -report=all
 
+GNATPROVE_PROOVERS ?=
+
 GNATPROVE_ARGUMENTS ?=
 
 GPR_PROJECT ?= $(shell find -maxdepth 1 -name '*.gpr' | sort | head -n 1)
@@ -17,7 +19,9 @@ GPR_PROJECT ?= $(shell find -maxdepth 1 -name '*.gpr' | sort | head -n 1)
 dist-clean: gnatprove-clean
 
 prove gnatprove:
-	gnatprove -P ${GPR_PROJECT} ${GNATPROVE_ARGUMENTS}
+	gnatprove -P ${GPR_PROJECT} \
+		${GNATPROVE_PROOVERS} \
+		${GNATPROVE_ARGUMENTS}
 
 gnatprove-clean:
 	rm -rf gnatprove
