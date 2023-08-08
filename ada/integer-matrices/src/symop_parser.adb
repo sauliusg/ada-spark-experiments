@@ -1,4 +1,4 @@
--- with Text_IO; -- for debug prints...
+with Text_IO; -- for debug prints...
 with Ada.Strings.Maps;          use Ada.Strings.Maps;
 
 package body Symop_Parser is
@@ -61,6 +61,37 @@ package body Symop_Parser is
       Expect (S, Pos, To_Set (Chars));
    end;
    
+   procedure Parse_Rational (
+                             S : in String;
+                             Pos : in out Integer;
+                             Numerator : out Integer;
+                             Denominator : out Integer
+                            ) is
+      Fin : Integer := Pos;
+   begin
+      Denominator := 1;
+      while Fin <= S'Last and then 
+        S (Fin) in '0'..'9'
+      loop
+         Fin := Fin + 1;
+      end loop;
+      Numerator := Integer'Value (S (Pos..Fin-1));
+      Skip_Spaces (S, Fin);
+      Pos := Fin - 1;
+      if Pos < S'Last and then S (Pos + 1) = '/' then
+         Pos := Pos + 2;
+         Skip_Spaces (S, Pos);
+         Fin := Pos;
+         while Fin <= S'Last and then 
+           S (Fin) in '0'..'9'
+         loop
+            Fin := Fin + 1;
+         end loop;
+         Denominator := Integer'Value (S (Pos..Fin-1));
+         Pos := Fin - 1;
+      end if;
+   end;
+   
    procedure Parse_Row (
                         S : in String;
                         M : out Integer_Matrix;
@@ -77,6 +108,16 @@ package body Symop_Parser is
             when 'x'|'X' => M (Row,1) := Coef;
             when 'y'|'Y' => M (Row,2) := Coef;
             when 'z'|'Z' => M (Row,3) := Coef;
+            when '1'..'9' =>
+               declare
+                  Numerator, Denominator : Integer;
+               begin
+                  Parse_Rational (S, Pos, Numerator, Denominator);
+                  Text_IO.Put_Line (">>> " & 
+                                      Numerator'Image & "/" &
+                                      Denominator'Image);
+                  Text_IO.Put_Line ("Pos = " & Pos'Image);
+               end;
             when others =>
                raise UNEXPECTED_SYMBOL with
                  "Unexpected character " & S(Pos)'Image &
