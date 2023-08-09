@@ -66,6 +66,7 @@ package body Symop_Parser is
    procedure Parse_Rational (
                              S : in String;
                              Pos : in out Integer;
+                             Coef : in Integer;
                              Numerator : out Integer;
                              Denominator : out Integer
                             ) is
@@ -114,6 +115,9 @@ package body Symop_Parser is
                Denominator := Largest_Denom / GCD;
             end;
          end if;
+         if Coef < 0 then
+            Numerator := Denominator - Numerator;
+         end if;
          Pos := Fin - 1;
       end if;
    end;
@@ -138,7 +142,7 @@ package body Symop_Parser is
                declare
                   Numerator, Denominator : Integer;
                begin
-                  Parse_Rational (S, Pos, Numerator, Denominator);
+                  Parse_Rational (S, Pos, Coef, Numerator, Denominator);
                   Text_IO.Put_Line (">>> " & 
                                       Numerator'Image & " /" &
                                       Denominator'Image);
