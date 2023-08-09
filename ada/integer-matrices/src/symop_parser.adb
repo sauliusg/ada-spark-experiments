@@ -1,6 +1,8 @@
 with Text_IO; -- for debug prints...
 with Ada.Strings.Maps;          use Ada.Strings.Maps;
 
+with GCD_Mod;
+
 package body Symop_Parser is
    
    UNEXPECTED_SYMBOL : exception;
@@ -68,6 +70,7 @@ package body Symop_Parser is
                              Denominator : out Integer
                             ) is
       Fin : Integer := Pos;
+      Start : Integer := Pos;
    begin
       Denominator := 1;
       while Fin <= S'Last and then 
@@ -78,16 +81,39 @@ package body Symop_Parser is
       Numerator := Integer'Value (S (Pos..Fin-1));
       Skip_Spaces (S, Fin);
       Pos := Fin - 1;
-      if Pos < S'Last and then S (Pos + 1) = '/' then
-         Pos := Pos + 2;
-         Skip_Spaces (S, Pos);
-         Fin := Pos;
-         while Fin <= S'Last and then 
-           S (Fin) in '0'..'9'
-         loop
-            Fin := Fin + 1;
-         end loop;
-         Denominator := Integer'Value (S (Pos..Fin-1));
+      if Pos < S'Last then
+         if S (Pos + 1) = '/' then
+            Pos := Pos + 2;
+            Skip_Spaces (S, Pos);
+            Fin := Pos;
+            while Fin <= S'Last and then 
+              S (Fin) in '0'..'9'
+            loop
+               Fin := Fin + 1;
+            end loop;
+            Denominator := Integer'Value (S (Pos..Fin-1));
+         elsif S (Pos + 1) = '.' then
+            Fin := Pos + 2;
+            while Fin <= S'Last and then 
+              S (Fin) in '0'..'9'
+            loop
+               Fin := Fin + 1;
+            end loop;
+            declare
+               Largest_Denom : constant Positive := 12;
+               Float_Value : Float := Float'Value (S (Start..Fin-1)) * Float (Largest_Denom);
+               Int_Value : Natural := Natural (Float_Value);
+               GCD : Positive;
+            begin
+               Text_IO.Put_Line ("""" & S (Start..Fin-1) & """");
+               Text_IO.Put_Line (Float_Value'Image);
+               Text_IO.Put_Line (Int_Value'Image);
+               GCD := GCD_Mod.GCD (Int_Value, Largest_Denom);
+               Text_IO.Put_Line (GCD'Image);
+               Numerator := Int_Value / GCD;
+               Denominator := Largest_Denom / GCD;
+            end;
+         end if;
          Pos := Fin - 1;
       end if;
    end;
@@ -108,13 +134,13 @@ package body Symop_Parser is
             when 'x'|'X' => M (Row,1) := Coef;
             when 'y'|'Y' => M (Row,2) := Coef;
             when 'z'|'Z' => M (Row,3) := Coef;
-            when '1'..'9' =>
+            when '0'..'9' =>
                declare
                   Numerator, Denominator : Integer;
                begin
                   Parse_Rational (S, Pos, Numerator, Denominator);
                   Text_IO.Put_Line (">>> " & 
-                                      Numerator'Image & "/" &
+                                      Numerator'Image & " /" &
                                       Denominator'Image);
                   Text_IO.Put_Line ("Pos = " & Pos'Image);
                end;

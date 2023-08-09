@@ -8,3 +8,5 @@
 # Specify options for 'gnatmake' in this project:
 
 GNATMAKE_OPTIONS = -gnata
+
+GNATMAKE_SRC_DIR = src -Iext/euclid-algorithm/src
