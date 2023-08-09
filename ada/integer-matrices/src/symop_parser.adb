@@ -72,6 +72,7 @@ package body Symop_Parser is
                             ) is
       Fin : Integer := Pos;
       Start : Integer := Pos;
+      Delim : Character := ' ';
    begin
       Denominator := 1;
       while Fin <= S'Last and then 
@@ -83,7 +84,8 @@ package body Symop_Parser is
       Skip_Spaces (S, Fin);
       Pos := Fin - 1;
       if Pos < S'Last then
-         if S (Pos + 1) = '/' then
+         if S (Pos + 1) = '/' or else S (Pos + 1) = '.' then
+            Delim := S (Pos + 1);
             Pos := Pos + 2;
             Skip_Spaces (S, Pos);
             Fin := Pos;
@@ -92,14 +94,10 @@ package body Symop_Parser is
             loop
                Fin := Fin + 1;
             end loop;
+         end if;         
+         if Delim = '/' then
             Denominator := Integer'Value (S (Pos..Fin-1));
-         elsif S (Pos + 1) = '.' then
-            Fin := Pos + 2;
-            while Fin <= S'Last and then 
-              S (Fin) in '0'..'9'
-            loop
-               Fin := Fin + 1;
-            end loop;
+         elsif Delim = '.' then
             declare
                Largest_Denom : constant Positive := 12;
                Float_Value : Float := Float'Value (S (Start..Fin-1)) * Float (Largest_Denom);
