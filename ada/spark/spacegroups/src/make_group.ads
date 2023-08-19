@@ -30,4 +30,9 @@ package Make_Group is
      with
      Post => Is_Group (Build_Group'Result);
 
+   function Build_Group (G : Group; E : Ring_Element) return Group
+     with
+     Pre => Is_Group (G),
+     Post => Is_Group (Build_Group'Result);
+
 end Make_Group;

@@ -19,7 +19,7 @@ package body Make_Group is
       return G;
    end Make_Full_Group;
    
-   function Build_Group (E : Ring_Element) return Group
+   function Build_Group (G : Group; E : Ring_Element) return Group
    is
       type Ring_Element_Array is
         array (Positive range <>) of Ring_Element;
@@ -62,8 +62,8 @@ package body Make_Group is
       L (L'First) := E;
       NL := L'First;
       
-      N (N'First) := Identity;
-      NN := N'First;
+      N (N'First .. G'Last) := Ring_Element_Array (G (G'First .. G'Last));
+      NN := G'Last;
       
       while NL >= L'First loop
          
@@ -110,5 +110,12 @@ package body Make_Group is
       
       return Group (N (N'First .. NN));
    end Build_Group;
+
+   function Build_Group (E : Ring_Element) return Group
+   is
+      G : Group (1..1) := (others => Identity);
+   begin
+      return Build_Group (G, E);
+   end;
    
 end Make_Group;
