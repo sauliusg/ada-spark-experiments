@@ -21,7 +21,7 @@ package Ternary_Matrix_Group with Spark_Mode is
      );
    
    type Ternary_Matrix_Array is 
-     array (Integer range <>) of Ternary_Matrix_3x3;
+     array (Positive range <>) of Ternary_Matrix_3x3;
 
    P2_Group : constant Ternary_Matrix_Array :=
      (Unity_Matrix, Dyad_Z_Axis_Matrix);

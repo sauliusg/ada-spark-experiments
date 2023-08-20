@@ -7,7 +7,7 @@ generic
    
 package Group_Theory is
    
-   type Group is array (Integer range <>) of Element;
+   type Group is array (Positive range <>) of Element;
    
    function Is_Identity (I : Element; G : Group) return Boolean
    is (for all E of G => I * E = E and E * I = E)
