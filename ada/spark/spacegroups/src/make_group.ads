@@ -30,9 +30,11 @@ package Make_Group is
      with
      Post => Is_Group (Build_Group'Result);
 
-   function Build_Group (G : Group; E : Ring_Element) return Group
+   function Build_Group (G : Group; E : Ring_Element)
+                        return Group
      with
-     Pre => Is_Group (G) and then G'First = 1 and then  G'Length > 0 and then
+     Pre => Is_Group (G) and then 
+            G'First = 1 and then  G'Length > 0 and then
             Is_Identity (G (1), G),
      Post => Is_Group (Build_Group'Result);
 
