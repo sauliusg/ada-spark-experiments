@@ -32,7 +32,8 @@ package Make_Group is
 
    function Build_Group (G : Group; E : Ring_Element) return Group
      with
-     Pre => Is_Group (G),
+     Pre => Is_Group (G) and then G'First = 1 and then  G'Length > 0 and then
+            Is_Identity (G (1), G),
      Post => Is_Group (Build_Group'Result);
 
 end Make_Group;

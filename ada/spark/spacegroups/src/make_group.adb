@@ -62,7 +62,10 @@ package body Make_Group is
       L (L'First) := E;
       NL := L'First;
       
-      N (N'First .. G'Last) := Ring_Element_Array (G (G'First .. G'Last));
+      pragma Assume (N'First = G'First);
+      pragma Assume (N'Last >= G'Last);
+      
+      N (G'First .. G'Last) := Ring_Element_Array (G (G'First .. G'Last));
       NN := G'Last;
       
       while NL >= L'First loop
@@ -115,6 +118,7 @@ package body Make_Group is
    is
       G : Group (1..1) := (others => Identity);
    begin
+      pragma Assert (Is_Identity (G(1), G));
       return Build_Group (G, E);
    end;
    
