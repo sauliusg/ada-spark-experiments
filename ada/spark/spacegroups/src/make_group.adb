@@ -116,25 +116,7 @@ package body Make_Group is
                      
                   if not Contains (N (N'First..NN), H) then
                      
-                     -- pragma Assert (N (N'First) = Identity);
-                     -- pragma Assert (NN + 1 >= N'First);
-                     -- pragma Assert (NN < N'Last);
-                     -- WORKING HERE:
-                     -- NN := NN + 1;
-                     -- N (NN) := H;
                      Add_Element (N, NN, H); -- Add the element to the growing group
-                     -- pragma Assert (NN >= N'First);
-                     -- pragma Assert (NN <= N'Last);
-                     -- pragma Assert (N (N'First) = Identity);
-                     
-                     -- pragma Assert (NL + 1 >= L'First);
-                     -- pragma Assert (NL < L'Last);
-                     
-                     -- NL := NL + 1;
-                     -- pragma Assert (NL >= L'First);
-                     -- pragma Assert (NL <= L'Last);
-                     -- L (NL) := H;
-                     
                      Add_Element (L, NL, H); -- Add the element to the candidate list
                      
                      pragma Assert (N (N'First) = Identity);
