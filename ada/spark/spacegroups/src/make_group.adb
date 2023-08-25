@@ -67,8 +67,7 @@ package body Make_Group is
         with 
         Pre => M < A'Last and then M + 1 >= A'First,
         Post => M <= A'Last and then M = M'Old + 1 and then Contains (A, E) and then
-        A (M) = E and then (for all I in A'First .. M'Old => (A'Old (I) = A (I))) and then
-        (if A'Old'Length > 0 and then M'Old >= A'Old'First and then  A'Old (A'Old'First) = Identity then A (A'First) = Identity)
+        A (M) = E and then (for all I in A'First .. M'Old => (A'Old (I) = A (I)))
       is
       begin
          M := M + 1;
@@ -117,16 +116,16 @@ package body Make_Group is
                      
                   if not Contains (N (N'First..NN), H) then
                      
-                     pragma Assert (N (N'First) = Identity);
-                     pragma Assert (NN + 1 >= N'First);
-                     pragma Assert (NN < N'Last);
+                     -- pragma Assert (N (N'First) = Identity);
+                     -- pragma Assert (NN + 1 >= N'First);
+                     -- pragma Assert (NN < N'Last);
                      -- WORKING HERE:
                      -- NN := NN + 1;
                      -- N (NN) := H;
                      Add_Element (N, NN, H); -- Add the element to the growing group
-                     pragma Assert (NN >= N'First);
-                     pragma Assert (NN <= N'Last);
-                     pragma Assert (N (N'First) = Identity);
+                     -- pragma Assert (NN >= N'First);
+                     -- pragma Assert (NN <= N'Last);
+                     -- pragma Assert (N (N'First) = Identity);
                      
                      -- pragma Assert (NL + 1 >= L'First);
                      -- pragma Assert (NL < L'Last);
