@@ -67,7 +67,8 @@ package body Make_Group is
         with 
         Pre => M < A'Last and then M + 1 >= A'First,
         Post => M <= A'Last and then M = M'Old + 1 and then Contains (A, E) and then
-        A (M) = E and then (for all I in A'First .. M'Old => (A'Old (I) = A (I)))
+        A (M) = E and then (for all I in A'First .. M'Old => (A'Old (I) = A (I))) and then
+        (if A'Old'Length > 0 and then M'Old >= A'Old'First and then  A'Old (A'Old'First) = Identity then A (A'First) = Identity)
       is
       begin
          M := M + 1;
@@ -103,6 +104,7 @@ package body Make_Group is
                pragma Loop_Invariant (NN >= N'First);
                pragma Loop_Invariant (NN <= N'Last);
                pragma Loop_Invariant (N (N'First) = Identity);
+               pragma Loop_Invariant (Has_Identity (Group (N (N'First .. NN))));
                
                declare
                   H : Ring_Element := N (I) * T;
@@ -115,6 +117,7 @@ package body Make_Group is
                      
                   if not Contains (N (N'First..NN), H) then
                      
+                     pragma Assert (N (N'First) = Identity);
                      pragma Assert (NN + 1 >= N'First);
                      pragma Assert (NN < N'Last);
                      -- WORKING HERE:
@@ -123,6 +126,7 @@ package body Make_Group is
                      Add_Element (N, NN, H); -- Add the element to the growing group
                      pragma Assert (NN >= N'First);
                      pragma Assert (NN <= N'Last);
+                     pragma Assert (N (N'First) = Identity);
                      
                      -- pragma Assert (NL + 1 >= L'First);
                      -- pragma Assert (NL < L'Last);
@@ -133,6 +137,9 @@ package body Make_Group is
                      -- L (NL) := H;
                      
                      Add_Element (L, NL, H); -- Add the element to the candidate list
+                     
+                     pragma Assert (N (N'First) = Identity);
+                     pragma Assert (Has_Identity (Group (N (N'First .. NN))));
                   end if;
                end;
             end loop;
