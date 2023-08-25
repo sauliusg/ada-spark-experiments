@@ -58,6 +58,24 @@ package body Make_Group is
          return False;
       end Contains;
       
+      procedure Add_Element
+        (
+         A : in out Ring_Element_Array;
+         M : in out Natural;
+         E : in Ring_Element
+        ) 
+        with 
+        Pre => M < A'Last and then M + 1 >= A'First,
+        Post => M <= A'Last and then M = M'Old + 1 and then Contains (A, E) and then
+        A (M) = E and then (for all I in A'First .. M'Old => (A'Old (I) = A (I)))
+      is
+      begin
+         M := M + 1;
+         A (M) := E;
+      end;
+      
+      pragma Inline (Add_Element);
+      
    begin
       L (L'First) := E;
       NL := L'First;
@@ -97,11 +115,24 @@ package body Make_Group is
                      
                   if not Contains (N (N'First..NN), H) then
                      
-                     NN := NN + 1;
-                     N (NN) := H;
-                     NL := NL + 1;
-                     L (NL) := H;
+                     pragma Assert (NN + 1 >= N'First);
+                     pragma Assert (NN < N'Last);
+                     -- WORKING HERE:
+                     -- NN := NN + 1;
+                     -- N (NN) := H;
+                     Add_Element (N, NN, H); -- Add the element to the growing group
+                     pragma Assert (NN >= N'First);
+                     pragma Assert (NN <= N'Last);
                      
+                     -- pragma Assert (NL + 1 >= L'First);
+                     -- pragma Assert (NL < L'Last);
+                     
+                     -- NL := NL + 1;
+                     -- pragma Assert (NL >= L'First);
+                     -- pragma Assert (NL <= L'Last);
+                     -- L (NL) := H;
+                     
+                     Add_Element (L, NL, H); -- Add the element to the candidate list
                   end if;
                end;
             end loop;

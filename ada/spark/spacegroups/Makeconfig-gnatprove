@@ -7,4 +7,4 @@
 
 # Specify options for 'gnatprove' in this project:
 
-GNATPROVE_PROOVERS  = --prover=cvc4,z3,altergo
+GNATPROVE_PROOVERS  = --prover=cvc4,z3,altergo --timeout=30
