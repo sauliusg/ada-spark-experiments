@@ -6,7 +6,7 @@ with Integer_Matrices; use Integer_Matrices;
 with Lazy_Determinant; use Lazy_Determinant;
 with Lazy_Check_TU;    use Lazy_Check_TU;
 
-procedure List_TU_Matrices is
+procedure List_4x4_TU_Matrices is
    
    M : Integer_Matrix (1..4, 1..4);
    

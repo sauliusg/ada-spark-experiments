@@ -7,7 +7,7 @@ with Ada.Directories;
 
 with Ada.Unchecked_Deallocation;
 
-procedure IMatMul is
+procedure IMatAdd is
    
    type Operation_Type is (ADD, SUB);
    
