@@ -16,6 +16,8 @@ package Symmetry_Operation is
    
    function "*" (S1, S2 : Symmetry_Operation) return Symmetry_Operation;
    
+   function Inverse (S : Symmetry_Operation) return Symmetry_Operation;
+
 private
    
    type Crystallographic_Translation is

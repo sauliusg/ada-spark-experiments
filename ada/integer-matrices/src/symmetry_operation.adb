@@ -1,4 +1,5 @@
-with Unities; use Unities;
+with Unities;      use Unities;
+with Lazy_Inverse; use  Lazy_Inverse;
 
 package body Symmetry_Operation is
    
@@ -38,6 +39,15 @@ package body Symmetry_Operation is
    begin
       R.R := S1.R * S2.R;
       R.T := S2.R * S1.T + S2.T;
+      return R;
+   end;
+   
+   function Inverse (S : Symmetry_Operation) return Symmetry_Operation is
+      R : Symmetry_Operation;
+      M : Integer_Matrix := 
+        Inverse (Integer_Matrix (S.R));
+   begin
+      pragma Assert (False); -- TODO: continue from here S.G.
       return R;
    end;
    
