@@ -15,6 +15,9 @@ ADA_DEPEND = ${ADA_PROGRAMS:${PRG_DIR}/%.adb=${PRG_DIR}/.%.d}
 
 ADA_EXE = ${ADA_PROGRAMS:${PRG_DIR}/%.adb=${BIN_DIR}/%}
 
+# GNATMAKE_OPTIONS ?= -gnata
+GNATMAKE_OPTIONS ?=
+
 .PHONY: all run clean distclean mostlyclean cleanAll
 
 all: ${ADA_EXE}
@@ -27,10 +30,10 @@ run: ${ADA_EXE}
 	done
 
 ${BIN_DIR}/%: ${PRG_DIR}/%.adb
-	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -o $@ $<
+	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -o $@ $< ${GNATMAKE_OPTIONS}
 
 ${PRG_DIR}/.%.d: ${PRG_DIR}/%.adb
-	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -M $< \
+	gnatmake -I${SRC_DIR} -D ${OBJ_DIR} -M $< ${GNATMAKE_OPTIONS} \
 	| sed 's/^\(.*\)\.o :/${BIN_DIR}\/\1 :/' \
 	| sed 's:${CWD}/::' \
 	> $@
