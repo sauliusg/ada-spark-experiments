@@ -125,7 +125,7 @@ package body Symop_Parser is
       Coef : Unity_Integers := 1;
    begin
       Skip_Spaces (S, Pos);
-      while Pos <= S'Last and then S(Pos) /= ',' and then S(Pos) /= ' ' loop
+      while Pos <= S'Last and then S(Pos) /= ',' loop
          case S (Pos) is
             when '-' => Coef := -1;
             when '+' => Coef := +1;
