@@ -91,6 +91,18 @@ package body Symmetry_Operation is
       return R;
    end;
    
+   function Mod1 (S : in Symmetry_Operation) 
+                 return Symmetry_Operation is
+      R : Symmetry_Operation;
+   begin
+      R.R := S.R;
+      for I in S.T'Range loop
+         R.T (I) := (Numerator (S.T (I)) mod Denominator (S.T (I))) /
+           Denominator (S.T (I));
+      end loop;
+      return R;
+   end;
+   
    procedure Set_Rotation
      (
       S : out Symmetry_Operation;

@@ -7,7 +7,7 @@ with Ada.Command_Line;   use Ada.Command_Line;
 procedure Symop2matrix is
 begin
    for I in 1 .. Argument_Count loop
-      Put (Parse_Symop (Argument (I)));
+      Put (Mod1 (Parse_Symop (Argument (I))));
       if I < Argument_Count then
          New_Line;
       end if;
