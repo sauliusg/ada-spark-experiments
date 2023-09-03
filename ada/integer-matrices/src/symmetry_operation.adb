@@ -103,6 +103,11 @@ package body Symmetry_Operation is
       return R;
    end;
    
+   procedure Mod1 (S : in out Symmetry_Operation) is
+   begin
+      S := Mod1 (S);
+   end;
+   
    procedure Set_Rotation
      (
       S : out Symmetry_Operation;

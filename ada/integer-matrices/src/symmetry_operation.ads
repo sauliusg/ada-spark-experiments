@@ -22,6 +22,8 @@ package Symmetry_Operation is
    function Mod1 (S : in Symmetry_Operation) 
                  return Symmetry_Operation;
    
+   procedure Mod1 (S : in out Symmetry_Operation);
+
    procedure Set_Rotation
      (
       S : out Symmetry_Operation;
