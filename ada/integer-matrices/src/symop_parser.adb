@@ -1,4 +1,3 @@
-with Text_IO;
 with Ada.Strings.Maps; use Ada.Strings.Maps;
 with Unities;          use Unities;
 
@@ -161,9 +160,6 @@ package body Symop_Parser is
                                   );
                end;
                Advance;
-               if Pos <= S'Length then
-                  Text_IO.Put_Line (">>> " & Pos'Image & " " & S(Pos)'Image);
-               end if;
                Maybe (S, Pos, ",-+xyz");
             when others =>
                raise UNEXPECTED_SYMBOL with
