@@ -1,6 +1,7 @@
 pragma Ada_2022;
 
 package body GCD_Rec with Spark_Mode Is
+   pragma Assertion_Policy (Ignore);
    
    function GCD (A, B : in Natural) return Positive
    is

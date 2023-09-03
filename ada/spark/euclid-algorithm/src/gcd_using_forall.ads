@@ -4,6 +4,7 @@ with Ada.Numerics.Big_Numbers.Big_Integers;
 use  Ada.Numerics.Big_Numbers.Big_Integers;
   
 package GCD_Using_ForAll with Spark_Mode Is
+   pragma Assertion_Policy (Ignore);
    
    function Equivalent (L1, L2 : Boolean) return Boolean
    is ((L1 and then L2) or else (not L1 and then not L2))
