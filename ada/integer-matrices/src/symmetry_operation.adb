@@ -5,7 +5,7 @@ with Lazy_Inverse; use  Lazy_Inverse;
 package body Symmetry_Operation is
    
    function "*" (N : Unity_Integers; Q : Rational) return Rational
-   is (Crystallographic_Integer (N) * Q);
+   is (Integer (N) * Q);
    
    function "*" 
      (
@@ -105,20 +105,22 @@ package body Symmetry_Operation is
      (
       S : out Symmetry_Operation;
       I : in Integer;
-      Numerator, Denominator : in Crystallographic_Integer
+      Numerator: in Integer;
+      Denominator : in Crystallographic_Integer
      ) is
    begin
-      S.T (I) := Numerator / Denominator;
+      S.T (I) := Numerator / Integer (Denominator);
    end;
 
    procedure Add_Translation
      (
       S : out Symmetry_Operation;
       I : in Integer;
-      Numerator, Denominator : in Crystallographic_Integer
+      Numerator: in Integer;
+      Denominator : in Crystallographic_Integer
      ) is
    begin
-      S.T (I) := S.T (I) + Rational'(Numerator / Denominator);
+      S.T (I) := S.T (I) + Rational'(Numerator / Integer (Denominator));
    end;
 
    procedure Put (S : Symmetry_Operation) is

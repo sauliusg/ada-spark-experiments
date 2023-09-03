@@ -9,7 +9,7 @@ package Symmetry_Operation is
    type Crystallographic_Integer is range -6 .. 6;
    
    package Crystallographic_Rational is
-      new Generic_Rational (Crystallographic_Integer);
+      new Generic_Rational (Integer);
    
    use Crystallographic_Rational;
    
@@ -30,14 +30,16 @@ package Symmetry_Operation is
      (
       S : out Symmetry_Operation;
       I : in Integer;
-      Numerator, Denominator : in Crystallographic_Integer
+      Numerator : in Integer;
+      Denominator : in Crystallographic_Integer
      );
    
    procedure Add_Translation
      (
       S : out Symmetry_Operation;
       I : in Integer;
-      Numerator, Denominator : in Crystallographic_Integer
+      Numerator : in Integer;
+      Denominator : in Crystallographic_Integer
      );
      
    procedure Put (S : Symmetry_Operation);
