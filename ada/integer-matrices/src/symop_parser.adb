@@ -92,7 +92,11 @@ package body Symop_Parser is
       loop
          Fin := Fin + 1;
       end loop;
-      Numerator := Integer'Value (S (Pos..Fin-1));
+      if Fin > Pos then
+         Numerator := Integer'Value (S (Pos..Fin-1));
+      else
+         Numerator := 0;
+      end if;
       Skip_Spaces (S, Fin);
       Pos := Fin - 1;
       if Pos < S'Last then
@@ -142,12 +146,12 @@ package body Symop_Parser is
       Skip_Spaces (S, Pos);
       while Pos <= S'Last and then S(Pos) /= ',' loop
          case S (Pos) is
-            when '-' => Coef := -1; Advance; Expect (S, Pos, "xyz0123456789");
-            when '+' => Coef := +1; Advance; Expect (S, Pos, "xyz0123456789");
+            when '-' => Coef := -1; Advance; Expect (S, Pos, "xyz0123456789.");
+            when '+' => Coef := +1; Advance; Expect (S, Pos, "xyz0123456789.");
             when 'x'|'X' => Set_Rotation (M, Row, 1, Coef); Advance; Maybe (S, Pos, "+-,");
             when 'y'|'Y' => Set_Rotation (M, Row, 2, Coef); Advance; Maybe (S, Pos, "+-,");
             when 'z'|'Z' => Set_Rotation (M, Row, 3, Coef); Advance; Maybe (S, Pos, "+-,");
-            when '0'..'9' =>
+            when '.'|'0'..'9' =>
                declare
                   Numerator, Denominator : Integer;
                begin
