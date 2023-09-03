@@ -118,6 +118,7 @@ package body Symmetry_Operation is
             Put (S.R(I,J)'Image);
             Put (" ");
          end loop;
+         Put ("  ");
          Put (Numerator (S.T(I))'Image & " /" & Denominator (S.T(I))'Image);
          New_Line;
       end loop;
