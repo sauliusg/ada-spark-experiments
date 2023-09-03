@@ -1,3 +1,4 @@
+with Text_IO;
 with Ada.Strings.Maps; use Ada.Strings.Maps;
 with Unities;          use Unities;
 
@@ -49,7 +50,7 @@ package body Symop_Parser is
    
    procedure Advance (S : in String; Pos : in out Integer) is
    begin
-      if Pos < S'Last then
+      if Pos <= S'Last then
          Pos := Pos + 1;
       end if;
    end;
@@ -61,6 +62,18 @@ package body Symop_Parser is
                     ) is
    begin
       Expect (S, Pos, To_Set (Chars));
+   end;
+   
+   procedure Maybe (
+                    S : in String;
+                    Pos : in out Integer;
+                    Chars : in String
+                   ) is
+   begin
+      Skip_Spaces (S, Pos);
+      if Pos <= S'Last then
+         Expect (S, Pos, Chars);
+      end if;
    end;
    
    procedure Parse_Rational (
@@ -123,15 +136,20 @@ package body Symop_Parser is
                         Row : in Integer
                        ) is
       Coef : Unity_Integers := 1;
+      
+      procedure Advance is
+      begin
+         Advance (S, Pos);
+      end;
    begin
       Skip_Spaces (S, Pos);
       while Pos <= S'Last and then S(Pos) /= ',' loop
          case S (Pos) is
-            when '-' => Coef := -1;
-            when '+' => Coef := +1;
-            when 'x'|'X' => Set_Rotation (M, Row, 1, Coef);
-            when 'y'|'Y' => Set_Rotation (M, Row, 2, Coef);
-            when 'z'|'Z' => Set_Rotation (M, Row, 3, Coef);
+            when '-' => Coef := -1; Advance; Expect (S, Pos, "xyz0123456789");
+            when '+' => Coef := +1; Advance; Expect (S, Pos, "xyz0123456789");
+            when 'x'|'X' => Set_Rotation (M, Row, 1, Coef); Advance; Maybe (S, Pos, "+-,");
+            when 'y'|'Y' => Set_Rotation (M, Row, 2, Coef); Advance; Maybe (S, Pos, "+-,");
+            when 'z'|'Z' => Set_Rotation (M, Row, 3, Coef); Advance; Maybe (S, Pos, "+-,");
             when '0'..'9' =>
                declare
                   Numerator, Denominator : Integer;
@@ -142,13 +160,17 @@ package body Symop_Parser is
                                    Crystallographic_Integer (Denominator)
                                   );
                end;
+               Advance;
+               if Pos <= S'Length then
+                  Text_IO.Put_Line (">>> " & Pos'Image & " " & S(Pos)'Image);
+               end if;
+               Maybe (S, Pos, ",-+xyz");
             when others =>
                raise UNEXPECTED_SYMBOL with
                  "Unexpected character " & S(Pos)'Image &
                  " in string """ & S & """" &
                  " at position " & Pos'Image;
          end case;
-         Pos := Pos + 1;
          Skip_Spaces (S, Pos);
       end loop;
    end;
