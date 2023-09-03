@@ -81,7 +81,7 @@ package body Symmetry_Operation is
    -- =>
    -- R't + t' = 0
    -- =>
-   -- t' = -R' * t
+   -- t' = -R' * t = R' * (-t)
    function Inverse (S : Symmetry_Operation) return Symmetry_Operation is
       R : Symmetry_Operation;
    begin
