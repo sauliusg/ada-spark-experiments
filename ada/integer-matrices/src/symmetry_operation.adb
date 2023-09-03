@@ -1,3 +1,4 @@
+with Text_IO;      use Text_IO;
 with Unities;      use Unities;
 with Lazy_Inverse; use  Lazy_Inverse;
 
@@ -90,4 +91,36 @@ package body Symmetry_Operation is
       return R;
    end;
    
+   procedure Set_Rotation
+     (
+      S : out Symmetry_Operation;
+      I, J : in Integer;
+      Value : in Unity_Integers
+     ) is
+   begin
+      S.R (I,J) := Value;
+   end;
+   
+   procedure Set_Translation
+     (
+      S : out Symmetry_Operation;
+      I : in Integer;
+      Numerator, Denominator : in Crystallographic_Integer
+     ) is
+   begin
+      S.T (I) := Numerator / Denominator;
+   end;
+
+   procedure Put (S : Symmetry_Operation) is
+   begin
+      for I in S.R'Range(1) loop
+         for J in S.R'Range(2) loop
+            Put (S.R(I,J)'Image);
+            Put (" ");
+         end loop;
+         Put (Numerator (S.T(I))'Image & " /" & Denominator (S.T(I))'Image);
+         New_Line;
+      end loop;
+   end;
+
 end Symmetry_Operation;

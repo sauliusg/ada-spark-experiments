@@ -1,5 +1,6 @@
 with Text_IO; -- for debug prints...
-with Ada.Strings.Maps;          use Ada.Strings.Maps;
+with Ada.Strings.Maps; use Ada.Strings.Maps;
+with Unities;          use Unities;
 
 with GCD_Mod;
 
@@ -66,7 +67,7 @@ package body Symop_Parser is
    procedure Parse_Rational (
                              S : in String;
                              Pos : in out Integer;
-                             Coef : in Integer;
+                             Coef : in Unity_Integers;
                              Numerator : out Integer;
                              Denominator : out Integer
                             ) is
@@ -122,25 +123,29 @@ package body Symop_Parser is
    
    procedure Parse_Row (
                         S : in String;
-                        M : out Integer_Matrix;
+                        M : out Symmetry_Operation.Symmetry_Operation;
                         Pos : in out Integer;
                         Row : in Integer
                        ) is
-      Coef : Integer := 1;
+      Coef : Unity_Integers := 1;
    begin
       while Pos <= S'Last and then S(Pos) /= ',' and then S(Pos) /= ' ' loop
          Skip_Spaces (S, Pos);
          case S (Pos) is
             when '-' => Coef := -1;
             when '+' => Coef := +1;
-            when 'x'|'X' => M (Row,1) := Coef;
-            when 'y'|'Y' => M (Row,2) := Coef;
-            when 'z'|'Z' => M (Row,3) := Coef;
+            when 'x'|'X' => Set_Rotation (M, Row, 1, Coef);
+            when 'y'|'Y' => Set_Rotation (M, Row, 2, Coef);
+            when 'z'|'Z' => Set_Rotation (M, Row, 3, Coef);
             when '0'..'9' =>
                declare
                   Numerator, Denominator : Integer;
                begin
                   Parse_Rational (S, Pos, Coef, Numerator, Denominator);
+                  Set_Translation (M, Row, 
+                                   Crystallographic_Integer (Numerator), 
+                                   Crystallographic_Integer (Denominator)
+                                  );
                   Text_IO.Put_Line (">>> " & 
                                       Numerator'Image & " /" &
                                       Denominator'Image);
@@ -156,22 +161,23 @@ package body Symop_Parser is
       end loop;
    end;
    
-   function Parse_Symop (S : String) return Integer_Matrix is
+   function Parse_Symop (S : String) return 
+     Symmetry_Operation.Symmetry_Operation is
       N : Integer := Count_Commas (S) + 1;
-      M : Integer_Matrix( 1..N, 1..N ) :=
-        (others => (others => (0)));
+      R : Symmetry_Operation.Symmetry_Operation;
       Pos : Integer := 1;
    begin
-      Parse_Row (S, M, Pos, Row => 1);
+      Parse_Row (S, R, Pos, Row => 1);
       
       Expect (S, Pos, ",");
       Advance (S, Pos);
-      Parse_Row (S, M, Pos, Row => 2);
+      Parse_Row (S, R, Pos, Row => 2);
       
       Expect (S, Pos, ",");
       Advance (S, Pos);
-      Parse_Row (S, M, Pos, Row => 3);
-      return M;
+      Parse_Row (S, R, Pos, Row => 3);
+      
+      return R;
    end;
    
    
