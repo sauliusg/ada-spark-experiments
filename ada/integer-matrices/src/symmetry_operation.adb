@@ -111,6 +111,16 @@ package body Symmetry_Operation is
       S.T (I) := Numerator / Denominator;
    end;
 
+   procedure Add_Translation
+     (
+      S : out Symmetry_Operation;
+      I : in Integer;
+      Numerator, Denominator : in Crystallographic_Integer
+     ) is
+   begin
+      S.T (I) := S.T (I) + Rational'(Numerator / Denominator);
+   end;
+
    procedure Put (S : Symmetry_Operation) is
    begin
       for I in S.R'Range(1) loop

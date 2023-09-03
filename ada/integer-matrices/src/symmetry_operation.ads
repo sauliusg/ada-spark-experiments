@@ -33,6 +33,13 @@ package Symmetry_Operation is
       Numerator, Denominator : in Crystallographic_Integer
      );
    
+   procedure Add_Translation
+     (
+      S : out Symmetry_Operation;
+      I : in Integer;
+      Numerator, Denominator : in Crystallographic_Integer
+     );
+     
    procedure Put (S : Symmetry_Operation);
    
 private

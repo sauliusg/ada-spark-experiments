@@ -154,7 +154,7 @@ package body Symop_Parser is
                   Numerator, Denominator : Integer;
                begin
                   Parse_Rational (S, Pos, Coef, Numerator, Denominator);
-                  Set_Translation (M, Row, 
+                  Add_Translation (M, Row, 
                                    Crystallographic_Integer (Numerator), 
                                    Crystallographic_Integer (Denominator)
                                   );
