@@ -1,4 +1,3 @@
-with Text_IO; -- for debug prints...
 with Ada.Strings.Maps; use Ada.Strings.Maps;
 with Unities;          use Unities;
 
@@ -105,11 +104,7 @@ package body Symop_Parser is
                Int_Value : Natural := Natural (Float_Value);
                GCD : Positive;
             begin
-               Text_IO.Put_Line ("""" & S (Start..Fin-1) & """");
-               Text_IO.Put_Line (Float_Value'Image);
-               Text_IO.Put_Line (Int_Value'Image);
                GCD := GCD_Mod.GCD (Int_Value, Largest_Denom);
-               Text_IO.Put_Line (GCD'Image);
                Numerator := Int_Value / GCD;
                Denominator := Largest_Denom / GCD;
             end;
@@ -146,10 +141,6 @@ package body Symop_Parser is
                                    Crystallographic_Integer (Numerator), 
                                    Crystallographic_Integer (Denominator)
                                   );
-                  Text_IO.Put_Line (">>> " & 
-                                      Numerator'Image & " /" &
-                                      Denominator'Image);
-                  Text_IO.Put_Line ("Pos = " & Pos'Image);
                end;
             when others =>
                raise UNEXPECTED_SYMBOL with
