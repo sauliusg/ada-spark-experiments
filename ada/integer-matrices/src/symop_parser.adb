@@ -121,9 +121,7 @@ package body Symop_Parser is
                Denominator := Largest_Denom / GCD;
             end;
          end if;
-         if Coef < 0 then
-            Numerator := Denominator - Numerator;
-         end if;
+         Numerator := Integer (Coef) * Numerator;
          Pos := Fin - 1;
       end if;
    end;
