@@ -32,7 +32,18 @@ package body Symmetry_Operation is
       end loop;
       return TR;
    end;
-
+   
+   function "-" (T : Crystallographic_Translation) 
+                return Crystallographic_Translation
+   is 
+      RT : Crystallographic_Translation;
+   begin
+      for I in T'Range loop
+         RT (I) := - T (I);
+      end loop;
+      return RT;
+   end;
+   
    function "*" (S1, S2 : Symmetry_Operation) return Symmetry_Operation
    is
       R : Symmetry_Operation;
@@ -42,12 +53,40 @@ package body Symmetry_Operation is
       return R;
    end;
    
+   function Inverse (M : Ternary_Matrix) return Ternary_Matrix is
+      IM, IInv : Integer_Matrix (M'Range (1), M'Range (2));
+      Inv : Ternary_Matrix (M'Range (1), M'Range (2));
+   begin
+      for I in M'First(1) .. M'Last(1) loop
+         for J in M'First(2) .. M'Last(2) loop
+            IM (I,J) := Integer (M (I,J));
+         end loop;
+      end loop;
+      
+      IInv := Inverse (IM);
+      
+      for I in M'First(1) .. M'Last(1) loop
+         for J in M'First(2) .. M'Last(2) loop
+            Inv (I,J) := Unity_Integers (IInv (I,J));
+         end loop;
+      end loop;
+      
+      return Inv; 
+   end;
+   
+   -- assume R' is the inverse of R:
+   -- R * R' = I, where I is the unity matrix.
+   -- then:
+   -- (R,t) * (R',t') = (R*R', R't + t') = (I,0)
+   -- =>
+   -- R't + t' = 0
+   -- =>
+   -- t' = -R' * t
    function Inverse (S : Symmetry_Operation) return Symmetry_Operation is
       R : Symmetry_Operation;
-      M : Integer_Matrix := 
-        Inverse (Integer_Matrix (S.R));
    begin
-      pragma Assert (False); -- TODO: continue from here S.G.
+      R.R := Inverse (S.R);
+      R.T := R.R * (-S.T);
       return R;
    end;
    
