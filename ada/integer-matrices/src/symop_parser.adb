@@ -132,7 +132,7 @@ package body Symop_Parser is
    
    procedure Parse_Row (
                         S : in String;
-                        M : out Symmetry_Operation.Symmetry_Operation;
+                        M : out Symmetry_Operation;
                         Pos : in out Integer;
                         Row : in Integer
                        ) is
@@ -171,10 +171,9 @@ package body Symop_Parser is
       end loop;
    end;
    
-   function Parse_Symop (S : String) return 
-     Symmetry_Operation.Symmetry_Operation is
+   function Parse_Symop (S : String) return Symmetry_Operation is
       N : Integer := Count_Commas (S) + 1;
-      R : Symmetry_Operation.Symmetry_Operation;
+      R : Symmetry_Operation;
       Pos : Integer := 1;
    begin
       Parse_Row (S, R, Pos, Row => 1);

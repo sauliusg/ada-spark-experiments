@@ -4,7 +4,7 @@ with Ternary_Matrices; use Ternary_Matrices;
 
 with Generic_Rational;
 
-package Symmetry_Operation is
+package Symmetry_Operations is
    
    type Crystallographic_Integer is range -6 .. 6;
    
@@ -69,4 +69,4 @@ private
         (others => 0 / 1);
    end record;
 
-end Symmetry_Operation;
+end Symmetry_Operations;

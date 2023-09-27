@@ -1,8 +1,8 @@
-with Text_IO;            use Text_IO;
-with Integer_Matrices;   use Integer_Matrices;
-with Symmetry_Operation; use Symmetry_Operation;
-with Symop_Parser;       use Symop_Parser;
-with Ada.Command_Line;   use Ada.Command_Line;
+with Text_IO;             use Text_IO;
+with Integer_Matrices;    use Integer_Matrices;
+with Symmetry_Operations; use Symmetry_Operations;
+with Symop_Parser;        use Symop_Parser;
+with Ada.Command_Line;    use Ada.Command_Line;
 
 procedure Symop2matrix is
 begin

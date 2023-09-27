@@ -2,7 +2,7 @@ with Text_IO;      use Text_IO;
 with Unities;      use Unities;
 with Lazy_Inverse; use  Lazy_Inverse;
 
-package body Symmetry_Operation is
+package body Symmetry_Operations is
    
    function "*" (N : Unity_Integers; Q : Rational) return Rational
    is (Integer (N) * Q);
@@ -153,4 +153,4 @@ package body Symmetry_Operation is
       end loop;
    end;
 
-end Symmetry_Operation;
+end Symmetry_Operations;
