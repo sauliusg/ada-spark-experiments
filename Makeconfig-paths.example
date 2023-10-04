@@ -3,6 +3,11 @@
 # In this Makefile, you can configure your specic PATH and other
 # variables.
 
+# 'make prove' is an extra target in the subrojects of this directory
+# that should run 'gnatprove' on SPARK sources:
+
+EXTRA_TARGETS = prove
+
 PATH := ${PATH}:tools
 
 export PATH
