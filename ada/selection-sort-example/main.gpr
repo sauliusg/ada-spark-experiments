@@ -1,4 +1,0 @@
-with "sparklib";
-project Main is
-   for source_dirs use (".");
-end Main;

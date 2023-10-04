@@ -1,1 +1,0 @@
- 1872  echo -e 'from math import log\nn = 999999940395355224609375; d = 10**(int (log(n)/log(10) + 1))\nprint (n, d, n/d)\nl = 100\nwhile (n > 0 and l > 0):\n   l = l - 1\n   m = int (n * 2 / d); n = (n * 2) % d\n   print (int (m), end = "")\nprint ("")' | python 

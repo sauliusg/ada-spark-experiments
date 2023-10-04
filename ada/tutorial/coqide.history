@@ -1,1 +1,0 @@
-  616  coqide -R gnatprove/why3_libs/coq Why3 /home/saulius/tests/ada/tutorial/gnatprove/nonlinear/../Nonlinear__pragargs__cmp.v &
