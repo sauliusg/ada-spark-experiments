@@ -6,7 +6,7 @@
 # 'make prove' is an extra target in the subrojects of this directory
 # that should run 'gnatprove' on SPARK sources:
 
-EXTRA_TARGETS = prove
+EXTRA_TARGETS ?= prove run
 
 # Add paths specific to this project (e.g. the local 'tools'
 # directory) *and* to your build host to this variable:
