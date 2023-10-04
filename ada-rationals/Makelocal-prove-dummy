@@ -1,0 +1,13 @@
+# --*- Makefile -*-------------------------------------------------------------
+#$Author: saulius $
+#$Date: 2022-12-18 11:56:07 +0200 (Sun, 18 Dec 2022) $
+#$Revision: 329 $
+#$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/Makefile-backbone $
+#------------------------------------------------------------------------------
+
+# For this subproject, the GNAT prover subsystem is not yet set up, so
+# the 'prove' target should do nothing:
+
+.PHONY: prove
+
+prove:
