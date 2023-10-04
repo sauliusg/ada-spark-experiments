@@ -1,0 +1,11 @@
+*.ali
+*.o
+.*.d
+.lia.cache
+Makeconfig-paths
+float_zero_division
+gnatprove
+run_*
+spark
+two_plus_two
+zero_division

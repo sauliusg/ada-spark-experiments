@@ -1,0 +1,14 @@
+*.ali
+*.o
+*.stderr
+*.stdout
+.lia.cache
+.test*-depend
+Makeconfig-paths
+b__*.ad?
+gnatprove
+gpsauto.cgpr
+main-loc.xml
+run_*
+runs.yaml
+saved_runs

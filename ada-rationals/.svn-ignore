@@ -1,0 +1,4 @@
+*.ali
+.*.d
+Makeconfig-paths
+test_rational

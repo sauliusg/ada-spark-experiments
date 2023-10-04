@@ -1,0 +1,10 @@
+*.ali
+*.bexch
+*.o
+*.stderr
+*.stdout
+.test*-depend
+Makeconfig-paths
+b__*.adb
+b__*.ads
+gnatprove
