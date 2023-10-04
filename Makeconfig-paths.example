@@ -1,0 +1,8 @@
+#--*- Makefile -*--
+
+# In this Makefile, you can configure your specic PATH and other
+# variables.
+
+PATH := ${PATH}:tools
+
+export PATH
