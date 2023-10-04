@@ -1,0 +1,6 @@
+#--*- Makefile -*--
+
+# 'make prove' is an extra target in the subrojects of this directory
+# that should run 'gnatprove' on SPARK sources:
+
+EXTRA_TARGETS = prove run
