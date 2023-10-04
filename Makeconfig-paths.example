@@ -8,6 +8,9 @@
 
 EXTRA_TARGETS = prove
 
+# Add paths specific to this project (e.g. the local 'tools'
+# directory) *and* to your build host to this variable:
+
 PATH := ${PATH}:tools
 
 export PATH
