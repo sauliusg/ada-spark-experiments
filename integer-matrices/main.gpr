@@ -8,7 +8,7 @@ project Main is
      "ext/ada-rationals/src",
      "ext/euclid-algorithm/src",
      "ext/unimodular/src",
-     "ext/spacegroups/src",
+     "ext/groups/src",
      "programs"
     );
   

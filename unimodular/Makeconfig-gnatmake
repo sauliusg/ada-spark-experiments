@@ -7,6 +7,6 @@
 
 # Specify options for 'gnatmake' in this project:
 
-GNATMAKE_OPTIONS = -Isrc/spacegroups/src
+GNATMAKE_OPTIONS = -Iext/groups/src
 
 GNATMAKE_OPTIONS += -gnata
