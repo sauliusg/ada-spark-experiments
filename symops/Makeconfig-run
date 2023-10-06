@@ -1,0 +1,11 @@
+#---*- Makefile -*-------------------------------------------------------
+#$Author: saulius $
+#$Date: 2022-04-10 18:00:17 +0300 (Sun, 10 Apr 2022) $
+#$Revision: 310 $
+#$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/multiscript-testing-shell/Makelocal-multiscript-testing-shell $
+#------------------------------------------------------------------------
+
+# Run all compiled Ada programs wih the following argument when 'make
+# run' is invoked:
+
+RUN_ARGUMENT = "-x, -y, z + 1/2"
