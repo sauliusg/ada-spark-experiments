@@ -9,4 +9,4 @@
 
 GNATMAKE_OPTIONS = -gnata
 
-GNATMAKE_SRC_DIR = src -Iext/euclid-algorithm/src -Iext/ada-rationals/src -Iext/unimodular/src -Iext/spacegroups/src
+GNATMAKE_SRC_DIR = src -Iext/euclid-algorithm/src -Iext/ada-rationals/src -Iext/unimodular/src -Iext/groups/src
