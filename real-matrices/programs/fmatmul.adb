@@ -1,19 +1,31 @@
 with Ada.Text_IO;         use Ada.Text_IO;
-with Integer_Matrices;    use Integer_Matrices;
-with Integer_Matrix_File; use Integer_Matrix_File;
+with Ada.Float_Text_IO;
+
+with Real_Generic_Matrices;
+with Real_Generic_Matrix_File;
 
 with Ada.Command_Line;          use Ada.Command_Line;
 
 with Ada.Unchecked_Deallocation;
 
-procedure IMatMul is
+procedure FMatMul is
    
-   type Access_Integer_Matrix is access Integer_Matrix;
+   package Float_Matrices is new Real_Generic_Matrices (Float);
+   package Float_Matrix_File is new Real_Generic_Matrix_File 
+     (
+      Float,
+      Float_Matrices,
+      Ada.Float_Text_IO.Get
+     );
    
-   Result : Access_Integer_Matrix;
+   use Float_Matrices, Float_Matrix_File;
+   
+   type Access_Float_Matrix is access Float_Matrices.Real_Matrix;
+   
+   Result : Access_Float_Matrix;
    
    procedure Free is 
-      new Ada.Unchecked_Deallocation (Integer_Matrix, Access_Integer_Matrix);
+      new Ada.Unchecked_Deallocation (Real_Matrix, Access_Float_Matrix);
    
    File : File_Type;
    
@@ -24,17 +36,17 @@ begin
       while not End_Of_File (File) loop
          declare
             File_Name : String := Argument (I);
-            M : Integer_Matrix := Load_Integer_Matrix (File);
+            M : Real_Matrix := Load_Real_Matrix (File);
          begin
             if Result = null then
-               Result := new Integer_Matrix'(M);
+               Result := new Real_Matrix'(M);
             else
                declare
-                  Product : Integer_Matrix := Result.all * M;
+                  Product : Real_Matrix := Result.all * M;
                begin
                   Free (Result);
                   Result := 
-                    new Integer_Matrix (Product'Range (1), Product'Range (2));
+                    new Real_Matrix (Product'Range (1), Product'Range (2));
                   Result.all := Product;
                end;
             end if;
