@@ -1,18 +1,30 @@
 with Ada.Text_IO;         use Ada.Text_IO;
-with Integer_Matrices;    use Integer_Matrices;
-with Integer_Matrix_File; use Integer_Matrix_File;
+with Ada.Float_Text_IO;
+
+with Real_Generic_Matrices;
+with Real_Generic_Matrix_File;
 
 with Ada.Command_Line;          use Ada.Command_Line;
 
-procedure IMatTrace is
+procedure FMatTrace is
+   
+   package Float_Matrices is new Real_Generic_Matrices (Float);
+   package Float_Matrix_File is new Real_Generic_Matrix_File 
+     (
+      Float,
+      Float_Matrices,
+      Ada.Float_Text_IO.Get
+     );
+   
+   use Float_Matrices, Float_Matrix_File;
    
 begin
    
    for I in 1 .. Argument_Count loop
       declare
          File_Name : String := Argument (I);
-         M : Integer_Matrix := Load_Integer_Matrix (File_Name);
-         T : Integer;
+         M : Real_Matrix := Load_Real_Matrix (File_Name);
+         T : Float;
       begin
          
          pragma Assert (M'First (1) = M'First(2));
@@ -20,7 +32,7 @@ begin
          
          T := Trace (M);
          
-         Put (Integer'Image (T));
+         Put (Float'Image (T));
          Put (ASCII.HT);
          Put_Matrix_Line (M);
          New_Line;

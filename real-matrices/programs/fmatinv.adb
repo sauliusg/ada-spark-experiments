@@ -1,19 +1,43 @@
 with Ada.Text_IO;         use Ada.Text_IO;
-with Integer_Matrices;    use Integer_Matrices;
-with Integer_Matrix_File; use Integer_Matrix_File;
-with Lazy_Inverse;        use Lazy_Inverse;
+with Ada.Float_Text_IO;
+
+with Real_Generic_Matrices;
+with Real_Generic_Matrix_File;
+
+with Ada.Numerics.Real_Arrays;
 
 with Ada.Command_Line;    use Ada.Command_Line;
 
-procedure IMatInv is
+procedure FMatInv is
    
+   package Float_Matrices is new Real_Generic_Matrices (Float);
+   package Float_Matrix_File is new Real_Generic_Matrix_File 
+     (
+      Float,
+      Float_Matrices,
+      Ada.Float_Text_IO.Get
+     );
+   
+   use Float_Matrices, Float_Matrix_File;
+   
+   function Inverse (M : Real_Matrix) return Real_Matrix
+   is
+      I : Ada.Numerics.Real_Arrays.Real_Matrix :=
+        Ada.Numerics.Real_Arrays.Inverse
+        (
+         Ada.Numerics.Real_Arrays.Real_Matrix (M)
+        );
+   begin
+      return Float_Matrices.Real_Matrix (I);
+   end;
+
 begin
    
    for I in 1 .. Argument_Count loop
       declare
          File_Name : String := Argument (I);
-         M : Integer_Matrix := Load_Integer_Matrix (File_Name);
-         Inv : Integer_Matrix
+         M : Real_Matrix := Load_Real_Matrix (File_Name);
+         Inv : Real_Matrix
            (
             M'First(1) .. M'Last(1),
             M'First(2) .. M'Last(2)

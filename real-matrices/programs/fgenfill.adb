@@ -1,30 +1,40 @@
 with Ada.Text_IO;         use Ada.Text_IO;
-with Integer_Matrices;    use Integer_Matrices;
-with Integer_Matrix_File; use Integer_Matrix_File;
-with Lazy_Determinant;    use Lazy_Determinant;
+with Ada.Float_Text_IO;
+
+with Real_Generic_Matrices;
+with Real_Generic_Matrix_File;
 
 with Ada.Command_Line;    use Ada.Command_Line;
 with Ada.Directories;
 
-procedure IGenFill is
+procedure FGenFill is
+   
+   package Float_Matrices is new Real_Generic_Matrices (Float);
+   package Float_Matrix_File is new Real_Generic_Matrix_File 
+     (
+      Float,
+      Float_Matrices,
+      Ada.Float_Text_IO.Get
+     );
+   
+   use Float_Matrices, Float_Matrix_File;
    
    M, N : Integer;
-   Value : Integer := 0;
+   Value : Float := 0.0;
    
 begin
    
    M := Integer'Value (Argument(1));
    N := Integer'Value (Argument(2));
    
-   if Ada.Directories.Simple_Name (Command_Name) = "igenzero" then
-      Value := 0;
+   if Ada.Directories.Simple_Name (Command_Name) = "fgenzero" then
+      Value := 0.0;
    else
-      Value := Integer'Value (Argument(3));
+      Value := Float'Value (Argument(3));
    end if;
    
    declare
-      A : Integer_Matrix (1..M, 1..N) :=
-        (others => (others => 0));
+      A : Real_Matrix (1..M, 1..N) := (others => (others => 0.0));
    begin
          
       for I in A'Range(1) loop
