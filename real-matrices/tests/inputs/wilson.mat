@@ -1,0 +1,17 @@
+4 4
+5 7 6 5
+7 10 8 7
+6 8 10 9
+5 7 9 10
+
+# This is a Wison matrix. It was downloaded from:
+#
+# https://eprints.maths.manchester.ac.uk/2803/3/paper_cropped2.pdf
+#
+# The matrix and the paper were found via:
+#
+# https://en.wikipedia.org/wiki/Wilson_matrix
+#
+# Another discussion is here:
+#
+# https://nhigham.com/2021/06/01/what-is-the-wilson-matrix/
