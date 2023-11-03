@@ -1,11 +1,18 @@
-with Ada.Text_IO;      use Ada.Text_IO;
-with Integer_Matrices; use Integer_Matrices;
+with Ada.Text_IO; use Ada.Text_IO;
+with Real_Generic_Matrices;
 
-package Integer_Matrix_File is
+generic
+   type Real is digits <>;
+   with package Real_Matrices is new Real_Generic_Matrices (Real);
+   with procedure Get ( File : in File_Type; Element : out Real );
+     
+package Real_Generic_Matrix_File is
    
-   function Load_Integer_Matrix ( File : in File_Type ) return Integer_Matrix;
+   use Real_Matrices;
    
-   function Load_Integer_Matrix ( File_Name : String ) return Integer_Matrix;
+   function Load_Real_Matrix ( File : in File_Type ) return Real_Matrix;
+   
+   function Load_Real_Matrix ( File_Name : String ) return Real_Matrix;
    
    procedure Skip_To_Next_Matrix (File : File_Type);
    
