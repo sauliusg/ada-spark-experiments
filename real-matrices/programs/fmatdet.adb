@@ -1,27 +1,44 @@
 with Ada.Text_IO;         use Ada.Text_IO;
-with Integer_Matrices;    use Integer_Matrices;
-with Integer_Matrix_File; use Integer_Matrix_File;
-with Lazy_Determinant;    use Lazy_Determinant;
+with Ada.Float_Text_IO;
+
+with Real_Generic_Matrices;
+with Real_Generic_Matrix_File;
+
+with Ada.Numerics.Real_Arrays;
+use  Ada.Numerics.Real_Arrays;
 
 with Ada.Command_Line;    use Ada.Command_Line;
 
-procedure IMatDet is
+procedure FMatDet is
+   
+   package Float_Matrices is new Real_Generic_Matrices (Float);
+   package Float_Matrix_File is new Real_Generic_Matrix_File 
+     (
+      Float,
+      Float_Matrices,
+      Ada.Float_Text_IO.Get
+     );
+   
+   use Float_Matrices, Float_Matrix_File;
+   
+   function Det (M : Ada.Numerics.Real_Arrays.Real_Matrix) return Float 
+     renames Ada.Numerics.Real_Arrays.Determinant;
    
 begin
    
    for I in 1 .. Argument_Count loop
       declare
          File_Name : String := Argument (I);
-         M : Integer_Matrix := Load_Integer_Matrix (File_Name);
-         D : Integer;
+         M : Float_Matrices.Real_Matrix := Load_Real_Matrix (File_Name);
+         D : Float;
       begin
          
          pragma Assert (M'First (1) = M'First(2));
          pragma Assert (M'Last (1) = M'Last(2));
          
-         D := Det (M);
+         D := Det (Ada.Numerics.Real_Arrays.Real_Matrix (M));
          
-         Put (Integer'Image (D));
+         Put (Float'Image (D));
          Put (ASCII.HT);
          Put_Matrix_Line (M);
          New_Line;
