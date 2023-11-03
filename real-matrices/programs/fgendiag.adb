@@ -27,7 +27,7 @@ begin
    
    Order := Integer'Value (Argument(1));
    
-   if Ada.Directories.Simple_Name (Command_Name) = "igenunity" then
+   if Ada.Directories.Simple_Name (Command_Name) = "fgenunity" then
       Value := 1.0;
    else
       Value := Float'Value (Argument(2));
