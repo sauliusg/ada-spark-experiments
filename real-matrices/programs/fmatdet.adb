@@ -24,6 +24,11 @@ procedure FMatDet is
    function Det (M : Ada.Numerics.Real_Arrays.Real_Matrix) return Float 
      renames Ada.Numerics.Real_Arrays.Determinant;
    
+   function Det (M : Float_Matrices.Real_Matrix) return Float 
+     is (Det (Ada.Numerics.Real_Arrays.Real_Matrix (M)));
+     
+   pragma Inline (Det);
+     
 begin
    
    for I in 1 .. Argument_Count loop
@@ -36,7 +41,7 @@ begin
          pragma Assert (M'First (1) = M'First(2));
          pragma Assert (M'Last (1) = M'Last(2));
          
-         D := Det (Ada.Numerics.Real_Arrays.Real_Matrix (M));
+         D := Det (M);
          
          Put (Float'Image (D));
          Put (ASCII.HT);
