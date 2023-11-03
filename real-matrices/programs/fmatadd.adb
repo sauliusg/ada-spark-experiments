@@ -36,7 +36,7 @@ procedure IMatAdd is
    
 begin
    
-   if Ada.Directories.Simple_Name (Command_Name) = "imatsub" then
+   if Ada.Directories.Simple_Name (Command_Name) = "fmatsub" then
       Operation := SUB;
    end if;
    
