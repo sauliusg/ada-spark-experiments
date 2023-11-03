@@ -1,30 +1,41 @@
-with Ada.Text_IO;         use Ada.Text_IO;
-with Integer_Matrices;    use Integer_Matrices;
-with Integer_Matrix_File; use Integer_Matrix_File;
-with Lazy_Determinant;    use Lazy_Determinant;
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Float_Text_IO;
 
-with Ada.Command_Line;    use Ada.Command_Line;
+with Real_Generic_Matrices;
+with Real_Generic_Matrix_File;
+
+with Ada.Command_Line; use Ada.Command_Line;
 with Ada.Directories;
 
-procedure IGenDiag is
+procedure FGenDiag is
+   
+   package Float_Matrices is new Real_Generic_Matrices (Float);
+   package Float_Matrix_File is new Real_Generic_Matrix_File 
+     (
+      Float,
+      Float_Matrices,
+      Ada.Float_Text_IO.Get
+     );
+   
+   use Float_Matrices, Float_Matrix_File;
    
    Order : Integer;
    
-   Value : Integer := 1;
+   Value : Float := 1.0;
    
 begin
    
    Order := Integer'Value (Argument(1));
    
    if Ada.Directories.Simple_Name (Command_Name) = "igenunity" then
-      Value := 1;
+      Value := 1.0;
    else
-      Value := Integer'Value (Argument(2));
+      Value := Float'Value (Argument(2));
    end if;
    
    declare
-      M : Integer_Matrix (1..Order, 1..Order) :=
-        (others => (others => 0));
+      M : Float_Matrices.Real_Matrix (1..Order, 1..Order) :=
+        (others => (others => 0.0));
    begin
          
       for I in M'Range(1) loop

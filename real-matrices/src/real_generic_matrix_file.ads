@@ -4,7 +4,7 @@ with Real_Generic_Matrices;
 generic
    type Real is digits <>;
    with package Real_Matrices is new Real_Generic_Matrices (Real);
-   with procedure Get ( File : in File_Type; Element : out Real );
+   with procedure Get (File : in File_Type; Element : out Real; Width : in Field := 0);
      
 package Real_Generic_Matrix_File is
    
