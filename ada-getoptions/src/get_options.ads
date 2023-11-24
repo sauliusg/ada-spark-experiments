@@ -17,8 +17,6 @@ package Get_Options is
    
    subtype Option_String_Length is Integer range 1 .. 2**30;
    
-   -- type Integer_Access_All is access all Integer;
-   
    type Option_Value_Type
       (
        Option_Kind : Option_Value_Kind := NONE;
