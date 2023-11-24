@@ -41,6 +41,28 @@ package body Get_Options is
         );
    end;
    
+   function Option
+     (
+      Short_Option, Long_Option : String;
+      Float_Parameter_Ref : Float_Parameter_Access
+     ) return Option_Type is
+   begin
+      return
+        (
+         Short_Option (Short_Option'First),
+         new String'(Long_Option),
+         INTEGER_OPT,
+         new Option_Value_Type'
+           (
+            Option_Kind => FLOAT_OPT,
+            Float_Value => Float_Parameter_Ref.all,
+            Float_Value_Parameter => Float_Parameter_Ref,
+            others => <>
+           ),
+         others => <>
+        );
+   end;
+   
    procedure Free is new Ada.Unchecked_Deallocation
      (Option_Value_Type, Option_Value_Access);
    

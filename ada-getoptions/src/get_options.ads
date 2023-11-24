@@ -1,6 +1,7 @@
 package Get_Options is
    
    type Integer_Parameter_Access is access Integer;
+   type Float_Parameter_Access is access Float;
    
    type Option_Value_Kind is
      (
@@ -28,6 +29,7 @@ package Get_Options is
             Integer_Value_Parameter : Integer_Parameter_Access;
          when FLOAT_OPT =>
             Float_Value : Float;
+            Float_Value_Parameter : Float_Parameter_Access;
          when DOUBLE_OPT =>
             Double_Value : Long_Float;
          when NATURAL_OPT =>
@@ -65,6 +67,12 @@ package Get_Options is
      (
       Short_Option, Long_Option : String;
       Integer_Parameter_Ref : Integer_Parameter_Access
+     ) return Option_Type;
+   
+   function Option
+     (
+      Short_Option, Long_Option : String;
+      Float_Parameter_Ref : Float_Parameter_Access
      ) return Option_Type;
    
    procedure Free_Options ( OA : in out Option_Array );
