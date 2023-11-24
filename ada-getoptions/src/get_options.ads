@@ -3,6 +3,12 @@ package Get_Options is
    type Integer_Parameter_Access is access Integer;
    type Float_Parameter_Access is access Float;
    
+   -- for Integer_Parameter_Access'Storage_Pool use Option_Value_Pool;
+   -- for Float_Parameter_Access'Storage_Pool use Option_Value_Pool;
+   
+   for Integer_Parameter_Access'Storage_Size use 200;
+   for Float_Parameter_Access'Storage_Size use 200;
+   
    type Option_Value_Kind is
      (
       NONE, STRING_OPT, INTEGER_OPT, FLOAT_OPT, DOUBLE_OPT, NATURAL_OPT,

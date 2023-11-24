@@ -32,7 +32,7 @@ begin
    end loop;
    
    Free_Options (Options);
-   Free (Integer_Parameter);
-   Free (Float_Parameter);
+   -- Free (Integer_Parameter);
+   -- Free (Float_Parameter);
    
 end;
