@@ -15,7 +15,7 @@ package body Get_Options is
          Short_Option (Short_Option'First),
          new String'(Long_Option),
          Option_Kind,
-         null
+         others => <>
         );
    end;
 

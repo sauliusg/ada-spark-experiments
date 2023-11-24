@@ -43,6 +43,7 @@ package Get_Options is
       Long_Option : access String;
       Option_Kind : Option_Value_Kind;
       Value : Option_Value_Access;
+      Is_Present : Boolean := False;
    end record;
    
    type Option_Array is array (Positive range <>) of Option_Type;
