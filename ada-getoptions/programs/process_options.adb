@@ -1,7 +1,12 @@
 with Text_IO; use Text_IO;
 with Get_Options; use Get_Options;
 
+with Ada.Unchecked_Deallocation;
+
 procedure Process_Options is
+   
+   procedure Free is new Ada.Unchecked_Deallocation
+     (Integer, Integer_Parameter_Access);
    
    Integer_Parameter : Integer_Parameter_Access := new Integer'(1);
    
@@ -20,5 +25,8 @@ begin
    for O of Options loop
       Put_Line (O.Long_Option.all);
    end loop;
+   
+   Free_Options (Options);
+   Free (Integer_Parameter);
    
 end;

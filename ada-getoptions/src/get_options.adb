@@ -44,9 +44,15 @@ package body Get_Options is
    procedure Free is new Ada.Unchecked_Deallocation
      (Option_Value_Type, Option_Value_Access);
    
-   type String_Access is access String;
-   
    procedure Free is new Ada.Unchecked_Deallocation
      (String, String_Access);
    
+   procedure Free_Options (OA : in out Option_Array) is
+   begin
+      for Option of OA loop
+         Free (Option.Value);
+         Free (Option.Long_Option);
+      end loop;
+   end;
+
 end Get_Options;

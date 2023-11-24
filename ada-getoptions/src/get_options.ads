@@ -43,9 +43,11 @@ package Get_Options is
    
    type Option_Value_Access is access Option_Value_Type;
    
+   type String_Access is access String;
+   
    type Option_Type is record
       Short_Option : Character;
-      Long_Option : access String;
+      Long_Option : String_Access;
       Option_Kind : Option_Value_Kind;
       Value : Option_Value_Access;
       Is_Present : Boolean := False;
@@ -64,5 +66,7 @@ package Get_Options is
       Short_Option, Long_Option : String;
       Integer_Parameter_Ref : Integer_Parameter_Access
      ) return Option_Type;
+   
+   procedure Free_Options ( OA : in out Option_Array );
    
 end Get_Options;
