@@ -31,7 +31,7 @@ begin
       Put_Line (O.Long_Option.all);
    end loop;
    
-   Free_Options (Options);
+   -- Free_Options (Options);
    -- Free (Integer_Parameter);
    -- Free (Float_Parameter);
    

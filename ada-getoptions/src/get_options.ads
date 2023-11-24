@@ -51,7 +51,11 @@ package Get_Options is
    
    type Option_Value_Access is access Option_Value_Type;
    
+   for Option_Value_Access'Storage_size use 14000;
+
    type String_Access is access String;
+   
+   for String_Access'Storage_size use 20000;
    
    type Option_Type is record
       Short_Option : Character;
