@@ -86,7 +86,7 @@ procedure IPermutationMat is
          M : Permutation_Matrix (1 .. Max_Value, 1 .. Max_Value) :=
            (others => (others => 0));
       begin
-         for I in M'Range (1) loop
+         for I in P'Range loop
             M (P(I), I) := 1;
          end loop;
          return M;
