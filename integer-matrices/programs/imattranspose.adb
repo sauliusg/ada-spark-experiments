@@ -34,6 +34,7 @@ begin
       begin
          Put_Matrix (T);
          New_Line;
+         Close (File);
       end;
    end loop;
    
