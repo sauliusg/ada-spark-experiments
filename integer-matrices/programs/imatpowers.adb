@@ -24,10 +24,16 @@ procedure IMatPowers is
    Max_Power_Option : Option_Value_Access :=
      new Option_Value_Type'(INTEGER_OPT, Integer_Value => 10);
    
+   Number_Powers : Option_Value_Access :=
+     new Option_Value_Type'(BOOLEAN_TRUE_OPT, Boolean_Value => True);
+   
    Options : Option_Array :=
      (
-      Help_Option("-h", "--help", Help'Access),
-      Option ("-m", "--max-power", Max_Power_Option)
+      Help_Option("-h", "--help",          Help'Access),
+      Option ("-m", "--max-power",         Max_Power_Option),
+      Option ("-n", "--number-powers",     Number_Powers),
+      Option ("-n-", "--no-number-powers", BOOLEAN_FALSE_OPT, Number_Powers),
+      Option ("+n",  "",                   BOOLEAN_FALSE_OPT, Number_Powers)
      );
    
    Max_Power : Integer;
@@ -63,9 +69,11 @@ begin
             Result := Unity;
          
             for Power in 1 .. Max_Power loop
-               Result := Result * M;      
-               Put (Power'Image);
-               Put (ASCII.HT);
+               Result := Result * M;
+               if Number_Powers.Boolean_Value = True then
+                  Put (Power'Image);
+                  Put (ASCII.HT);
+               end if;
                Put_Matrix_Line (Result);
                New_Line;
                exit when Result = Unity;
