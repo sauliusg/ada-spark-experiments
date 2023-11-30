@@ -3,24 +3,49 @@ with Integer_Matrices;    use Integer_Matrices;
 with Integer_Matrix_File; use Integer_Matrix_File;
 
 with Ada.Command_Line;          use Ada.Command_Line;
+with Option_Processor;    use Option_Processor;
+with File_Selector;       use File_Selector;
 
 procedure IMatPowers is
    
-   Max_Power : Integer;
-   Power : Integer;
+   procedure Help (Option_String : String; Position : in out Positive) is
+      procedure P (S : String) renames Put_Line;
+   begin
+      P ("Calculate powers of matrices.");
+      New_Line;
+      P ("USAGE:");
+      P ("    " & Command_Name & " --max-power 10 input.mat");
+      New_Line;
+      P ("where the first argument ""10"" is the maximum power");
+      P ("of the matrix to compute.");
+      New_Line;
+   end;
    
-   File : File_Type;
+   Max_Power_Option : Option_Value_Access :=
+     new Option_Value_Type'(INTEGER_OPT, Integer_Value => 10);
+   
+   Options : Option_Array :=
+     (
+      Help_Option("-h", "--help", Help'Access),
+      Option ("-m", "--max-power", Max_Power_Option)
+     );
+   
+   Max_Power : Integer;
+   
+   File : File_Selector.File_Access;
    Empty_Line : Boolean := False;
    
 begin
    
-   Max_Power := Integer'Value (Argument (1));
+   Process_Options (Options);
    
-   for I in 2 .. Argument_Count loop
-      Open (File, In_File, Argument (I));
-      while not End_Of_File (File) loop
+   Max_Power := Max_Power_Option.Integer_Value;
+   
+   for I in 1 .. File_Name_Count loop
+      File := Select_File (I);
+      while not End_Of_File (File.all) loop
          declare
-            M : Integer_Matrix := Load_Integer_Matrix (File);
+            M : Integer_Matrix := Load_Integer_Matrix (File.all);
             
             Unity : Integer_Matrix (M'Range(1), M'Range(2)) :=
               (others => (others => 0));
@@ -46,13 +71,16 @@ begin
                exit when Result = Unity;
             end loop;
             
-            Skip_To_Next_Matrix (File, Empty_Line);
+            Skip_To_Next_Matrix (File.all, Empty_Line);
          end;
       end loop;
       Close (File);
-      if I < Argument_Count then
+      if I < File_Name_Count then
          New_Line;
       end if;
    end loop;
+   
+exception
+   when HELP_PRINTED => null;
    
 end;
