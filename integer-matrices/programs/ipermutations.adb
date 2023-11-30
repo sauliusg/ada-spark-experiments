@@ -7,7 +7,9 @@ with Integer_Matrix_File; use Integer_Matrix_File;
 with Ada.Command_Line;    use Ada.Command_Line;
 with Option_Processor;    use Option_Processor;
 
-procedure IPermutationMat is
+procedure IPermutations is
+   
+   NOT_A_PERMUTATION : exception;
    
    procedure Help (Option_String : String; Position : in out Positive) is
       procedure P (S : String) renames Put_Line;
@@ -93,26 +95,95 @@ procedure IPermutationMat is
       end;
    end;
    
+   type Scan_Direction_Type is (ROWS, COLUMNS);
+   
+   procedure Number_Of_Ones_In_Range 
+     (
+      P : Permutation_Matrix;
+      Scan_Direction : Scan_Direction_Type;
+      Min_Ones, Max_Ones : out Natural
+     ) is
+      N_Ones : Natural;
+      Value : One_Or_Zero;
+   begin
+      Min_Ones := P'Length(1);
+      Max_Ones := 0;
+      
+      for I in P'Range (1) loop
+         N_Ones := 0;
+         for J in P'Range (2) loop
+            case Scan_Direction is
+               when COLUMNS => Value := P (I, J);
+               when ROWS    => Value := P (J, I);
+            end case;
+            if Value = 1 then
+               N_Ones := N_Ones + 1;
+            end if;
+         end loop;
+         if Max_Ones < N_Ones then
+            Max_Ones := N_Ones;
+         end if;
+         if Min_Ones > N_Ones then
+            Min_Ones := N_Ones;
+         end if;
+      end loop;
+   end;
+   
+   function Is_Permutation_Matrix (P : Permutation_Matrix) return Boolean is
+      Max_Number_Of_Ones_In_Columns : Natural;
+      Max_Number_Of_Ones_In_Rows    : Natural;
+      Min_Number_Of_Ones_In_Columns : Natural;
+      Min_Number_Of_Ones_In_Rows    : Natural;
+   begin
+      Number_Of_Ones_In_Range
+        (
+         P, COLUMNS,
+         Min_Number_Of_Ones_In_Columns,
+         Max_Number_Of_Ones_In_Columns
+        );
+      Number_Of_Ones_In_Range
+        (
+         P, ROWS,
+         Min_Number_Of_Ones_In_Rows,
+         Max_Number_Of_Ones_In_Rows
+        );
+      return
+        Max_Number_Of_Ones_In_Columns = 1 and then
+        Max_Number_Of_Ones_In_Rows = 1 and then
+        Min_Number_Of_Ones_In_Columns = 1 and then
+        Min_Number_Of_Ones_In_Rows = 1;
+   end;
+   
+   function Get_Argument (I : Natural) return String renames Get_File_Name;
+   function Line_Argument_Count return Natural renames File_Name_Count;
+
 begin
    
    Process_Options (Options, Read_STDIN_If_No_Files => False);
    
-   declare
-      function Get_Argument (I : Natural) return String renames Get_File_Name;
-      Permutation : String := Get_Argument (1);
-      PA : Permutation_Array := Make_Permutation_Array (Permutation);
-      PM : Permutation_Matrix := Make_Permutation_Matrix (PA);
-   begin
-      Put (PM'Length (1), 4);
-      Put (PM'Length (2), 4);
-      New_Line;
-      for I in PM'Range (1) loop
-         for J in PM'Range (1) loop
-            Put (Integer (PM (I, J)), 2);
-         end loop;
-         New_Line;
-      end loop;
-   end;
+   for I in 1 .. Line_Argument_Count loop
+      declare
+         Permutation : String := Get_Argument (I);
+         PA : Permutation_Array := Make_Permutation_Array (Permutation);
+         PM : Permutation_Matrix := Make_Permutation_Matrix (PA);
+      begin
+         if Is_Permutation_Matrix (PM) then
+            Put (PM'Length (1), 4);
+            Put (PM'Length (2), 4);
+            New_Line;
+            for I in PM'Range (1) loop
+               for J in PM'Range (1) loop
+                  Put (Integer (PM (I, J)), 2);
+               end loop;
+               New_Line;
+            end loop;
+         else
+            raise NOT_A_PERMUTATION with
+              "matrix generated from the '" & Permutation & "' " &
+              "is not a permutation matrix";
+         end if;
+      end;
+   end loop;
    
 exception
    when HELP_PRINTED => null;
