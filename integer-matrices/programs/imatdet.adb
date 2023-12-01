@@ -12,7 +12,7 @@ procedure IMatDet is
    procedure Help is
       procedure P (S : String) renames Put_Line;
    begin
-      P ("Calculate determinant of a matrix");
+      P ("Calculate determinants of matrices");
       P ("USAGE:");
       P ("    " & Command_Name & " --options input.mat");
    end;
