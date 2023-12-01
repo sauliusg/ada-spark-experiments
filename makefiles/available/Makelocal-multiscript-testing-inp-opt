@@ -1,7 +1,7 @@
 #---*- Makefile -*-------------------------------------------------------
 #$Author: saulius $
-#$Date: 2022-04-10 17:36:37 +0300 (Sun, 10 Apr 2022) $
-#$Revision: 308 $
+#$Date: 2023-12-01 20:44:27 +0200 (Fri, 01 Dec 2023) $
+#$Revision: 349 $
 #$URL: svn+ssh://saulius-grazulis.lt/home/saulius/svn-repositories/makefiles/multiscript-testing-inp-opt/Makelocal-multiscript-testing-inp-opt $
 #------------------------------------------------------------------------
 
@@ -59,8 +59,8 @@ ${TEST_DEPENDENCIES}: ${INP_FILES} ${OPT_FILES}
 	for i in $^; do \
 		echo "$$i: $$(echo $$i | sed -e 's/_[0-9]*\..*$$//' \
 			| sed 's,${TEST_DIR},${BIN_DIR},')" \
-			| sed 's,.inp,.diff,' \
-			| sed 's,.opt,.diff,' \
+			| sed 's,\.inp:,.diff:,' \
+			| sed 's,\.opt:,.diff:,' \
 			| sed 's,/cases/,/outputs/,' \
 		; \
 	done | sort | uniq >> $@
