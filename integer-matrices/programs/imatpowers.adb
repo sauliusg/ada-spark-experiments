@@ -8,7 +8,7 @@ with File_Selector;       use File_Selector;
 
 procedure IMatPowers is
    
-   procedure Help (Option_String : String; Position : in out Positive) is
+   procedure Help is
       procedure P (S : String) renames Put_Line;
    begin
       P ("Calculate powers of matrices.");
@@ -29,7 +29,7 @@ procedure IMatPowers is
    
    Options : Option_Array :=
      (
-      Help_Option("-h", "--help",          Help'Access),
+      Help_Option("-h", "--help"),
       Option ("-m", "--max-power",         Max_Power_Option),
       Option ("-n", "--number-powers",     Number_Powers),
       Option ("-n-", "--no-number-powers", BOOLEAN_FALSE_OPT, Number_Powers),
@@ -43,7 +43,7 @@ procedure IMatPowers is
    
 begin
    
-   Process_Options (Options);
+   Process_Options (Options, Help'Access);
    
    Max_Power := Max_Power_Option.Integer_Value;
    

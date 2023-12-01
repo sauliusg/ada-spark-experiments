@@ -8,7 +8,7 @@ with File_Selector;       use File_Selector;
 
 procedure IMatTranspose is
    
-   procedure Help (Option_String : String; Position : in out Positive) is
+   procedure Help is
       procedure P (S : String) renames Put_Line;
    begin
       P ("Calculate transpose matrices");
@@ -18,12 +18,12 @@ procedure IMatTranspose is
    
    Options : Option_Array :=
      (
-      1 => Help_Option("-h", "--help", Help'Access)
+      1 => Help_Option("-h", "--help")
      );
    
 begin
    
-   Process_Options (Options);
+   Process_Options (Options, Help'Access);
    
    for I in 1 .. File_Name_Count loop
       declare

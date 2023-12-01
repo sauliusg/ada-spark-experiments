@@ -11,7 +11,7 @@ procedure IPermutations is
    
    NOT_A_PERMUTATION : exception;
    
-   procedure Help (Option_String : String; Position : in out Positive) is
+   procedure Help is
       procedure P (S : String) renames Put_Line;
    begin
       P ("Generate a permutation matrix");
@@ -21,7 +21,7 @@ procedure IPermutations is
    
    Options : Option_Array :=
      (
-      1 => Help_Option("-h", "--help", Help'Access)
+      1 => Help_Option("-h", "--help")
      );
    
    procedure Change_Commas_To_Spaces (S : in out String) is
@@ -159,7 +159,12 @@ procedure IPermutations is
 
 begin
    
-   Process_Options (Options, Read_STDIN_If_No_Files => False);
+   Process_Options
+     (
+      Options,
+      Read_STDIN_If_No_Files => False,
+      Help_Printer => Help'Access
+     );
    
    for I in 1 .. Line_Argument_Count loop
       declare
