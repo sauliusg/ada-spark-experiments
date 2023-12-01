@@ -22,28 +22,34 @@ procedure IMatDet is
       1 => Help_Option("-h", "--help")
      );
    
+   subtype File_Access is File_Selector.File_Access;
+   File : File_Access;
+   
 begin
    
    Process_Options (Options, Help'Access);
    
    for I in 1 .. File_Name_Count loop
-      declare
-         subtype File_Access is File_Selector.File_Access;
-         File : File_Access := Select_File (I);
-         M : Integer_Matrix := Load_Integer_Matrix (File.all);
-         D : Integer;
-      begin
+      File := Select_File (I);
+      while not End_Of_File (File.all) loop
+         declare
+            M : Integer_Matrix := Load_Integer_Matrix (File.all);
+            D : Integer;
+         begin
          
-         pragma Assert (M'First (1) = M'First(2));
-         pragma Assert (M'Last (1) = M'Last(2));
+            pragma Assert (M'First (1) = M'First(2));
+            pragma Assert (M'Last (1) = M'Last(2));
          
-         D := Det (M);
+            D := Det (M);
          
-         Put (Integer'Image (D));
-         Put (ASCII.HT);
-         Put_Matrix_Line (M);
-         New_Line;
-      end;
+            Put (Integer'Image (D));
+            Put (ASCII.HT);
+            Put_Matrix_Line (M);
+            New_Line;
+         end;
+         Skip_To_Next_Matrix (File.all);
+      end loop;
+      Close (File);
    end loop;
    
 exception
