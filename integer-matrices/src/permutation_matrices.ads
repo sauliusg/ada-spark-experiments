@@ -8,16 +8,18 @@ package Permutation_Matrices with SPARK_Mode is
    
    function Length (P : Permutation_Matrix) return Positive;
    
-   function Unity (N : Positive) return Permutation_Matrix;
-   
-   function "*" (P1, P2 : Permutation_Matrix) return Permutation_Matrix;
-   
-   -- Lemma
-     
-   procedure Unity_Permutation_Is_Idempotent (U : Permutation_Matrix)
+   function Unity (N : Positive) return Permutation_Matrix
      with
-     Ghost,
-     Post => (U * U = U);
+     Pre => N >= 0;
+   
+   -- function "*" (P1, P2 : Permutation_Matrix) return Permutation_Matrix;
+   
+   -- Lemma:
+     
+   -- procedure Unity_Permutation_Is_Idempotent (U : Permutation_Matrix)
+   --   with
+   --   Ghost,
+   --   Post => (U * U = U);
      
 private
    
@@ -25,27 +27,31 @@ private
    
    pragma Pack (Permutation_Matrix_Array);
    
+   function Unity (N : Positive) return Permutation_Matrix_Array
+     with
+     -- Post => Is_Permutation_Array (Unity'Result);
+     Post => Each_Row_Has_Unity (Unity'Result);
+   
    type Permutation_Matrix (N : Positive) is record
-      A : Permutation_Matrix_Array (1 .. N, 1 .. N); -- :=
-      -- [for I in 1 .. N => (for J in 1 .. N => 0)];
-   end record
-     with Type_Invariant => Is_Permutation_Matrix (Permutation_Matrix);
+      A : Permutation_Matrix_Array (1 .. N, 1 .. N) := Unity (N);
+   end record;
+   -- with Type_Invariant => Is_Permutation_Matrix (Permutation_Matrix);
       
-   function Each_Row_Has_Single_Unity (A : Permutation_Matrix_Array) return Boolean
+   function Each_Row_Has_Unity (A : Permutation_Matrix_Array) return Boolean
+     with Ghost;
+     
+   function Each_Row_Has_At_Most_One_Unity (A : Permutation_Matrix_Array) return Boolean
      with Ghost;
    
-   function Each_Row_Has_Single_Unity (P : Permutation_Matrix) return Boolean
+   function Each_Column_Has_At_Most_One_Unity (A : Permutation_Matrix_Array) return Boolean
      with Ghost;
    
-   function Each_Column_Has_Single_Unity (P : Permutation_Matrix) return Boolean
-     with Ghost;
-   
-   -- function Is_Permutation_Matrix (P : Permutation_Matrix) return Boolean is
-   --   (Each_Row_Has_Single_Unity (P) and then Each_Column_Has_Single_Unity (P))
-   --   with Ghost;
+   function Is_Permutation_Array (A : Permutation_Matrix_Array) return Boolean
+     with Ghost,
+     Post => (Is_Permutation_Array'Result = Each_Row_Has_Unity (A));
      
    function Is_Permutation_Matrix (P : Permutation_Matrix) return Boolean is
-     (Each_Row_Has_Single_Unity (P.A))
+     (Is_Permutation_Array (P.A))
      with Ghost;
      
 end Permutation_Matrices;

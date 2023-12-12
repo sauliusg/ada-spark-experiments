@@ -1,7 +1,7 @@
 with Text_IO; use Text_IO;
 with Permutation_Matrices; use Permutation_Matrices;
 
-procedure Permmat is
+procedure Permmat with SPARK_Mode is
    
    P : Permutation_Matrix := Unity (5);
    
