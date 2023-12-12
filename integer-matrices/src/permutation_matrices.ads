@@ -46,9 +46,10 @@ private
    function Each_Column_Has_At_Most_One_Unity (A : Permutation_Matrix_Array) return Boolean
      with Ghost;
    
-   function Is_Permutation_Matrix (A : Permutation_Matrix_Array) return Boolean
-     with Ghost,
-     Post => (Is_Permutation_Matrix'Result = Each_Row_Has_Unity (A));
+   function Is_Permutation_Matrix (A : Permutation_Matrix_Array) return Boolean is
+      (Each_Row_Has_Unity (A))
+        with Ghost,
+        Post => (Is_Permutation_Matrix'Result = Each_Row_Has_Unity (A));
      
    function Is_Permutation_Matrix (P : Permutation_Matrix) return Boolean is
      (Is_Permutation_Matrix (P.A))

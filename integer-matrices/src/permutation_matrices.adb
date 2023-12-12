@@ -53,10 +53,6 @@ package body Permutation_Matrices with SPARK_Mode is
          )
       );
       
-   function Is_Permutation_Matrix (A : Permutation_Matrix_Array) return Boolean
-   is
-      (Each_Row_Has_Unity (A));
-     
    procedure Unity_Permutation_Is_Idempotent (U : Permutation_Matrix) is null;
    
 end Permutation_Matrices;
