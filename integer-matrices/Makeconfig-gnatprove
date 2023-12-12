@@ -9,4 +9,4 @@
 
 GNATPROVE_PROOVERS = --prover=cvc4,z3,altergo
 
-GNATPROVE_ARGUMENTS = --steps=5000
+GNATPROVE_ARGUMENTS = --steps=50000

@@ -33,8 +33,8 @@ private
    
    type Permutation_Matrix (N : Positive) is record
       A : Permutation_Matrix_Array (1 .. N, 1 .. N) := Unity (N);
-   end record;
-   -- with Type_Invariant => Is_Permutation_Matrix (Permutation_Matrix);
+   end record
+     with Type_Invariant => Is_Permutation_Matrix (Permutation_Matrix);
       
    function Each_Row_Has_Unity (A : Permutation_Matrix_Array) return Boolean
      with Ghost;
