@@ -53,7 +53,7 @@ package body Permutation_Matrices with SPARK_Mode is
          )
       );
       
-   function Is_Permutation_Array (A : Permutation_Matrix_Array) return Boolean
+   function Is_Permutation_Matrix (A : Permutation_Matrix_Array) return Boolean
    is
       (Each_Row_Has_Unity (A));
      

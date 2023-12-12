@@ -29,7 +29,7 @@ private
    
    function Unity (N : Positive) return Permutation_Matrix_Array
      with
-     Post => Is_Permutation_Array (Unity'Result);
+     Post => Is_Permutation_Matrix (Unity'Result);
      -- Post => Each_Row_Has_Unity (Unity'Result);
    
    type Permutation_Matrix (N : Positive) is record
@@ -46,12 +46,12 @@ private
    function Each_Column_Has_At_Most_One_Unity (A : Permutation_Matrix_Array) return Boolean
      with Ghost;
    
-   function Is_Permutation_Array (A : Permutation_Matrix_Array) return Boolean
+   function Is_Permutation_Matrix (A : Permutation_Matrix_Array) return Boolean
      with Ghost,
-     Post => (Is_Permutation_Array'Result = Each_Row_Has_Unity (A));
+     Post => (Is_Permutation_Matrix'Result = Each_Row_Has_Unity (A));
      
    function Is_Permutation_Matrix (P : Permutation_Matrix) return Boolean is
-     (Is_Permutation_Array (P.A))
+     (Is_Permutation_Matrix (P.A))
      with Ghost;
      
 end Permutation_Matrices;
