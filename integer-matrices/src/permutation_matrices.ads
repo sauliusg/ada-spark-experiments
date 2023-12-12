@@ -48,11 +48,10 @@ private
    
    function Is_Permutation_Matrix (A : Permutation_Matrix_Array) return Boolean is
       (Each_Row_Has_Unity (A))
-        with Ghost,
-        Post => (Is_Permutation_Matrix'Result = Each_Row_Has_Unity (A));
-     
+        with Ghost;
+
    function Is_Permutation_Matrix (P : Permutation_Matrix) return Boolean is
-     (Is_Permutation_Matrix (P.A))
-     with Ghost;
+      (Is_Permutation_Matrix (P.A))
+        with Ghost;
      
 end Permutation_Matrices;
