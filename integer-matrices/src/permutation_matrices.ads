@@ -46,7 +46,7 @@ private
      with Ghost;
    
    function Is_Permutation_Matrix (A : Permutation_Matrix_Array) return Boolean is
-      (Each_Row_Has_Unity (A))
+      (Each_Row_Has_Unity (A) and then Each_Row_Has_At_Most_One_Unity (A))
         with Ghost;
 
    function Is_Permutation_Matrix (P : Permutation_Matrix) return Boolean is
