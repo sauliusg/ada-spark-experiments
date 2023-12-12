@@ -30,7 +30,6 @@ private
    function Unity (N : Positive) return Permutation_Matrix_Array
      with
      Post => Is_Permutation_Matrix (Unity'Result);
-     -- Post => Each_Row_Has_Unity (Unity'Result);
    
    type Permutation_Matrix (N : Positive) is record
       A : Permutation_Matrix_Array (1 .. N, 1 .. N) := Unity (N);
