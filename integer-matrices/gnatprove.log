@@ -7,7 +7,7 @@ starta
 /home/saulius/src/ada-spark-experiments/integer-matrices
 + set +x
 + svnversion
-963:964M
+965M
 + svn info
 Path: .
 Working Copy Root Path: /home/saulius/src/ada-spark-experiments
@@ -15,12 +15,12 @@ URL: svn://saulius.grazulis.lt/ada-spark-experiments/trunk/integer-matrices
 Relative URL: ^/trunk/integer-matrices
 Repository Root: svn://saulius.grazulis.lt/ada-spark-experiments
 Repository UUID: af456918-7c63-4f43-8f72-c3d2023c81aa
-Revision: 963
+Revision: 965
 Node Kind: directory
 Schedule: normal
 Last Changed Author: saulius
-Last Changed Rev: 963
-Last Changed Date: 2023-12-13 15:37:16 +0200 (Wed, 13 Dec 2023)
+Last Changed Rev: 965
+Last Changed Date: 2023-12-13 20:29:07 +0200 (Wed, 13 Dec 2023)
 
 + df -h .
 Filesystem      Size  Used Avail Use% Mounted on
@@ -32,8 +32,8 @@ Linuxmint-20.3
 + uname -a
 Linux starta 5.15.0-78-generic #85~20.04.1-Ubuntu SMP Mon Jul 17 09:42:39 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
 + date
-2023-12-13T20:26:37 EET
-+ gnatprove -f -P ./main.gpr --level=4 -j 0 src/permutation_matrices.adb --report=statistics
+2023-12-13T20:53:55 EET
++ gnatprove -P ./main.gpr --prover=cvc4,z3,altergo -j 0 src/permutation_matrices.adb --steps=5000000 --timeout=120 --check-counterexamples=on --report=statistics
 Phase 1 of 2: generation of Global contracts ...
 Phase 2 of 2: flow analysis and proof ...
 permutation_matrices.adb:7:17: info: range check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
@@ -54,12 +54,16 @@ permutation_matrices.adb:57:19: info: index check proved (CVC4: 2 VC in max 0.0 
 permutation_matrices.adb:57:21: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
 permutation_matrices.adb:57:77: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
 permutation_matrices.adb:57:79: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.ads:11:13: info: invariant check proved (altergo: 1 VC in max 11.4 seconds and 144584 steps)
-permutation_matrices.ads:33:14: info: postcondition proved (Z3: 2 VC in max 0.8 seconds and 5629 steps)
-permutation_matrices.ads:35:09: info: invariant check proved on default value (altergo: 1 VC in max 11.4 seconds and 142649 steps)
-permutation_matrices.ads:36:07: info: range check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.ads:36:56: info: length check proved (CVC4: 6 VC in max 0.1 seconds and 1 step; Trivial: 1 VC in max 0.0 seconds and 0 steps)
+permutation_matrices.ads:11:13: info: invariant check proved (altergo: 1 VC in max 0.0 seconds and 88448 steps)
+permutation_matrices.ads:35:06: info: postcondition proved (CVC4: 2 VC in max 0.0 seconds and 1 step; Z3: 2 VC in max 0.0 seconds and 1 step)
+permutation_matrices.ads:38:09: info: invariant check proved on default value (altergo: 1 VC in max 75.9 seconds and 876202 steps)
+permutation_matrices.ads:39:07: info: range check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
+permutation_matrices.ads:39:56: info: length check proved (CVC4: 6 VC in max 0.0 seconds and 1 step; Trivial: 1 VC in max 0.0 seconds and 0 steps)
   in default value of private type at permutation_matrices.ads:7
 Summary logged in /home/saulius/src/ada-spark-experiments/integer-matrices/.obj/gnatprove/gnatprove.out
+
+real	3m17,825s
+user	3m20,562s
+sys	0m1,261s
 + date
-2023-12-13T20:27:03 EET
+2023-12-13T20:57:13 EET

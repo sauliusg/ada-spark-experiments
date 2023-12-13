@@ -1,1 +1,1 @@
-  726  ( set -x; directory-metadata; gnatprove -f -P ./main.gpr --level=4 -j 0 src/permutation_matrices.adb --report=statistics; date ) 2>&1 | tee gnatprove.log 
+  758  ( set -x; directory-metadata; time gnatprove -P ./main.gpr --prover=cvc4,z3,altergo -j 0 src/permutation_matrices.adb --steps=5000000 --timeout=120 --check-counterexamples=on --report=statistics; date ) 2>&1 | tee gnatprove.log 
