@@ -5,6 +5,7 @@ project Main is
   for Source_Dirs use 
     (
      ".", "src/",
+     "ext/groups/src",
      "ext/ada-rationals/src",
      "ext/euclid-algorithm/src",
      "ext/unimodular/src",
