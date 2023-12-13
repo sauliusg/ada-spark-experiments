@@ -27,21 +27,12 @@ private
    
    function Unity (N : Positive) return Permutation_Matrix_Array
      with
-     -- Post => Is_Permutation_Matrix (Unity'Result);
-     -- Post => Each_Row_Has_One_Unity (Unity'Result); -- OK
-     -- Post => Each_Column_Has_One_Unity (Unity'Result); -- OK
-     -- Post => Is_Permutation_Matrix (Unity'Result);
-     Post => 
-     Each_Row_Has_One_Unity (Unity'Result) and then
-     Each_Column_Has_One_Unity (Unity'Result);
+     Post => Is_Permutation_Matrix (Unity'Result);
    
    type Permutation_Matrix (N : Positive) is record
       A : Permutation_Matrix_Array (1 .. N, 1 .. N) := Unity (N);
    end record
-     -- with Type_Invariant => Is_Permutation_Matrix (Permutation_Matrix);
-     with Type_Invariant =>
-     Each_Row_Has_One_Unity (Permutation_Matrix.A) and then 
-       Each_Column_Has_One_Unity (Permutation_Matrix.A);
+     with Type_Invariant => Is_Permutation_Matrix (Permutation_Matrix);
  
    function Each_Row_Has_Unity (A : Permutation_Matrix_Array) return Boolean
      with Ghost;

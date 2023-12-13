@@ -7,7 +7,7 @@ starta
 /home/saulius/src/ada-spark-experiments/integer-matrices
 + set +x
 + svnversion
-965M
+966M
 + svn info
 Path: .
 Working Copy Root Path: /home/saulius/src/ada-spark-experiments
@@ -15,12 +15,12 @@ URL: svn://saulius.grazulis.lt/ada-spark-experiments/trunk/integer-matrices
 Relative URL: ^/trunk/integer-matrices
 Repository Root: svn://saulius.grazulis.lt/ada-spark-experiments
 Repository UUID: af456918-7c63-4f43-8f72-c3d2023c81aa
-Revision: 965
+Revision: 966
 Node Kind: directory
 Schedule: normal
 Last Changed Author: saulius
-Last Changed Rev: 965
-Last Changed Date: 2023-12-13 20:29:07 +0200 (Wed, 13 Dec 2023)
+Last Changed Rev: 966
+Last Changed Date: 2023-12-13 20:58:27 +0200 (Wed, 13 Dec 2023)
 
 + df -h .
 Filesystem      Size  Used Avail Use% Mounted on
@@ -32,38 +32,77 @@ Linuxmint-20.3
 + uname -a
 Linux starta 5.15.0-78-generic #85~20.04.1-Ubuntu SMP Mon Jul 17 09:42:39 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
 + date
-2023-12-13T20:53:55 EET
-+ gnatprove -P ./main.gpr --prover=cvc4,z3,altergo -j 0 src/permutation_matrices.adb --steps=5000000 --timeout=120 --check-counterexamples=on --report=statistics
+2023-12-13T21:00:30 EET
++ lscpu
+Architecture:                    x86_64
+CPU op-mode(s):                  32-bit, 64-bit
+Byte Order:                      Little Endian
+Address sizes:                   48 bits physical, 48 bits virtual
+CPU(s):                          6
+On-line CPU(s) list:             0-5
+Thread(s) per core:              1
+Core(s) per socket:              6
+Socket(s):                       1
+NUMA node(s):                    1
+Vendor ID:                       AuthenticAMD
+CPU family:                      23
+Model:                           96
+Model name:                      AMD Ryzen 5 4500U with Radeon Graphics
+Stepping:                        1
+Frequency boost:                 enabled
+CPU MHz:                         1400.000
+CPU max MHz:                     2375,0000
+CPU min MHz:                     1400,0000
+BogoMIPS:                        4741.04
+Virtualization:                  AMD-V
+L1d cache:                       192 KiB
+L1i cache:                       192 KiB
+L2 cache:                        3 MiB
+L3 cache:                        8 MiB
+NUMA node0 CPU(s):               0-5
+Vulnerability Itlb multihit:     Not affected
+Vulnerability L1tf:              Not affected
+Vulnerability Mds:               Not affected
+Vulnerability Meltdown:          Not affected
+Vulnerability Mmio stale data:   Not affected
+Vulnerability Retbleed:          Mitigation; untrained return thunk; SMT disabled
+Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabled via prctl and seccomp
+Vulnerability Spectre v1:        Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:        Mitigation; Retpolines, IBPB conditional, STIBP disabled, RSB filling, PBRSB-eIBRS Not affected
+Vulnerability Srbds:             Not affected
+Vulnerability Tsx async abort:   Not affected
+Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 hw_pstate ssbd mba ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 cqm rdt_a rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local clzero irperf xsaveerptr rdpru wbnoinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif v_spec_ctrl umip rdpid overflow_recov succor smca
++ gnatprove -P ./main.gpr -j 0 src/permutation_matrices.adb --level=4 --report=statistics
 Phase 1 of 2: generation of Global contracts ...
 Phase 2 of 2: flow analysis and proof ...
-permutation_matrices.adb:7:17: info: range check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:11:07: info: range check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:11:19: info: range check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:12:10: info: range check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:12:22: info: range check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:18:23: info: length check proved (CVC4: 6 VC in max 0.0 seconds and 1 step; Trivial: 1 VC in max 0.0 seconds and 0 steps)
-permutation_matrices.adb:38:41: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:38:43: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:43:41: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:43:43: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:49:19: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:49:21: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:49:77: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:49:79: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:57:19: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:57:21: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:57:77: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.adb:57:79: info: index check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.ads:11:13: info: invariant check proved (altergo: 1 VC in max 0.0 seconds and 88448 steps)
-permutation_matrices.ads:35:06: info: postcondition proved (CVC4: 2 VC in max 0.0 seconds and 1 step; Z3: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.ads:38:09: info: invariant check proved on default value (altergo: 1 VC in max 75.9 seconds and 876202 steps)
-permutation_matrices.ads:39:07: info: range check proved (CVC4: 2 VC in max 0.0 seconds and 1 step)
-permutation_matrices.ads:39:56: info: length check proved (CVC4: 6 VC in max 0.0 seconds and 1 step; Trivial: 1 VC in max 0.0 seconds and 0 steps)
+permutation_matrices.adb:7:17: info: range check proved (altergo: 2 VC in max 0.0 seconds and 175 steps)
+permutation_matrices.adb:11:07: info: range check proved (altergo: 2 VC in max 0.0 seconds and 17 steps)
+permutation_matrices.adb:11:19: info: range check proved (altergo: 2 VC in max 0.0 seconds and 13 steps)
+permutation_matrices.adb:12:10: info: range check proved (altergo: 2 VC in max 0.0 seconds and 17 steps)
+permutation_matrices.adb:12:22: info: range check proved (altergo: 2 VC in max 0.0 seconds and 13 steps)
+permutation_matrices.adb:18:23: info: length check proved (Trivial: 1 VC in max 0.0 seconds and 0 steps; altergo: 6 VC in max 0.0 seconds and 700 steps)
+permutation_matrices.adb:38:41: info: index check proved (altergo: 2 VC in max 0.0 seconds and 94 steps)
+permutation_matrices.adb:38:43: info: index check proved (altergo: 2 VC in max 0.0 seconds and 177 steps)
+permutation_matrices.adb:43:41: info: index check proved (altergo: 2 VC in max 0.0 seconds and 94 steps)
+permutation_matrices.adb:43:43: info: index check proved (altergo: 2 VC in max 0.0 seconds and 115 steps)
+permutation_matrices.adb:49:19: info: index check proved (altergo: 2 VC in max 0.0 seconds and 94 steps)
+permutation_matrices.adb:49:21: info: index check proved (altergo: 2 VC in max 0.0 seconds and 177 steps)
+permutation_matrices.adb:49:77: info: index check proved (altergo: 2 VC in max 0.0 seconds and 49 steps)
+permutation_matrices.adb:49:79: info: index check proved (altergo: 2 VC in max 0.0 seconds and 77 steps)
+permutation_matrices.adb:57:19: info: index check proved (altergo: 2 VC in max 0.0 seconds and 94 steps)
+permutation_matrices.adb:57:21: info: index check proved (altergo: 2 VC in max 0.0 seconds and 115 steps)
+permutation_matrices.adb:57:77: info: index check proved (altergo: 2 VC in max 0.0 seconds and 77 steps)
+permutation_matrices.adb:57:79: info: index check proved (altergo: 2 VC in max 0.0 seconds and 41 steps)
+permutation_matrices.ads:11:13: info: invariant check proved (altergo: 1 VC in max 11.3 seconds and 144584 steps)
+permutation_matrices.ads:30:14: info: postcondition proved (altergo: 2 VC in max 0.3 seconds and 2208 steps)
+permutation_matrices.ads:32:09: info: invariant check proved on default value (altergo: 1 VC in max 11.9 seconds and 142649 steps)
+permutation_matrices.ads:33:07: info: range check proved (altergo: 2 VC in max 0.0 seconds and 49 steps)
+permutation_matrices.ads:33:56: info: length check proved (Trivial: 1 VC in max 0.0 seconds and 0 steps; altergo: 6 VC in max 0.0 seconds and 674 steps)
   in default value of private type at permutation_matrices.ads:7
 Summary logged in /home/saulius/src/ada-spark-experiments/integer-matrices/.obj/gnatprove/gnatprove.out
 
-real	3m17,825s
-user	3m20,562s
-sys	0m1,261s
+real	0m24,401s
+user	0m41,363s
+sys	0m2,874s
 + date
-2023-12-13T20:57:13 EET
+2023-12-13T21:00:54 EET
