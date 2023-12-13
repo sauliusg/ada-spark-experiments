@@ -2,37 +2,40 @@
 + whoami
 saulius
 + hostname -f
-starta
+tasmanijos-velnias
 + pwd
 /home/saulius/src/ada-spark-experiments/integer-matrices
 + set +x
 + svnversion
-957:958M
+960:961M
 + svn info
 Path: .
 Working Copy Root Path: /home/saulius/src/ada-spark-experiments
-URL: svn://saulius.grazulis.lt/ada-spark-experiments/trunk/integer-matrices
+URL: svn+ssh://saulius.grazulis.lt/home/saulius/svn-repositories/ada-spark-experiments/trunk/integer-matrices
 Relative URL: ^/trunk/integer-matrices
-Repository Root: svn://saulius.grazulis.lt/ada-spark-experiments
+Repository Root: svn+ssh://saulius.grazulis.lt/home/saulius/svn-repositories/ada-spark-experiments
 Repository UUID: af456918-7c63-4f43-8f72-c3d2023c81aa
-Revision: 957
+Revision: 960
 Node Kind: directory
 Schedule: normal
 Last Changed Author: saulius
-Last Changed Rev: 957
-Last Changed Date: 2023-12-12 22:59:20 +0200 (Tue, 12 Dec 2023)
+Last Changed Rev: 960
+Last Changed Date: 2023-12-13 09:17:26 +0200 (Wed, 13 Dec 2023)
 
 + df -h .
-Filesystem      Size  Used Avail Use% Mounted on
-/dev/nvme1n1p1  1,9T  1,2T  633G  65% /home
+Filesystem                  Size  Used Avail Use% Mounted on
+/dev/mapper/linux--vg-home  3,5T  3,0T  330G  91% /home
 + type osname
 osname is /home/saulius/scripts/osname
 + osname
-Linuxmint-20.3
+Linuxmint-20.1
 + uname -a
-Linux starta 5.15.0-78-generic #85~20.04.1-Ubuntu SMP Mon Jul 17 09:42:39 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+Linux tasmanijos-velnias 5.4.0-167-generic #184-Ubuntu SMP Tue Oct 31 09:21:49 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
 + date
-2023-12-13T06:49:27 EET
-+ gnatprove -j 0 -P ./main.gpr --prover=cvc4,altergo,z3 --steps=0 programs/permmat.adb
+2023-12-13T11:52:23 EET
++ gnatprove -P ./main.gpr --prover=cvc4,altergo,z3 -j 0 --steps=100000 src/permutation_matrices.adb
 Phase 1 of 2: generation of Global contracts ...
 Phase 2 of 2: flow analysis and proof ...
+Summary logged in /home/saulius/src/ada-spark-experiments/integer-matrices/.obj/gnatprove/gnatprove.out
++ date
+2023-12-13T11:52:25 EET
