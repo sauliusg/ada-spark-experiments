@@ -37,6 +37,11 @@ package body Permutation_Matrices with SPARK_Mode is
       (for all I in A'Range(1) =>
          (for some J in A'Range(2) => A(I,J) = 1));
    
+   function Each_Column_Has_Unity (A : Permutation_Matrix_Array) return Boolean
+   is
+      (for all J in A'Range(2) =>
+         (for some I in A'Range(1) => A(I,J) = 1));
+   
    function Each_Row_Has_At_Most_One_Unity (A : Permutation_Matrix_Array) return Boolean 
    is
       (for all I in A'Range(1) =>
