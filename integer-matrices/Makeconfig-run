@@ -12,7 +12,7 @@ RUN_ARGUMENT = tests/inputs/m1.mat
 
 ARGUMENT_1_imatmul := tests/inputs/m1.mat
 ARGUMENT_1_imatpow := 2
-ARGUMENT_1_imatpowers := 8
+ARGUMENT_1_imatpowers := -m 8
 
 export ARGUMENT_1_imatmul
 export ARGUMENT_1_imatpow
