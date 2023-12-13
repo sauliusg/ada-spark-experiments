@@ -8,9 +8,7 @@ package Permutation_Matrices with SPARK_Mode is
    
    function Length (P : Permutation_Matrix) return Positive;
    
-   function Unity (N : Positive) return Permutation_Matrix
-     with
-     Pre => N >= 0;
+   function Unity (N : Positive) return Permutation_Matrix;
    
    -- function "*" (P1, P2 : Permutation_Matrix) return Permutation_Matrix;
    
